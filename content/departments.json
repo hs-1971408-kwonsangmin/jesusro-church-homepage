@@ -372,15 +372,15 @@
       "meta": [
         {
           "label": "예배 시간",
-          "value": "주일 오후 12:30"
+          "value": "주일 오후 13:00"
         },
         {
           "label": "예배 장소",
-          "value": "청년부실"
+          "value": "본당"
         },
         {
           "label": "대상",
-          "value": "19세 ~ 35세"
+          "value": "전교인"
         }
       ],
       "snsText": "부서 소식과 사진을 이곳에서 나눕니다. 담당자에게 문의해 주세요.",
@@ -451,7 +451,7 @@
         }
       ],
       "banner": "https://www.jesusro.com/user/saveDir/board/www26/3204_1684040318_6.jpg",
-      "time": "주일 11:00 · 청년부실",
+      "time": "주일 13:00 · 본당",
       "leaderTitle": "담당 교역자",
       "headline": "예배와 나눔으로 서로의 일상에 동행하는 청년 공동체입니다.",
       "leaderName": "이장재 목사",
@@ -461,7 +461,7 @@
       },
       "notices": [],
       "leaderMessage": "예배와 나눔으로 서로의 일상에 동행하는 청년 공동체입니다.",
-      "age": "19–35세",
+      "age": "전교인",
       "group": "next"
     },
     {
