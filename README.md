@@ -1,105 +1,110 @@
-# 예수로교회 홈페이지 시안 — 사용 안내
+# 예수로교회 홈페이지
+
+배포 주소: https://jesusro-demo.netlify.app
+
+`main` 브랜치에 push하면 Netlify가 자동으로 배포합니다.
 
 ## 1. 파일 구성
 
 ```
-site/
- ├ index.html          ← 홈페이지 본체 (이 파일만 열면 됩니다)
- ├ assets/             ← 사진 폴더
- │   ├ church-spring.jpg     봄 · 교회 전경
- │   ├ church-summer.jpg     여름 · 교회 전경
- │   ├ church-autumn.jpg     가을 · 교회 전경
- │   ├ church-winter.jpg     겨울 · 교회 전경
- │   ├ church-family.jpg     전교인 단체사진
- │   ├ pastor-portrait.jpg   담임목사 인물사진
- │   ├ pastor-welcome.jpg    인사말 페이지 상단 배너
- │   ├ youth-retreat.jpg     청년·청소년부 수련회
- │   ├ kids-worship.jpg      주일학교(유치부) 예배
- │   ├ bulletin-winter.jpg   주보 이미지(겨울)
- │   └ bulletin-autumn.jpg   주보 이미지(가을)
- └ README.md           ← 이 문서
+├ index.html          ← 화면을 그리는 코드 (글 내용은 들어있지 않습니다)
+├ content/            ← 홈페이지에 나오는 모든 글·사진 정보
+│   ├ site.json           교회 이름·주소·전화·담임목사·예배 시간
+│   ├ menu.json           상단 메뉴
+│   ├ departments.json    부서 8개 (조직도·담당자 이름·연간일정)
+│   ├ bulletins.json      온라인 주보
+│   ├ sermons.json        설교 아카이브
+│   ├ notices.json        공지사항
+│   ├ gallery.json        사진첩
+│   ├ calendar.json       첫 화면 행사 달력
+│   └ facility.json       시설 안내 평면도
+├ admin/              ← 관리자 화면 (글 수정 도구)
+│   ├ index.html
+│   └ config.yml
+└ assets/             ← 사진 파일
 ```
 
-## 2. 사진 교체 방법 (가장 중요)
+**중요** — 예전에는 `index.html` 안에 글이 같이 들어 있었지만, 지금은 글과 사진 정보가
+전부 `content/` 폴더로 분리되어 있습니다. 글을 고칠 때 `index.html`은 건드리지 않습니다.
 
-**파일 이름만 똑같이 맞춰서 덮어쓰면 끝입니다.** HTML을 수정할 필요가 없습니다.
+## 2. 글 고치는 방법 (관리자 화면)
 
-예를 들어 봄 사진을 바꾸고 싶으면:
-1. 새 사진의 이름을 `church-spring.jpg` 로 바꾼다
-2. `assets` 폴더에 넣어 기존 파일을 덮어쓴다
-3. 브라우저에서 새로고침 (Ctrl+F5)
+주소 뒤에 `/admin/` 을 붙이면 관리자 화면이 열립니다.
+
+```
+https://jesusro-demo.netlify.app/admin/
+```
+
+여기서 메뉴 추가·삭제, 부서 조직도의 목사님·부장집사님 이름, 주보 파일 업로드,
+설교·공지·사진첩을 모두 고칠 수 있습니다. 저장하면 자동으로 홈페이지에 반영됩니다.
+
+주보나 사진은 **파일을 화면에 끌어다 놓으면(드래그 앤 드롭)** 업로드됩니다.
+
+### 로그인 설정 (아직 안 되어 있습니다)
+
+현재 `admin/config.yml`의 로그인 설정은 임시값입니다. 이대로는 GitHub 계정이 있는
+사람만 로그인할 수 있습니다. 교역자·집사님들이 쓰시려면 아래 설정이 필요합니다.
+
+1. https://decapbridge.com 가입
+2. **Create site** → 저장소 `hs-1971408-kwonsangmin/jesusro-church-homepage` 연결
+3. 화면에 생성되는 `backend:` 설정을 복사해서 `admin/config.yml` 맨 위의 `backend:` 블록을 교체
+4. 편집하실 분들을 이메일로 초대
+
+## 3. 내 컴퓨터에서 미리 보기
+
+`index.html`을 더블클릭해서 여는 방식은 이제 **동작하지 않습니다.**
+브라우저 보안정책(CORS) 때문에 `content/` 폴더의 파일을 읽지 못합니다.
+
+터미널에서 이 폴더로 이동한 뒤:
+
+```bash
+python3 -m http.server 8000
+```
+
+그리고 브라우저에서 `http://localhost:8000` 으로 접속하세요.
+
+관리자 화면까지 로그인 없이 시험해 보려면 터미널을 하나 더 열어서:
+
+```bash
+npx decap-server
+```
+
+## 4. 사진 교체
+
+`assets` 폴더의 파일을 같은 이름으로 덮어쓰면 됩니다. 관리자 화면에서 업로드해도 됩니다.
 
 **권장 규격**
 - 전경·배너용 가로 사진: 가로 1600px 내외, 용량 300KB 이하
+- 주보: 글씨가 읽혀야 하므로 **가로 1500px 이상**을 권장합니다
 - 인물 사진: 세로형, 가로 600px 내외
-- 형식: JPG (PNG도 되지만 용량이 커집니다)
 
-**어느 사진이 어디에 쓰이는지**
-
-| 파일명 | 사용되는 곳 |
-|---|---|
-| church-spring.jpg | 히어로(봄), 사역카드, 갤러리, 새가족 CTA, 소식 페이지 상단 |
-| church-summer.jpg | 히어로(여름), 이번주 설교 썸네일, 설교·오시는길 페이지 상단 |
-| church-autumn.jpg | 히어로(가을), 사역카드, 주보·갤러리 페이지 상단 |
-| church-winter.jpg | 히어로(겨울), 사역카드, 부서 페이지 상단 |
-| church-family.jpg | 갤러리(전교인 사진) |
-| pastor-portrait.jpg | 홈 인사말 섹션, 인사말 페이지 |
-| pastor-welcome.jpg | 인사말 페이지 상단 배너 |
-| youth-retreat.jpg | 청소년부 페이지, 부서 카드, 갤러리 |
-| kids-worship.jpg | 유치부 카드, 청소년부 앨범, 갤러리 |
-
-## 3. 글 내용 수정 방법
-
-`index.html` 파일을 메모장이나 VS Code로 열어서 아래 부분을 찾아 고치면 됩니다.
-
-- **설교 목록** → `const sermons=[` 로 시작하는 부분
-- **공지사항** → `const notices=[`
-- **부서 안내** → `const departments=[`
-- **갤러리** → `const gallery=[`
-- **주보** → `const bulletinData={`
-- **청소년부 앨범·게시판·연간일정** → `const youthAlbums=[`, `youthNotices`, `youthYear`
-- **행사 캘린더** → `const calendarEvents={`
-
-## 4. 인터넷 주소로 올리는 방법 (무료)
-
-### 가장 쉬운 방법 — Netlify Drop
-1. 브라우저에서 `app.netlify.com/drop` 접속
-2. **site 폴더 전체**를 화면에 드래그 앤 드롭
-3. 몇 초 뒤 `랜덤이름.netlify.app` 주소가 생성됨 → 그 링크를 공유
-
-회원가입 없이도 임시 배포가 되며, 가입하면 주소 이름을 바꿀 수 있습니다.
-
-### GitHub Pages
-1. GitHub 저장소 생성 후 site 폴더 내용 업로드
-2. Settings → Pages → Branch를 main / root로 지정
-3. `아이디.github.io/저장소명` 으로 접속
-
-### 교회 도메인(jesusro.com) 연결
-현재 운영 중인 홈페이지가 그 주소를 쓰고 있으므로, 시안 단계에서는
-`demo.jesusro.com` 같은 하위 주소를 쓰는 것을 권장합니다.
-Netlify/GitHub Pages 설정에서 도메인을 추가하고, 도메인 관리 업체에서
-DNS(CNAME) 레코드를 연결하면 됩니다.
+현재 `assets` 안의 일부 사진(`church-autumn` 563px, `church-winter` 515px,
+`kids-worship` 225px, 주보 2장 264px)은 해상도가 낮아 크게 표시하면 흐릿합니다.
+가능하면 원본 사진으로 교체하시는 것을 권합니다.
 
 ## 5. 페이지 직접 링크
 
 주소 뒤에 `#`를 붙이면 특정 페이지로 바로 갈 수 있습니다.
 
-- `주소/#greeting` — 담임목사 인사말
-- `주소/#sermon` — 설교 아카이브
-- `주소/#bulletin` — 온라인 주보
-- `주소/#board` — 교회 소식
-- `주소/#dept` — 부서 안내
-- `주소/#youth` — 청소년부
-- `주소/#gallery` — 사진첩
-- `주소/#family` — 새가족 등록
-- `주소/#visit` — 오시는 길
+| 주소 | 페이지 |
+|---|---|
+| `#greeting` | 담임목사 인사말 |
+| `#sermon` | 설교 아카이브 |
+| `#bulletin` | 온라인 주보 |
+| `#board` | 교회 소식 |
+| `#dept` | 부서 안내 |
+| `#gallery` | 사진첩 |
+| `#family` | 새가족 등록 |
+| `#visit` | 오시는 길 |
+| `#dept-youth` | 청소년부 (부서별로 `#dept-무엇` 형식) |
 
-카카오톡이나 문자로 "청소년부 페이지 보세요" 하며 `주소/#youth`를 보내면
-바로 그 화면이 열립니다.
+부서 페이지는 `dept-infant`(영아부), `dept-kids`(유치부), `dept-child`(아동부),
+`dept-youth`(청소년부), `dept-young`(청년부), `dept-smallgroup`(목장·소그룹),
+`dept-women`(여전도회), `dept-men`(남선교회) 입니다.
 
-## 6. 참고
+## 6. 아직 연결되지 않은 것
 
-- 이 시안은 **데이터베이스 없이** 작동합니다. 새가족 등록 폼은 화면 확인용이며
-  실제로 저장되지 않습니다. 실제 접수 기능은 제작 업체가 서버와 연결해야 합니다.
-- 설교 영상은 현재 안내 메시지만 뜹니다. 실제로는 교회 유튜브 채널을 연결하면 됩니다.
+- 새가족 등록 폼은 화면 확인용이며 실제로 저장되지 않습니다. 접수 기능은 서버 연결이 필요합니다.
+- 설교 영상은 안내 메시지만 뜹니다. 교회 유튜브 채널을 연결하면 됩니다.
+- 온라인 헌금, SNS 링크는 안내 메시지만 뜹니다.
 - 시설 평면도는 방문 안내용 개념도입니다. 실제 도면에 맞춰 수정이 필요합니다.

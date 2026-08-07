@@ -1,0 +1,81 @@
+{
+  "items": [
+    {
+      "key": "spring",
+      "image": "/assets/church-spring.jpg",
+      "title": "벚꽃이 피는 교회 마당",
+      "date": "2026.04",
+      "text": "봄볕 아래, 처음 오시는 분을 맞이하는 교회 앞마당입니다."
+    },
+    {
+      "key": "summer",
+      "image": "/assets/church-summer.jpg",
+      "title": "푸른 들 위의 십자가",
+      "date": "2026.07",
+      "text": "초록 들판과 하늘 사이에 서 있는 예배당의 여름 풍경입니다."
+    },
+    {
+      "key": "autumn",
+      "image": "/assets/church-autumn.jpg",
+      "title": "단풍으로 물든 예배당",
+      "date": "2025.11",
+      "text": "가을빛으로 물든 산자락과 교회의 모습입니다."
+    },
+    {
+      "key": "winter",
+      "image": "/assets/church-winter.jpg",
+      "title": "눈 내린 예수로교회",
+      "date": "2026.01",
+      "text": "하얀 눈이 포근하게 내려앉은 겨울 아침의 예배당입니다."
+    },
+    {
+      "key": "spring",
+      "image": "/assets/church-spring.jpg",
+      "title": "따뜻한 봄의 예배당",
+      "date": "2026.04",
+      "text": "계절의 변화 속에서도 변함없이 열려 있는 예배당입니다."
+    },
+    {
+      "key": "summer",
+      "image": "/assets/church-summer.jpg",
+      "title": "여름 들녘의 교회",
+      "date": "2026.07",
+      "text": "자연과 조화롭게 어우러진 교회의 전경입니다."
+    },
+    {
+      "key": "autumn",
+      "image": "/assets/church-autumn.jpg",
+      "title": "감사의 계절",
+      "date": "2025.11",
+      "text": "추수감사절을 준비하며 바라본 교회의 가을 풍경입니다."
+    },
+    {
+      "key": "winter",
+      "image": "/assets/church-winter.jpg",
+      "title": "새해를 기다리는 눈",
+      "date": "2026.01",
+      "text": "한 해를 돌아보고 새해를 준비하는 고요한 풍경입니다."
+    },
+    {
+      "key": "summer",
+      "image": "/assets/youth-retreat.jpg",
+      "title": "청년부 여름수련회 · 복음을 삶으로!",
+      "date": "2026.07",
+      "text": "복닥복닥 맑은교회 수련원에서 함께한 청년부 여름수련회의 마지막 날입니다."
+    },
+    {
+      "key": "spring",
+      "image": "/assets/church-family.jpg",
+      "title": "전교인 봄 사진",
+      "date": "2026.04",
+      "text": "매년 봄, 온 교우가 교회 마당에 모여 한 해를 시작합니다."
+    },
+    {
+      "key": "summer",
+      "image": "/assets/kids-worship.jpg",
+      "title": "주일학교 예배",
+      "date": "2026.07",
+      "text": "주일 오전 11시, 다음세대가 함께 드리는 예배의 현장입니다."
+    }
+  ]
+}
