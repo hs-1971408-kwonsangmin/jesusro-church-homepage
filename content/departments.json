@@ -119,6 +119,23 @@
       "group": "next"
     },
     {
+      "cardPhoto": "https://www.jesusro.com/user/saveDir/board/www24/3475_1713071445_8.jpg",
+      "breadcrumb": "초등부실",
+      "org": [],
+      "summary": "안녕하세요.",
+      "leaderPhoto": "/assets/pasted-graphic-2.png",
+      "name": "초등부",
+      "slug": "elementry",
+      "banner": "https://www.jesusro.com/user/saveDir/board/www22/3623_1735784214_5.jpg",
+      "time": "11:00",
+      "leaderTitle": "고영현 전도사",
+      "headline": "초등부입니다",
+      "leaderName": "고영현 전도사",
+      "leaderMessage": "안녕하세요",
+      "age": "8~13",
+      "group": "next"
+    },
+    {
       "snsTitle": "청소년부 인스타그램",
       "cardPhoto": "https://www.jesusro.com/user/saveDir/board/www25/3883_1782052838_7.jpg",
       "breadcrumb": "HOME · 다음세대 · 공동체",
@@ -742,23 +759,6 @@
       "leaderMessage": "기도와 섬김으로 교회와 이웃을 세워 가는 여전도회입니다.",
       "age": "장년",
       "group": "adult"
-    },
-    {
-      "cardPhoto": "https://www.jesusro.com/user/saveDir/board/www24/3475_1713071445_8.jpg",
-      "breadcrumb": "초등부실",
-      "org": [],
-      "summary": "안녕하세요.",
-      "leaderPhoto": "/assets/pasted-graphic-2.png",
-      "name": "초등부",
-      "slug": "elementry",
-      "banner": "https://www.jesusro.com/user/saveDir/board/www22/3623_1735784214_5.jpg",
-      "time": "11:00",
-      "leaderTitle": "고영현 전도사",
-      "headline": "초등부입니다",
-      "leaderName": "고영현 전도사",
-      "leaderMessage": "안녕하세요",
-      "age": "8~13",
-      "group": "next"
     }
   ]
 }
