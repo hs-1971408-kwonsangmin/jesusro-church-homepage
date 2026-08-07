@@ -344,25 +344,25 @@
           "tier": 1,
           "label": "PASTOR",
           "title": "담당 교역자",
-          "name": "김민수 목사"
+          "name": "이장재 목사"
         },
         {
           "tier": 2,
           "label": "SUPPORT",
           "title": "부장집사",
-          "name": "조현우 집사"
+          "name": "양명준 집사"
         },
         {
           "tier": 2,
           "label": "ADMIN",
-          "title": "총무",
-          "name": "신다영 형제"
+          "title": "회장",
+          "name": "권상민 형제"
         },
         {
           "tier": 2,
           "label": "MEMBER",
-          "title": "리더",
-          "name": "소그룹 리더 6명"
+          "title": "임원",
+          "name": "회장, 총무, 회계, 서기 총 4명"
         }
       ],
       "albums": [],
