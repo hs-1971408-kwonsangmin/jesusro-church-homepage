@@ -352,7 +352,7 @@
           "tier": 2,
           "label": "MEMBER",
           "title": "임원",
-          "name": "회장, 총무, 회계, 서기 총 4명"
+          "name": "회장(권상민), 총무(신요셉), 회계(강송이), 서기(이은서) 총 4명"
         }
       ],
       "albums": [
@@ -444,7 +444,7 @@
           "key": "missionary"
         }
       ],
-      "banner": "/assets/youth-retreat.jpg",
+      "banner": "https://www.jesusro.com/user/saveDir/board/www26/3204_1684040318_6.jpg",
       "time": "주일 11:00 · 청년부실",
       "leaderTitle": "담당 교역자",
       "headline": "예배와 나눔으로 서로의 일상에 동행하는 청년 공동체입니다.",
