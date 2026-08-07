@@ -355,7 +355,14 @@
           "name": "회장, 총무, 회계, 서기 총 4명"
         }
       ],
-      "albums": [],
+      "albums": [
+        {
+          "image": "https://www.jesusro.com/user/saveDir/board/www26/3354_1695773735_1.jpg",
+          "title": "선교사님과의만남",
+          "date": "2023.09.27",
+          "cat": "missionary"
+        }
+      ],
       "meta": [
         {
           "label": "예배 시간",
@@ -431,6 +438,10 @@
         {
           "key": "event",
           "label": "행사"
+        },
+        {
+          "label": "선교",
+          "key": "missionary"
         }
       ],
       "banner": "/assets/youth-retreat.jpg",
