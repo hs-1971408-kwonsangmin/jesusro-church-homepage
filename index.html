@@ -242,6 +242,39 @@
     .person p{margin:11px 0 0;font-size:12.5px;line-height:1.75;color:#5f6a75;text-align:left}
     .staff-group .desc{margin-top:8px}
     @media(max-width:760px){.person-grid{grid-template-columns:repeat(2,1fr);gap:22px 16px}.person-grid.is-lead{grid-template-columns:1fr}}
+    /* 누를 수 있는 요소임을 알리는 표시 */
+    .department{cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s}
+    .department:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(23,37,50,.12);border-color:var(--gold)}
+    .department:hover .dept-go{color:#6f5228;border-bottom-color:#6f5228}
+    .department .dept-go{display:inline-block;margin-top:19px;border-bottom:1px solid #b99a66;color:#8e6d3b;font-size:11px;font-weight:800;transition:.2s}
+    .gallery-card,.album-card{cursor:pointer;transition:transform .22s,box-shadow .22s}
+    .gallery-card:hover,.album-card:hover{transform:scale(1.02);box-shadow:0 14px 30px rgba(23,37,50,.2)}
+    .cell-card{transition:border-color .2s,box-shadow .2s}
+    .submit,.weekly-live,.sns-btn,.search-button{transition:.2s}
+    .submit:hover{background:#2b3a4d}
+    .weekly-live:hover{background:#c04f4d}
+    .sns-btn:hover,.search-button:hover{filter:brightness(1.12)}
+    .dept-tabs button,.album-tabs button,.floor-tabs button,.sort-group button{transition:.18s}
+    .dept-tabs button:not(.active):hover,.album-tabs button:not(.active):hover,
+    .floor-tabs button:not(.active):hover,.sort-group button:not(.active):hover{border-color:var(--gold);color:#8a6a3c}
+    .calendar-grid button:not(.off):not(.selected):hover{background:rgba(201,166,107,.16)}
+    .person{transition:transform .2s}
+    .brand,.nav-toggle,.modal-close{transition:.2s}
+    .brand:hover strong{color:var(--gold-light)}
+    body:not(.home-active) .brand:hover strong{color:#8a6a3c}
+    .nav-toggle:hover span{background:var(--gold)}
+    .modal-close:hover{background:rgba(23,37,50,.1);transform:rotate(90deg)}
+    .calendar-grid button.event:hover,.calendar-grid button.selected:hover{filter:brightness(1.15)}
+    .season button,.tabs button,.pagination button,.socials button,
+    #sdTabs button,#bulTabs button{transition:.18s}
+    .season button:not(.active):hover{color:var(--gold-light);opacity:1}
+    .tabs button:not(.active):hover,#sdTabs button:not(.active):hover,
+    #bulTabs button:not(.active):hover{color:#8a6a3c;border-color:var(--gold)}
+    .pagination button:not(.active):hover{border-color:var(--gold);color:#8a6a3c}
+    .socials button:hover{border-color:var(--gold);color:var(--gold)}
+    /* 키보드 사용자를 위한 초점 표시 */
+    a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,
+    textarea:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
   </style>
 </head>
 <body class="home-active">
@@ -805,10 +838,11 @@
         return group==='all'||d.group===group}).map(function(d){
         const photo=d.cardPhoto?'<div style="aspect-ratio:16/10;background:center/cover url(\''+esc(d.cardPhoto)+
           '\');margin:-26px -26px 20px"></div>':'';
-        return '<article class="department">'+photo+'<div class="dept-age">'+esc(d.age)+'</div>'+
+        return '<article class="department" data-go="dept-'+esc(d.slug)+'" tabindex="0" role="link" '+
+          'aria-label="'+esc(d.name)+' 페이지 보기">'+photo+'<div class="dept-age">'+esc(d.age)+'</div>'+
           '<h3>'+esc(d.name)+'</h3><p>'+esc(d.summary)+'</p>'+
           '<dl><dt>모임</dt><dd>'+esc(d.time)+'</dd><br><dt>담당</dt><dd>'+esc(d.leaderName)+'</dd></dl>'+
-          '<button data-go="dept-'+esc(d.slug)+'">부서 페이지 보기 →</button></article>'}).join('')}
+          '<span class="dept-go">부서 페이지 보기 →</span></article>'}).join('')}
 
     /* ===== 갤러리 ===== */
     function renderGallery(filter){
@@ -880,6 +914,12 @@
       if(t.dataset.albumOpen!==undefined){const a=JSON.parse(t.dataset.albumOpen);
         return showImage(a.image,a.title,a.date+' · '+a.dept+' 앨범')}
       if(t.dataset.goModal!==undefined){closeModal('sermonModal');return go(t.dataset.goModal)}
+    });
+    document.addEventListener('keydown',function(e){
+      if(e.key!=='Enter'&&e.key!==' ')return;
+      const t=e.target.closest('[role="link"][data-go]');
+      if(!t)return;
+      e.preventDefault();go(t.dataset.go);
     });
     document.addEventListener('click',function(e){
       const tabs=e.target.closest('[data-album-tabs]');
