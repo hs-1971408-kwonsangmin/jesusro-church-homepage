@@ -694,6 +694,20 @@
       "leaderMessage": "기도와 섬김으로 교회와 이웃을 세워 가는 여전도회입니다.",
       "age": "장년",
       "group": "adult"
+    },
+    {
+      "breadcrumb": "초등부실",
+      "summary": "안녕하세요",
+      "name": "초등부",
+      "slug": "elementry",
+      "banner": "/assets/pasted-graphic-2.png",
+      "time": "11:00",
+      "leaderTitle": "고영현 전도사",
+      "headline": "초등부입니다",
+      "leaderName": "고영현 전도사",
+      "leaderMessage": "안녕하세요",
+      "age": "8~13",
+      "group": "next"
     }
   ]
 }
