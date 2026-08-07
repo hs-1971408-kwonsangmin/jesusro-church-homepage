@@ -317,7 +317,11 @@
       ],
       "leaderMessage": "한 사람의 오늘을 소중히 여기며, 청소년들이 스스로 말씀 앞에 서도록 함께 걷겠습니다. 언제든 편하게 이야기 나눠요.",
       "age": "중·고등학생",
-      "group": "next"
+      "group": "next",
+      "applications": [
+        "praise",
+        "mentoring"
+      ]
     },
     {
       "snsTitle": "청년부 소식",
@@ -462,7 +466,46 @@
       "notices": [],
       "leaderMessage": "예배와 나눔으로 서로의 일상에 동행하는 청년 공동체입니다.",
       "age": "전교인",
-      "group": "next"
+      "group": "next",
+      "cells": [
+        {
+          "name": "러닝 셀",
+          "tag": "운동",
+          "summary": "주말 아침 함께 달리며 몸과 마음을 깨웁니다. 초보도 환영합니다.",
+          "when": "토요일 오전 7:00",
+          "place": "교회 앞 집합",
+          "leader": "정우진 형제"
+        },
+        {
+          "name": "어쿠스틱 셀",
+          "tag": "악기",
+          "summary": "기타와 우쿨렐레를 배우고 함께 찬양합니다. 악기는 대여됩니다.",
+          "when": "금요일 저녁 8:00",
+          "place": "청년부실",
+          "leader": "한지수 자매"
+        },
+        {
+          "name": "바리스타 셀",
+          "tag": "커피",
+          "summary": "들꽃 카페 봉사와 함께 커피 내리는 법을 배웁니다.",
+          "when": "주일 오후 1:00",
+          "place": "들꽃 카페",
+          "leader": "오세훈 형제"
+        },
+        {
+          "name": "북 셀",
+          "tag": "독서",
+          "summary": "한 달에 한 권, 신앙과 삶에 관한 책을 함께 읽고 나눕니다.",
+          "when": "격주 수요일 저녁",
+          "place": "소그룹실",
+          "leader": "문가은 자매"
+        }
+      ],
+      "applications": [
+        "cell",
+        "praise",
+        "mentoring"
+      ]
     },
     {
       "snsTitle": "목장 · 소그룹 소식",

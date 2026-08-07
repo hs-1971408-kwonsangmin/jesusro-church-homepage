@@ -104,6 +104,7 @@ collections:
                   - { label: "사진첩", value: "gallery" }
                   - { label: "새가족", value: "family" }
                   - { label: "오시는 길", value: "visit" }
+                  - { label: "들꽃 카페", value: "cafe" }
                   # 부서를 추가·삭제하면 이 목록도 같이 고쳐야 합니다.
                   # 없는 부서를 고르면 메뉴를 눌러도 홈으로 돌아갑니다.
                   - { label: "부서 · 유치부", value: "dept-kids" }
@@ -225,6 +226,25 @@ collections:
                 fields:
                   - { label: "기간", name: "period", widget: "string", hint: "1–3월 등" }
                   - { label: "일정", name: "items", widget: "list", field: { label: "일정", name: "item", widget: "string" } }
+              - label: "셀 모임 (청년부 등)"
+                name: "cells"
+                widget: "list"
+                required: false
+                label_singular: "셀"
+                summary: "{{fields.name}} — {{fields.tag}}"
+                fields:
+                  - { label: "셀 이름", name: "name", widget: "string" }
+                  - { label: "분류", name: "tag", widget: "string", hint: "운동 · 악기 · 커피 등" }
+                  - { label: "소개", name: "summary", widget: "text" }
+                  - { label: "모임 시간", name: "when", widget: "string" }
+                  - { label: "장소", name: "place", widget: "string" }
+                  - { label: "리더", name: "leader", widget: "string" }
+              - label: "이 부서에 표시할 신청서"
+                name: "applications"
+                widget: "list"
+                required: false
+                hint: "신청서 관리에 있는 '신청 코드'를 적으세요 (cell, praise, mentoring 등)"
+                field: { label: "신청 코드", name: "key", widget: "string" }
               - { label: "하단 배너 제목", name: "snsTitle", widget: "string", required: false }
               - { label: "하단 배너 설명", name: "snsText", widget: "text", required: false }
 
@@ -268,6 +288,89 @@ collections:
                     fields:
                       - { label: "곡명", name: "title", widget: "string" }
                       - { label: "구분", name: "kind", widget: "string", hint: "회중 찬양 / 찬양대 특송 등" }
+
+  # ───────────────────────── 신청서 ─────────────────────────
+  - name: "applications"
+    label: "신청서"
+    files:
+      - name: "applications"
+        label: "신청서 (멘토링 · 셀 · 찬양팀 · 제자훈련 · 중보기도)"
+        file: "content/applications.json"
+        fields:
+          - label: "신청서"
+            name: "items"
+            widget: "list"
+            label_singular: "신청서"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "신청 코드", name: "key", widget: "string", hint: "영문 소문자. 부서에 연결할 때 이 코드를 씁니다. 되도록 바꾸지 마세요" }
+              - { label: "영문 표기", name: "badge", widget: "string", hint: "카드 위에 작게 표시됩니다" }
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "카드 소개글", name: "summary", widget: "text" }
+              - { label: "신청서 안내문", name: "intro", widget: "text", hint: "신청서를 열었을 때 상단에 나옵니다" }
+              - { label: "모집 기간", name: "period", widget: "string", hint: "상시 접수 / 학기별 모집 등" }
+              - { label: "대상", name: "target", widget: "string" }
+              - label: "입력 항목"
+                name: "fields"
+                widget: "list"
+                label_singular: "입력칸"
+                summary: "{{fields.label}} ({{fields.type}})"
+                fields:
+                  - { label: "항목 이름(영문)", name: "name", widget: "string", hint: "name, phone 처럼 영문 소문자" }
+                  - { label: "화면에 보일 이름", name: "label", widget: "string" }
+                  - label: "종류"
+                    name: "type"
+                    widget: "select"
+                    options:
+                      - { label: "한 줄 입력", value: "text" }
+                      - { label: "연락처", value: "tel" }
+                      - { label: "선택 목록", value: "select" }
+                      - { label: "여러 줄 입력", value: "textarea" }
+                  - { label: "필수 입력", name: "required", widget: "boolean", default: false }
+                  - { label: "안내 문구", name: "placeholder", widget: "string", required: false }
+                  - label: "선택 목록 항목"
+                    name: "options"
+                    widget: "list"
+                    required: false
+                    hint: "종류가 '선택 목록'일 때만 씁니다"
+                    field: { label: "항목", name: "option", widget: "string" }
+
+  # ───────────────────────── 들꽃 카페 ─────────────────────────
+  - name: "cafe"
+    label: "들꽃 카페"
+    files:
+      - name: "cafe"
+        label: "카페 소개 · 메뉴"
+        file: "content/cafe.json"
+        fields:
+          - { label: "카페 이름", name: "name", widget: "string" }
+          - { label: "영문 이름", name: "nameEn", widget: "string" }
+          - { label: "페이지 상단 문구", name: "headline", widget: "string" }
+          - { label: "페이지 상단 사진", name: "banner", widget: "image", required: false }
+          - { label: "소개 사진", name: "photo", widget: "image", required: false }
+          - { label: "소개글", name: "intro", widget: "text" }
+          - label: "안내 정보"
+            name: "info"
+            widget: "list"
+            required: false
+            summary: "{{fields.label}} · {{fields.value}}"
+            fields:
+              - { label: "항목", name: "label", widget: "string" }
+              - { label: "내용", name: "value", widget: "string" }
+          - label: "메뉴"
+            name: "menu"
+            widget: "list"
+            label_singular: "메뉴"
+            summary: "{{fields.name}} — {{fields.price}}"
+            fields:
+              - { label: "메뉴 이름", name: "name", widget: "string" }
+              - { label: "가격", name: "price", widget: "string" }
+              - { label: "비고", name: "note", widget: "string", required: false }
+          - label: "안내 문구"
+            name: "notes"
+            widget: "list"
+            required: false
+            field: { label: "문구", name: "note", widget: "string" }
 
   # ───────────────────────── 설교 ─────────────────────────
   - name: "sermons"
@@ -404,6 +507,16 @@ collections:
                   - { label: "공간 이름", name: "name", widget: "string" }
                   - { label: "영문 표기", name: "label", widget: "string" }
                   - { label: "배치 코드", name: "className", widget: "string", hint: "배치가 바뀔 수 있으니 되도록 그대로 두세요" }
-                  - { label: "설명", name: "info", widget: "text" }
+                  - { label: "짧은 설명", name: "info", widget: "text" }
+                  - { label: "공간 사진", name: "photo", widget: "image", required: false, hint: "비워두면 사진 없이 글만 나옵니다" }
+                  - { label: "자세한 안내", name: "detail", widget: "text", required: false, hint: "공간을 눌렀을 때 나오는 본문입니다" }
+                  - label: "안내 항목"
+                    name: "facts"
+                    widget: "list"
+                    required: false
+                    summary: "{{fields.label}} · {{fields.value}}"
+                    fields:
+                      - { label: "항목", name: "label", widget: "string" }
+                      - { label: "내용", name: "value", widget: "string" }
           - { label: "지하 1층", name: "basement", widget: "object", fields: *floor }
           - { label: "2층", name: "second", widget: "object", fields: *floor }
