@@ -1,22 +1,41 @@
 # 예수로교회 홈페이지 · 콘텐츠 관리 설정
 #
-# ┌── 로그인 설정 (아직 안 되어 있습니다) ────────────────────────────────┐
-# │ 아래 backend 블록은 임시값입니다. DecapBridge에서 사이트를 등록하면    │
-# │ 붙여넣을 backend 설정이 생성됩니다. 그 값으로 이 블록을 통째로 교체하세요. │
-# │   1) https://decapbridge.com 가입                                    │
-# │   2) Create site → 저장소 hs-1971408-kwonsangmin/jesusro-church-homepage 연결 │
-# │   3) 생성된 backend 설정을 복사해 아래를 교체                          │
-# │   4) 목사님·부장집사님을 이메일로 초대                                 │
-# └──────────────────────────────────────────────────────────────────────┘
+# 로그인은 DecapBridge(https://decapbridge.com)가 처리합니다.
+# 편집자 추가·삭제는 DecapBridge 대시보드에서 이메일로 초대하면 됩니다.
+# 구글 로그인 / 마이크로소프트 로그인 / 비밀번호 로그인을 지원합니다.
 #
-# 로그인 설정 전이라도 내 컴퓨터에서 먼저 써볼 수 있습니다 (local_backend):
+# 내 컴퓨터에서 로그인 없이 시험해 보려면:
 #   터미널 1:  npx decap-server
 #   터미널 2:  python3 -m http.server 8000
 #   브라우저:  http://localhost:8000/admin/
 backend:
-  name: github
+  name: git-gateway
   repo: hs-1971408-kwonsangmin/jesusro-church-homepage
   branch: main
+  auth_type: pkce
+  base_url: https://auth.decapbridge.com
+  auth_endpoint: /sites/2bb3213e-b312-4a08-9825-86177650a8a7/pkce
+  auth_token_endpoint: /sites/2bb3213e-b312-4a08-9825-86177650a8a7/token
+  gateway_url: https://gateway.decapbridge.com
+
+  # 누가 무엇을 고쳤는지 커밋 기록에 남긴다
+  commit_messages:
+    create: Create {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    update: Update {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    delete: Delete {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    uploadMedia: Upload “{{path}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    deleteMedia: Delete “{{path}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    openAuthoring: Message {{message}} - {{author-name}} <{{author-login}}> via DecapBridge
+
+# 로그인한 편집자 정보 (PKCE)
+auth:
+  email_claim: email
+  first_name_claim: first_name
+  last_name_claim: last_name
+  avatar_url_claim: avatar_url
+
+logo_url: https://decapbridge.com/decapcms-with-bridge.svg
+site_url: https://jesusro-demo.netlify.app
 
 # 로컬에서 로그인 없이 테스트할 때 사용 (npx decap-server 필요)
 local_backend: true
