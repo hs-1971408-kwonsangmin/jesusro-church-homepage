@@ -14,6 +14,10 @@
           "page": "greeting"
         },
         {
+          "label": "섬기는 분들",
+          "page": "staff"
+        },
+        {
           "label": "시설 안내",
           "page": "visit"
         },
