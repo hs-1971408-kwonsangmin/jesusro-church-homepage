@@ -362,7 +362,12 @@
           "cat": "retreat",
           "image": "https://www.jesusro.com/user/saveDir/board/www26/3733_1753506466_21.jpg"
         },
-        {}
+        {
+          "image": "https://www.jesusro.com/user/saveDir/board/www26/3181_1682223322_0.jpg",
+          "title": "예배",
+          "date": "2023.04.23",
+          "cat": "worship"
+        }
       ],
       "meta": [
         {
