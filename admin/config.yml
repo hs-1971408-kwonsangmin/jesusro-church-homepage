@@ -58,7 +58,6 @@ collections:
         fields:
           - { label: "교회 이름", name: "churchName", widget: "string" }
           - { label: "영문 이름", name: "churchNameEn", widget: "string" }
-          - { label: "한 줄 소개", name: "tagline", widget: "string" }
           - { label: "주소", name: "address", widget: "string" }
           - { label: "전화번호", name: "tel", widget: "string" }
           - { label: "담임목사", name: "seniorPastor", widget: "string", hint: "주보의 설교·축도 칸에 자동으로 들어갑니다" }
