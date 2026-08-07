@@ -106,6 +106,7 @@
       "banner": "/assets/kids-worship.jpg",
       "time": "주일 11:00 · 유치부실",
       "leaderTitle": "담당 교역자",
+      "leaderPhoto": "",
       "headline": "놀이와 말씀으로 하나님을 즐겁게 만나는 시간입니다.",
       "leaderName": "김하늘 전도사",
       "verse": {
@@ -298,6 +299,7 @@
       "banner": "/assets/kakaotalk_photo_2026-08-07-16-36-57-003.jpeg",
       "time": "주일 11:00 · 교육관 3층",
       "leaderTitle": "담당 교역자",
+      "leaderPhoto": "",
       "headline": "말씀 위에 서서, 세상 속에서 믿음으로 살아가는 청소년 공동체입니다.",
       "leaderName": "원삼열 목사",
       "verse": {
@@ -445,6 +447,7 @@
       "banner": "/assets/youth-retreat.jpg",
       "time": "주일 11:00 · 청년부실",
       "leaderTitle": "담당 교역자",
+      "leaderPhoto": "",
       "headline": "예배와 나눔으로 서로의 일상에 동행하는 청년 공동체입니다.",
       "leaderName": "이장재 목사",
       "verse": {
@@ -562,6 +565,7 @@
       "banner": "/assets/church-family.jpg",
       "time": "평일 저녁 · 가정별",
       "leaderTitle": "담당",
+      "leaderPhoto": "",
       "headline": "가까이 사는 이웃과 매주 모여 말씀과 삶을 나눕니다.",
       "leaderName": "목장 리더",
       "verse": {
@@ -679,6 +683,7 @@
       "banner": "/assets/church-autumn.jpg",
       "time": "월별 모임 · 친교실",
       "leaderTitle": "담당",
+      "leaderPhoto": "",
       "headline": "기도와 섬김으로 교회와 이웃을 세워 갑니다.",
       "leaderName": "각 회장단",
       "verse": {
