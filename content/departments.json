@@ -664,8 +664,8 @@
           "text": "지역의 어려운 이웃을 찾아가 섬깁니다."
         }
       ],
-      "name": "여전도회",
-      "slug": "women",
+      "name": "장년부",
+      "slug": "men",
       "albumCats": [
         {
           "key": "event",
@@ -687,123 +687,6 @@
       },
       "notices": [],
       "leaderMessage": "기도와 섬김으로 교회와 이웃을 세워 가는 여전도회입니다.",
-      "age": "장년",
-      "group": "adult"
-    },
-    {
-      "snsTitle": "남선교회 소식",
-      "cardPhoto": "",
-      "breadcrumb": "HOME · 다음세대 · 공동체",
-      "org": [
-        {
-          "tier": 1,
-          "label": "LEADER",
-          "title": "담당",
-          "name": "각 회장단"
-        },
-        {
-          "tier": 2,
-          "label": "CHAIR",
-          "title": "회장",
-          "name": "정성현 장로"
-        },
-        {
-          "tier": 2,
-          "label": "ADMIN",
-          "title": "총무",
-          "name": "허재광 집사"
-        },
-        {
-          "tier": 2,
-          "label": "FINANCE",
-          "title": "회계",
-          "name": "엄태식 집사"
-        }
-      ],
-      "albums": [],
-      "meta": [
-        {
-          "label": "모임 시간",
-          "value": "매월 둘째 주일 오후"
-        },
-        {
-          "label": "모임 장소",
-          "value": "친교실"
-        },
-        {
-          "label": "대상",
-          "value": "장년 남성 성도"
-        }
-      ],
-      "snsText": "부서 소식과 사진을 이곳에서 나눕니다. 담당자에게 문의해 주세요.",
-      "yearPlan": [
-        {
-          "period": "1–3월",
-          "items": [
-            "신년 헌신예배",
-            "임원 조직"
-          ]
-        },
-        {
-          "period": "4–6월",
-          "items": [
-            "체육대회",
-            "교회 시설 정비"
-          ]
-        },
-        {
-          "period": "7–9월",
-          "items": [
-            "여름 봉사",
-            "주차 봉사 편성"
-          ]
-        },
-        {
-          "period": "10–12월",
-          "items": [
-            "추수감사 준비",
-            "연말 선교헌금"
-          ]
-        }
-      ],
-      "summary": "예배와 친교, 지역 섬김에 함께합니다.",
-      "visions": [
-        {
-          "title": "가정의 제사장",
-          "text": "가정에서 먼저 예배를 세웁니다."
-        },
-        {
-          "title": "교회를 세우는 손",
-          "text": "시설과 주차, 행사를 든든히 지원합니다."
-        },
-        {
-          "title": "지역과 함께",
-          "text": "지역 봉사와 국내외 선교에 참여합니다."
-        }
-      ],
-      "name": "남선교회",
-      "slug": "men",
-      "albumCats": [
-        {
-          "key": "event",
-          "label": "행사"
-        },
-        {
-          "key": "worship",
-          "label": "예배"
-        }
-      ],
-      "banner": "/assets/church-winter.jpg",
-      "time": "월별 모임 · 친교실",
-      "leaderTitle": "담당",
-      "headline": "예배와 친교, 지역 섬김에 함께합니다.",
-      "leaderName": "각 회장단",
-      "verse": {
-        "text": "오직 나와 내 집은 여호와를 섬기겠노라",
-        "ref": "여호수아 24:15 · 남선교회 핵심 말씀"
-      },
-      "notices": [],
-      "leaderMessage": "예배와 친교, 지역 섬김에 함께하는 남선교회입니다.",
       "age": "장년",
       "group": "adult"
     }
