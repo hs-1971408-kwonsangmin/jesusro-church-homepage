@@ -1,168 +1,9 @@
 {
   "items": [
     {
-      "slug": "infant",
-      "name": "영아부",
-      "group": "next",
-      "age": "0–4세",
-      "time": "주일 11:00 · 영아부실",
-      "summary": "가정과 함께 예배의 기쁨을 배우는 영아 공동체입니다.",
-      "cardPhoto": "",
-      "banner": "/assets/church-spring.jpg",
-      "breadcrumb": "HOME · 다음세대 · 공동체",
-      "headline": "가정과 함께 예배의 기쁨을 배우는 영아 공동체입니다.",
-      "leaderTitle": "담당 교역자",
-      "leaderName": "박은혜 전도사",
-      "leaderMessage": "한 아이가 처음 만나는 예배의 자리를, 부모님과 함께 지키겠습니다.",
-      "meta": [
-        {
-          "label": "예배 시간",
-          "value": "주일 오전 11:00"
-        },
-        {
-          "label": "예배 장소",
-          "value": "영아부실"
-        },
-        {
-          "label": "대상",
-          "value": "생후 ~ 만 4세"
-        }
-      ],
-      "verse": {
-        "text": "마땅히 행할 길을 아이에게 가르치라\n그리하면 늙어도 그것을 떠나지 아니하리라",
-        "ref": "잠언 22:6 · 영아부 핵심 말씀"
-      },
-      "visions": [
-        {
-          "title": "품에서 배우는 예배",
-          "text": "부모의 품에서 찬양과 기도를 처음 경험합니다."
-        },
-        {
-          "title": "안전한 돌봄",
-          "text": "예배 시간 동안 안심하고 맡기실 수 있도록 돌봅니다."
-        },
-        {
-          "title": "부모와 함께",
-          "text": "가정에서 이어갈 수 있는 신앙 교육을 나눕니다."
-        }
-      ],
-      "org": [
-        {
-          "tier": 1,
-          "label": "PASTOR",
-          "title": "담당 교역자",
-          "name": "박은혜 전도사"
-        },
-        {
-          "tier": 2,
-          "label": "SUPPORT",
-          "title": "부장집사",
-          "name": "한지영 집사"
-        },
-        {
-          "tier": 2,
-          "label": "ADMIN",
-          "title": "총무",
-          "name": "오세라 집사"
-        },
-        {
-          "tier": 2,
-          "label": "TEACHER",
-          "title": "교사",
-          "name": "교사 6명"
-        }
-      ],
-      "albumCats": [
-        {
-          "key": "worship",
-          "label": "예배"
-        },
-        {
-          "key": "event",
-          "label": "행사"
-        }
-      ],
-      "albums": [],
-      "notices": [],
-      "yearPlan": [
-        {
-          "period": "1–3월",
-          "items": [
-            "새학기 환영예배",
-            "부모 교육"
-          ]
-        },
-        {
-          "period": "4–6월",
-          "items": [
-            "부활절 행사",
-            "어린이 주일"
-          ]
-        },
-        {
-          "period": "7–9월",
-          "items": [
-            "여름성경학교",
-            "가을 나들이"
-          ]
-        },
-        {
-          "period": "10–12월",
-          "items": [
-            "추수감사절",
-            "성탄 축하예배"
-          ]
-        }
-      ],
-      "snsTitle": "영아부 소식",
-      "snsText": "부서 소식과 사진을 이곳에서 나눕니다. 담당자에게 문의해 주세요."
-    },
-    {
-      "slug": "kids",
-      "name": "유치부",
-      "group": "next",
-      "age": "5–7세",
-      "time": "주일 11:00 · 유치부실",
-      "summary": "놀이와 말씀으로 하나님을 즐겁게 만나는 시간입니다.",
+      "snsTitle": "유치부 소식",
       "cardPhoto": "/assets/kids-worship.jpg",
-      "banner": "/assets/kids-worship.jpg",
       "breadcrumb": "HOME · 다음세대 · 공동체",
-      "headline": "놀이와 말씀으로 하나님을 즐겁게 만나는 시간입니다.",
-      "leaderTitle": "담당 교역자",
-      "leaderName": "김하늘 전도사",
-      "leaderMessage": "놀이와 말씀으로 하나님을 즐겁게 만나는 시간을 만들어 갑니다.",
-      "meta": [
-        {
-          "label": "예배 시간",
-          "value": "주일 오전 11:00"
-        },
-        {
-          "label": "예배 장소",
-          "value": "유치부실"
-        },
-        {
-          "label": "대상",
-          "value": "만 5세 ~ 7세"
-        }
-      ],
-      "verse": {
-        "text": "어린 아이들이 내게 오는 것을 용납하고\n금하지 말라 하나님의 나라가 이런 자의 것이니라",
-        "ref": "마가복음 10:14 · 유치부 핵심 말씀"
-      },
-      "visions": [
-        {
-          "title": "즐거운 예배",
-          "text": "노래와 율동으로 예배가 기다려지는 시간을 만듭니다."
-        },
-        {
-          "title": "말씀과 놀이",
-          "text": "눈높이에 맞춘 이야기로 성경을 만납니다."
-        },
-        {
-          "title": "친구와 함께",
-          "text": "또래와 어울리며 배려를 배웁니다."
-        }
-      ],
       "org": [
         {
           "tier": 1,
@@ -189,18 +30,22 @@
           "name": "교사 8명"
         }
       ],
-      "albumCats": [
+      "albums": [],
+      "meta": [
         {
-          "key": "worship",
-          "label": "예배"
+          "label": "예배 시간",
+          "value": "주일 오전 11:00"
         },
         {
-          "key": "event",
-          "label": "행사"
+          "label": "예배 장소",
+          "value": "유치부실"
+        },
+        {
+          "label": "대상",
+          "value": "만 5세 ~ 7세"
         }
       ],
-      "albums": [],
-      "notices": [],
+      "snsText": "부서 소식과 사진을 이곳에서 나눕니다. 담당자에게 문의해 주세요.",
       "yearPlan": [
         {
           "period": "1–3월",
@@ -231,176 +76,51 @@
           ]
         }
       ],
-      "snsTitle": "유치부 소식",
-      "snsText": "부서 소식과 사진을 이곳에서 나눕니다. 담당자에게 문의해 주세요."
-    },
-    {
-      "slug": "child",
-      "name": "아동부",
-      "group": "next",
-      "age": "초등 1–6학년",
-      "time": "주일 11:00 · 교육관 2층",
-      "summary": "친구들과 함께 말씀을 배우고 삶으로 실천합니다.",
-      "cardPhoto": "",
-      "banner": "/assets/church-summer.jpg",
-      "breadcrumb": "HOME · 다음세대 · 공동체",
-      "headline": "친구들과 함께 말씀을 배우고 삶으로 실천합니다.",
-      "leaderTitle": "담당 교역자",
-      "leaderName": "이준호 전도사",
-      "leaderMessage": "친구들과 함께 말씀을 배우고 삶으로 실천하는 아동 공동체입니다.",
-      "meta": [
-        {
-          "label": "예배 시간",
-          "value": "주일 오전 11:00"
-        },
-        {
-          "label": "예배 장소",
-          "value": "교육관 2층"
-        },
-        {
-          "label": "대상",
-          "value": "초등 1학년 ~ 6학년"
-        }
-      ],
-      "verse": {
-        "text": "오직 우리 주 곧 구주 예수 그리스도의 은혜와\n그를 아는 지식에서 자라 가라",
-        "ref": "베드로후서 3:18 · 아동부 핵심 말씀"
-      },
+      "summary": "놀이와 말씀으로 하나님을 즐겁게 만나는 시간입니다.",
       "visions": [
         {
-          "title": "스스로 읽는 말씀",
-          "text": "성경을 스스로 펴고 읽는 습관을 기릅니다."
+          "title": "즐거운 예배",
+          "text": "노래와 율동으로 예배가 기다려지는 시간을 만듭니다."
         },
         {
-          "title": "함께 자라는 반",
-          "text": "반별 모임으로 서로를 돌아보고 기도합니다."
+          "title": "말씀과 놀이",
+          "text": "눈높이에 맞춘 이야기로 성경을 만납니다."
         },
         {
-          "title": "삶으로 실천",
-          "text": "배운 말씀을 가정과 학교에서 살아냅니다."
+          "title": "친구와 함께",
+          "text": "또래와 어울리며 배려를 배웁니다."
         }
       ],
-      "org": [
-        {
-          "tier": 1,
-          "label": "PASTOR",
-          "title": "담당 교역자",
-          "name": "이준호 전도사"
-        },
-        {
-          "tier": 2,
-          "label": "SUPPORT",
-          "title": "부장집사",
-          "name": "윤성호 집사"
-        },
-        {
-          "tier": 2,
-          "label": "ADMIN",
-          "title": "총무",
-          "name": "배은경 집사"
-        },
-        {
-          "tier": 2,
-          "label": "TEACHER",
-          "title": "교사",
-          "name": "교사 10명"
-        }
-      ],
+      "name": "유치부",
+      "slug": "kids",
       "albumCats": [
         {
           "key": "worship",
           "label": "예배"
         },
         {
-          "key": "retreat",
-          "label": "수련회"
-        },
-        {
           "key": "event",
           "label": "행사"
         }
       ],
-      "albums": [],
+      "banner": "/assets/kids-worship.jpg",
+      "time": "주일 11:00 · 유치부실",
+      "leaderTitle": "담당 교역자",
+      "headline": "놀이와 말씀으로 하나님을 즐겁게 만나는 시간입니다.",
+      "leaderName": "김하늘 전도사",
+      "verse": {
+        "text": "어린 아이들이 내게 오는 것을 용납하고\n금하지 말라 하나님의 나라가 이런 자의 것이니라",
+        "ref": "마가복음 10:14 · 유치부 핵심 말씀"
+      },
       "notices": [],
-      "yearPlan": [
-        {
-          "period": "1–3월",
-          "items": [
-            "겨울 성경학교",
-            "새학기 환영예배"
-          ]
-        },
-        {
-          "period": "4–6월",
-          "items": [
-            "부활절 연합예배",
-            "어린이 주일"
-          ]
-        },
-        {
-          "period": "7–9월",
-          "items": [
-            "여름성경학교",
-            "가을 야외예배"
-          ]
-        },
-        {
-          "period": "10–12월",
-          "items": [
-            "추수감사절",
-            "성탄 축하예배"
-          ]
-        }
-      ],
-      "snsTitle": "아동부 소식",
-      "snsText": "부서 소식과 사진을 이곳에서 나눕니다. 담당자에게 문의해 주세요."
+      "leaderMessage": "놀이와 말씀으로 하나님을 즐겁게 만나는 시간을 만들어 갑니다.",
+      "age": "5–7세",
+      "group": "next"
     },
     {
-      "slug": "youth",
-      "name": "청소년부",
-      "group": "next",
-      "age": "중·고등학생",
-      "time": "주일 11:00 · 교육관 3층 비전홀",
-      "summary": "하나님을 알고 세상 속에서 믿음으로 살아갑니다.",
+      "snsTitle": "청소년부 인스타그램",
       "cardPhoto": "/assets/youth-retreat.jpg",
-      "banner": "/assets/youth-retreat.jpg",
       "breadcrumb": "HOME · 다음세대 · 공동체",
-      "headline": "말씀 위에 서서, 세상 속에서 믿음으로 살아가는 청소년 공동체입니다.",
-      "leaderTitle": "담당 교역자",
-      "leaderName": "최다은 전도사",
-      "leaderMessage": "한 사람의 오늘을 소중히 여기며, 청소년들이 스스로 말씀 앞에 서도록 함께 걷겠습니다. 언제든 편하게 이야기 나눠요.",
-      "meta": [
-        {
-          "label": "예배 시간",
-          "value": "주일 오전 11:00"
-        },
-        {
-          "label": "예배 장소",
-          "value": "교육관 3층 비전홀"
-        },
-        {
-          "label": "대상",
-          "value": "중학교 1학년 ~ 고등학교 3학년"
-        }
-      ],
-      "verse": {
-        "text": "누구든지 네 연소함을 업신여기지 못하게 하고\n오직 말과 행실과 사랑과 믿음과 정절에 있어서\n믿는 자에게 본이 되어",
-        "ref": "디모데전서 4:12 · 청소년부 핵심 말씀"
-      },
-      "visions": [
-        {
-          "title": "말씀으로 서는 세대",
-          "text": "매주 말씀을 스스로 읽고 묵상하며, 삶의 기준을 세워갑니다."
-        },
-        {
-          "title": "함께 자라는 공동체",
-          "text": "또래와 교사가 함께 기도하고 나누며 신앙의 친구가 됩니다."
-        },
-        {
-          "title": "세상 속의 본",
-          "text": "학교와 일상에서 믿음의 본이 되는 청소년으로 살아갑니다."
-        }
-      ],
       "org": [
         {
           "tier": 1,
@@ -457,20 +177,6 @@
           "name": ""
         }
       ],
-      "albumCats": [
-        {
-          "key": "retreat",
-          "label": "수련회"
-        },
-        {
-          "key": "event",
-          "label": "행사"
-        },
-        {
-          "key": "worship",
-          "label": "예배"
-        }
-      ],
       "albums": [
         {
           "cat": "retreat",
@@ -509,33 +215,21 @@
           "date": "2025.11"
         }
       ],
-      "notices": [
+      "meta": [
         {
-          "date": "2026.07.22",
-          "cat": "수련회",
-          "title": "여름수련회 참가 신청 및 준비물 안내"
+          "label": "예배 시간",
+          "value": "주일 오전 11:00"
         },
         {
-          "date": "2026.07.15",
-          "cat": "예배",
-          "title": "7월 넷째 주 청소년부 예배 장소 변경 안내"
+          "label": "예배 장소",
+          "value": "교육관 3층 비전홀"
         },
         {
-          "date": "2026.07.02",
-          "cat": "모집",
-          "title": "2학기 예배 사역팀(찬양·워십·미디어) 모집"
-        },
-        {
-          "date": "2026.06.21",
-          "cat": "행사",
-          "title": "상반기 생일파티 · 6월 마지막 주일"
-        },
-        {
-          "date": "2026.06.07",
-          "cat": "안내",
-          "title": "중간고사 기간 특별 기도회 안내"
+          "label": "대상",
+          "value": "중학교 1학년 ~ 고등학교 3학년"
         }
       ],
+      "snsText": "예배와 일상의 소식을 가장 빠르게 만나보세요. (개설 예정)",
       "yearPlan": [
         {
           "period": "1–3월",
@@ -570,55 +264,81 @@
           ]
         }
       ],
-      "snsTitle": "청소년부 인스타그램",
-      "snsText": "예배와 일상의 소식을 가장 빠르게 만나보세요. (개설 예정)"
-    },
-    {
-      "slug": "young",
-      "name": "청년부",
-      "group": "next",
-      "age": "19–35세",
-      "time": "주일 14:00 · 청년부실",
-      "summary": "예배와 나눔으로 서로의 일상에 동행하는 청년 공동체입니다.",
-      "cardPhoto": "/assets/youth-retreat.jpg",
-      "banner": "/assets/youth-retreat.jpg",
-      "breadcrumb": "HOME · 다음세대 · 공동체",
-      "headline": "예배와 나눔으로 서로의 일상에 동행하는 청년 공동체입니다.",
-      "leaderTitle": "담당 교역자",
-      "leaderName": "김민수 목사",
-      "leaderMessage": "예배와 나눔으로 서로의 일상에 동행하는 청년 공동체입니다.",
-      "meta": [
-        {
-          "label": "예배 시간",
-          "value": "주일 오후 2:00"
-        },
-        {
-          "label": "예배 장소",
-          "value": "청년부실"
-        },
-        {
-          "label": "대상",
-          "value": "19세 ~ 35세"
-        }
-      ],
-      "verse": {
-        "text": "청년이 무엇으로 자기의 행실을 깨끗하게 하리이까\n주의 말씀만 지킬 따름이니이다",
-        "ref": "시편 119:9 · 청년부 핵심 말씀"
-      },
+      "summary": "하나님을 알고 세상 속에서 믿음으로 살아갑니다.",
       "visions": [
         {
-          "title": "말씀 위의 일상",
-          "text": "학업과 직장의 자리에서 말씀을 붙듭니다."
+          "title": "말씀으로 서는 세대",
+          "text": "매주 말씀을 스스로 읽고 묵상하며, 삶의 기준을 세워갑니다."
         },
         {
-          "title": "진짜 나눔",
-          "text": "소그룹에서 삶의 무게를 솔직하게 나눕니다."
+          "title": "함께 자라는 공동체",
+          "text": "또래와 교사가 함께 기도하고 나누며 신앙의 친구가 됩니다."
         },
         {
-          "title": "함께 섬김",
-          "text": "교회와 지역을 섬기며 신앙을 삶으로 확인합니다."
+          "title": "세상 속의 본",
+          "text": "학교와 일상에서 믿음의 본이 되는 청소년으로 살아갑니다."
         }
       ],
+      "name": "청소년부",
+      "slug": "youth",
+      "albumCats": [
+        {
+          "key": "retreat",
+          "label": "수련회"
+        },
+        {
+          "key": "event",
+          "label": "행사"
+        },
+        {
+          "key": "worship",
+          "label": "예배"
+        }
+      ],
+      "banner": "/assets/youth-retreat.jpg",
+      "time": "주일 11:00 · 교육관 3층 비전홀",
+      "leaderTitle": "담당 교역자",
+      "headline": "말씀 위에 서서, 세상 속에서 믿음으로 살아가는 청소년 공동체입니다.",
+      "leaderName": "원삼렬 목사",
+      "verse": {
+        "text": "누구든지 네 연소함을 업신여기지 못하게 하고\n오직 말과 행실과 사랑과 믿음과 정절에 있어서\n믿는 자에게 본이 되어",
+        "ref": "디모데전서 4:12 · 청소년부 핵심 말씀"
+      },
+      "notices": [
+        {
+          "date": "2026.07.22",
+          "cat": "수련회",
+          "title": "여름수련회 참가 신청 및 준비물 안내"
+        },
+        {
+          "date": "2026.07.15",
+          "cat": "예배",
+          "title": "7월 넷째 주 청소년부 예배 장소 변경 안내"
+        },
+        {
+          "date": "2026.07.02",
+          "cat": "모집",
+          "title": "2학기 예배 사역팀(찬양·워십·미디어) 모집"
+        },
+        {
+          "date": "2026.06.21",
+          "cat": "행사",
+          "title": "상반기 생일파티 · 6월 마지막 주일"
+        },
+        {
+          "date": "2026.06.07",
+          "cat": "안내",
+          "title": "중간고사 기간 특별 기도회 안내"
+        }
+      ],
+      "leaderMessage": "한 사람의 오늘을 소중히 여기며, 청소년들이 스스로 말씀 앞에 서도록 함께 걷겠습니다. 언제든 편하게 이야기 나눠요.",
+      "age": "중·고등학생",
+      "group": "next"
+    },
+    {
+      "snsTitle": "청년부 소식",
+      "cardPhoto": "/assets/youth-retreat.jpg",
+      "breadcrumb": "HOME · 다음세대 · 공동체",
       "org": [
         {
           "tier": 1,
@@ -645,22 +365,22 @@
           "name": "소그룹 리더 6명"
         }
       ],
-      "albumCats": [
+      "albums": [],
+      "meta": [
         {
-          "key": "retreat",
-          "label": "수련회"
+          "label": "예배 시간",
+          "value": "주일 오후 2:00"
         },
         {
-          "key": "worship",
-          "label": "예배"
+          "label": "예배 장소",
+          "value": "청년부실"
         },
         {
-          "key": "event",
-          "label": "행사"
+          "label": "대상",
+          "value": "19세 ~ 35세"
         }
       ],
-      "albums": [],
-      "notices": [],
+      "snsText": "부서 소식과 사진을 이곳에서 나눕니다. 담당자에게 문의해 주세요.",
       "yearPlan": [
         {
           "period": "1–3월",
@@ -691,55 +411,55 @@
           ]
         }
       ],
-      "snsTitle": "청년부 소식",
-      "snsText": "부서 소식과 사진을 이곳에서 나눕니다. 담당자에게 문의해 주세요."
-    },
-    {
-      "slug": "smallgroup",
-      "name": "목장 · 소그룹",
-      "group": "adult",
-      "age": "전 세대",
-      "time": "평일 저녁 · 가정별",
-      "summary": "가까이 사는 이웃과 매주 모여 말씀과 삶을 나눕니다.",
-      "cardPhoto": "",
-      "banner": "/assets/church-family.jpg",
-      "breadcrumb": "HOME · 다음세대 · 공동체",
-      "headline": "가까이 사는 이웃과 매주 모여 말씀과 삶을 나눕니다.",
-      "leaderTitle": "담당",
-      "leaderName": "목장 리더",
-      "leaderMessage": "가까이 사는 성도들이 매주 모여 말씀과 삶을 나누는 자리입니다.",
-      "meta": [
-        {
-          "label": "모임 시간",
-          "value": "평일 저녁 (목장별 상이)"
-        },
-        {
-          "label": "모임 장소",
-          "value": "성도 가정"
-        },
-        {
-          "label": "대상",
-          "value": "전 세대"
-        }
-      ],
-      "verse": {
-        "text": "날마다 마음을 같이하여 성전에 모이기를 힘쓰고\n집에서 떡을 떼며 기쁨과 순전한 마음으로 음식을 먹고",
-        "ref": "사도행전 2:46 · 목장 핵심 말씀"
-      },
+      "summary": "예배와 나눔으로 서로의 일상에 동행하는 청년 공동체입니다.",
       "visions": [
         {
-          "title": "가까운 이웃",
-          "text": "사는 곳을 중심으로 모여 부담 없이 만납니다."
+          "title": "말씀 위의 일상",
+          "text": "학업과 직장의 자리에서 말씀을 붙듭니다."
         },
         {
-          "title": "말씀과 삶",
-          "text": "한 주의 말씀을 삶의 이야기로 나눕니다."
+          "title": "진짜 나눔",
+          "text": "소그룹에서 삶의 무게를 솔직하게 나눕니다."
         },
         {
-          "title": "돌봄의 공동체",
-          "text": "기쁨과 어려움을 함께 지고 갑니다."
+          "title": "함께 섬김",
+          "text": "교회와 지역을 섬기며 신앙을 삶으로 확인합니다."
         }
       ],
+      "name": "청년부",
+      "slug": "young",
+      "albumCats": [
+        {
+          "key": "retreat",
+          "label": "수련회"
+        },
+        {
+          "key": "worship",
+          "label": "예배"
+        },
+        {
+          "key": "event",
+          "label": "행사"
+        }
+      ],
+      "banner": "/assets/youth-retreat.jpg",
+      "time": "주일 14:00 · 청년부실",
+      "leaderTitle": "담당 교역자",
+      "headline": "예배와 나눔으로 서로의 일상에 동행하는 청년 공동체입니다.",
+      "leaderName": "김민수 목사",
+      "verse": {
+        "text": "청년이 무엇으로 자기의 행실을 깨끗하게 하리이까\n주의 말씀만 지킬 따름이니이다",
+        "ref": "시편 119:9 · 청년부 핵심 말씀"
+      },
+      "notices": [],
+      "leaderMessage": "예배와 나눔으로 서로의 일상에 동행하는 청년 공동체입니다.",
+      "age": "19–35세",
+      "group": "next"
+    },
+    {
+      "snsTitle": "목장 · 소그룹 소식",
+      "cardPhoto": "",
+      "breadcrumb": "HOME · 다음세대 · 공동체",
       "org": [
         {
           "tier": 1,
@@ -766,18 +486,22 @@
           "name": "목자 12명"
         }
       ],
-      "albumCats": [
+      "albums": [],
+      "meta": [
         {
-          "key": "event",
-          "label": "행사"
+          "label": "모임 시간",
+          "value": "평일 저녁 (목장별 상이)"
         },
         {
-          "key": "worship",
-          "label": "예배"
+          "label": "모임 장소",
+          "value": "성도 가정"
+        },
+        {
+          "label": "대상",
+          "value": "전 세대"
         }
       ],
-      "albums": [],
-      "notices": [],
+      "snsText": "부서 소식과 사진을 이곳에서 나눕니다. 담당자에게 문의해 주세요.",
       "yearPlan": [
         {
           "period": "1–3월",
@@ -808,55 +532,51 @@
           ]
         }
       ],
-      "snsTitle": "목장 · 소그룹 소식",
-      "snsText": "부서 소식과 사진을 이곳에서 나눕니다. 담당자에게 문의해 주세요."
-    },
-    {
-      "slug": "women",
-      "name": "여전도회",
-      "group": "adult",
-      "age": "장년",
-      "time": "월별 모임 · 친교실",
-      "summary": "기도와 섬김으로 교회와 이웃을 세워 갑니다.",
-      "cardPhoto": "",
-      "banner": "/assets/church-autumn.jpg",
-      "breadcrumb": "HOME · 다음세대 · 공동체",
-      "headline": "기도와 섬김으로 교회와 이웃을 세워 갑니다.",
-      "leaderTitle": "담당",
-      "leaderName": "각 회장단",
-      "leaderMessage": "기도와 섬김으로 교회와 이웃을 세워 가는 여전도회입니다.",
-      "meta": [
-        {
-          "label": "모임 시간",
-          "value": "매월 첫째 주일 오후"
-        },
-        {
-          "label": "모임 장소",
-          "value": "친교실"
-        },
-        {
-          "label": "대상",
-          "value": "장년 여성 성도"
-        }
-      ],
-      "verse": {
-        "text": "누구든지 첫째가 되고자 하면\n뭇 사람의 끝이 되며 뭇 사람을 섬기는 자가 되어야 하리라",
-        "ref": "마가복음 9:35 · 여전도회 핵심 말씀"
-      },
+      "summary": "가까이 사는 이웃과 매주 모여 말씀과 삶을 나눕니다.",
       "visions": [
         {
-          "title": "기도의 자리",
-          "text": "교회와 가정을 위해 쉬지 않고 기도합니다."
+          "title": "가까운 이웃",
+          "text": "사는 곳을 중심으로 모여 부담 없이 만납니다."
         },
         {
-          "title": "손으로 섬김",
-          "text": "예배와 친교의 자리를 준비하고 돌봅니다."
+          "title": "말씀과 삶",
+          "text": "한 주의 말씀을 삶의 이야기로 나눕니다."
         },
         {
-          "title": "이웃을 향해",
-          "text": "지역의 어려운 이웃을 찾아가 섬깁니다."
+          "title": "돌봄의 공동체",
+          "text": "기쁨과 어려움을 함께 지고 갑니다."
         }
       ],
+      "name": "목장 · 소그룹",
+      "slug": "smallgroup",
+      "albumCats": [
+        {
+          "key": "event",
+          "label": "행사"
+        },
+        {
+          "key": "worship",
+          "label": "예배"
+        }
+      ],
+      "banner": "/assets/church-family.jpg",
+      "time": "평일 저녁 · 가정별",
+      "leaderTitle": "담당",
+      "headline": "가까이 사는 이웃과 매주 모여 말씀과 삶을 나눕니다.",
+      "leaderName": "목장 리더",
+      "verse": {
+        "text": "날마다 마음을 같이하여 성전에 모이기를 힘쓰고\n집에서 떡을 떼며 기쁨과 순전한 마음으로 음식을 먹고",
+        "ref": "사도행전 2:46 · 목장 핵심 말씀"
+      },
+      "notices": [],
+      "leaderMessage": "가까이 사는 성도들이 매주 모여 말씀과 삶을 나누는 자리입니다.",
+      "age": "전 세대",
+      "group": "adult"
+    },
+    {
+      "snsTitle": "여전도회 소식",
+      "cardPhoto": "",
+      "breadcrumb": "HOME · 다음세대 · 공동체",
       "org": [
         {
           "tier": 1,
@@ -883,18 +603,22 @@
           "name": "구미란 집사"
         }
       ],
-      "albumCats": [
+      "albums": [],
+      "meta": [
         {
-          "key": "event",
-          "label": "행사"
+          "label": "모임 시간",
+          "value": "매월 첫째 주일 오후"
         },
         {
-          "key": "worship",
-          "label": "예배"
+          "label": "모임 장소",
+          "value": "친교실"
+        },
+        {
+          "label": "대상",
+          "value": "장년 여성 성도"
         }
       ],
-      "albums": [],
-      "notices": [],
+      "snsText": "부서 소식과 사진을 이곳에서 나눕니다. 담당자에게 문의해 주세요.",
       "yearPlan": [
         {
           "period": "1–3월",
@@ -925,55 +649,51 @@
           ]
         }
       ],
-      "snsTitle": "여전도회 소식",
-      "snsText": "부서 소식과 사진을 이곳에서 나눕니다. 담당자에게 문의해 주세요."
-    },
-    {
-      "slug": "men",
-      "name": "남선교회",
-      "group": "adult",
-      "age": "장년",
-      "time": "월별 모임 · 친교실",
-      "summary": "예배와 친교, 지역 섬김에 함께합니다.",
-      "cardPhoto": "",
-      "banner": "/assets/church-winter.jpg",
-      "breadcrumb": "HOME · 다음세대 · 공동체",
-      "headline": "예배와 친교, 지역 섬김에 함께합니다.",
-      "leaderTitle": "담당",
-      "leaderName": "각 회장단",
-      "leaderMessage": "예배와 친교, 지역 섬김에 함께하는 남선교회입니다.",
-      "meta": [
-        {
-          "label": "모임 시간",
-          "value": "매월 둘째 주일 오후"
-        },
-        {
-          "label": "모임 장소",
-          "value": "친교실"
-        },
-        {
-          "label": "대상",
-          "value": "장년 남성 성도"
-        }
-      ],
-      "verse": {
-        "text": "오직 나와 내 집은 여호와를 섬기겠노라",
-        "ref": "여호수아 24:15 · 남선교회 핵심 말씀"
-      },
+      "summary": "기도와 섬김으로 교회와 이웃을 세워 갑니다.",
       "visions": [
         {
-          "title": "가정의 제사장",
-          "text": "가정에서 먼저 예배를 세웁니다."
+          "title": "기도의 자리",
+          "text": "교회와 가정을 위해 쉬지 않고 기도합니다."
         },
         {
-          "title": "교회를 세우는 손",
-          "text": "시설과 주차, 행사를 든든히 지원합니다."
+          "title": "손으로 섬김",
+          "text": "예배와 친교의 자리를 준비하고 돌봅니다."
         },
         {
-          "title": "지역과 함께",
-          "text": "지역 봉사와 국내외 선교에 참여합니다."
+          "title": "이웃을 향해",
+          "text": "지역의 어려운 이웃을 찾아가 섬깁니다."
         }
       ],
+      "name": "여전도회",
+      "slug": "women",
+      "albumCats": [
+        {
+          "key": "event",
+          "label": "행사"
+        },
+        {
+          "key": "worship",
+          "label": "예배"
+        }
+      ],
+      "banner": "/assets/church-autumn.jpg",
+      "time": "월별 모임 · 친교실",
+      "leaderTitle": "담당",
+      "headline": "기도와 섬김으로 교회와 이웃을 세워 갑니다.",
+      "leaderName": "각 회장단",
+      "verse": {
+        "text": "누구든지 첫째가 되고자 하면\n뭇 사람의 끝이 되며 뭇 사람을 섬기는 자가 되어야 하리라",
+        "ref": "마가복음 9:35 · 여전도회 핵심 말씀"
+      },
+      "notices": [],
+      "leaderMessage": "기도와 섬김으로 교회와 이웃을 세워 가는 여전도회입니다.",
+      "age": "장년",
+      "group": "adult"
+    },
+    {
+      "snsTitle": "남선교회 소식",
+      "cardPhoto": "",
+      "breadcrumb": "HOME · 다음세대 · 공동체",
       "org": [
         {
           "tier": 1,
@@ -1000,18 +720,22 @@
           "name": "엄태식 집사"
         }
       ],
-      "albumCats": [
+      "albums": [],
+      "meta": [
         {
-          "key": "event",
-          "label": "행사"
+          "label": "모임 시간",
+          "value": "매월 둘째 주일 오후"
         },
         {
-          "key": "worship",
-          "label": "예배"
+          "label": "모임 장소",
+          "value": "친교실"
+        },
+        {
+          "label": "대상",
+          "value": "장년 남성 성도"
         }
       ],
-      "albums": [],
-      "notices": [],
+      "snsText": "부서 소식과 사진을 이곳에서 나눕니다. 담당자에게 문의해 주세요.",
       "yearPlan": [
         {
           "period": "1–3월",
@@ -1042,8 +766,46 @@
           ]
         }
       ],
-      "snsTitle": "남선교회 소식",
-      "snsText": "부서 소식과 사진을 이곳에서 나눕니다. 담당자에게 문의해 주세요."
+      "summary": "예배와 친교, 지역 섬김에 함께합니다.",
+      "visions": [
+        {
+          "title": "가정의 제사장",
+          "text": "가정에서 먼저 예배를 세웁니다."
+        },
+        {
+          "title": "교회를 세우는 손",
+          "text": "시설과 주차, 행사를 든든히 지원합니다."
+        },
+        {
+          "title": "지역과 함께",
+          "text": "지역 봉사와 국내외 선교에 참여합니다."
+        }
+      ],
+      "name": "남선교회",
+      "slug": "men",
+      "albumCats": [
+        {
+          "key": "event",
+          "label": "행사"
+        },
+        {
+          "key": "worship",
+          "label": "예배"
+        }
+      ],
+      "banner": "/assets/church-winter.jpg",
+      "time": "월별 모임 · 친교실",
+      "leaderTitle": "담당",
+      "headline": "예배와 친교, 지역 섬김에 함께합니다.",
+      "leaderName": "각 회장단",
+      "verse": {
+        "text": "오직 나와 내 집은 여호와를 섬기겠노라",
+        "ref": "여호수아 24:15 · 남선교회 핵심 말씀"
+      },
+      "notices": [],
+      "leaderMessage": "예배와 친교, 지역 섬김에 함께하는 남선교회입니다.",
+      "age": "장년",
+      "group": "adult"
     }
   ]
 }
