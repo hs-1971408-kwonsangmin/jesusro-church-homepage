@@ -35,7 +35,7 @@ auth:
   avatar_url_claim: avatar_url
 
 logo_url: https://decapbridge.com/decapcms-with-bridge.svg
-site_url: https://jesusro.rnjstkdals01.workers.dev
+site_url: https://jesusro.jesusro.workers.dev
 
 # 로컬에서 로그인 없이 테스트할 때 사용 (npx decap-server 필요)
 local_backend: true
@@ -104,14 +104,14 @@ collections:
                   - { label: "사진첩", value: "gallery" }
                   - { label: "새가족", value: "family" }
                   - { label: "오시는 길", value: "visit" }
-                  - { label: "부서 · 영아부", value: "dept-infant" }
+                  # 부서를 추가·삭제하면 이 목록도 같이 고쳐야 합니다.
+                  # 없는 부서를 고르면 메뉴를 눌러도 홈으로 돌아갑니다.
                   - { label: "부서 · 유치부", value: "dept-kids" }
-                  - { label: "부서 · 아동부", value: "dept-child" }
+                  - { label: "부서 · 초등부", value: "dept-elementry" }
                   - { label: "부서 · 청소년부", value: "dept-youth" }
                   - { label: "부서 · 청년부", value: "dept-young" }
                   - { label: "부서 · 목장 소그룹", value: "dept-smallgroup" }
-                  - { label: "부서 · 여전도회", value: "dept-women" }
-                  - { label: "부서 · 남선교회", value: "dept-men" }
+                  - { label: "부서 · 장년부", value: "dept-men" }
               - label: "하위 메뉴"
                 name: "children"
                 widget: "list"
