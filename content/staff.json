@@ -23,15 +23,15 @@
       "note": "각 부서를 섬기는 교역자입니다.",
       "people": [
         {
-          "name": "원삼열 목사",
-          "role": "청소년부",
-          "photo": "/assets/pasted-graphic-1.png",
+          "name": "이장재 부목사",
+          "role": "청년부",
+          "photo": "/assets/pasted-graphic.png",
           "message": ""
         },
         {
-          "name": "이장재 목사",
-          "role": "청년부",
-          "photo": "/assets/pasted-graphic.png",
+          "name": "원삼열 목사",
+          "role": "청소년부",
+          "photo": "/assets/pasted-graphic-1.png",
           "message": ""
         },
         {
