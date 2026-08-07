@@ -120,8 +120,12 @@
     },
     {
       "snsTitle": "청소년부 인스타그램",
-      "cardPhoto": "/assets/kakaotalk_photo_2026-08-07-16-36-57-003.jpeg",
+      "cardPhoto": "https://www.jesusro.com/user/saveDir/board/www25/3883_1782052838_7.jpg",
       "breadcrumb": "HOME · 다음세대 · 공동체",
+      "applications": [
+        "praise",
+        "mentoring"
+      ],
       "org": [
         {
           "tier": 1,
@@ -317,16 +321,17 @@
       ],
       "leaderMessage": "한 사람의 오늘을 소중히 여기며, 청소년들이 스스로 말씀 앞에 서도록 함께 걷겠습니다. 언제든 편하게 이야기 나눠요.",
       "age": "중·고등학생",
-      "group": "next",
-      "applications": [
-        "praise",
-        "mentoring"
-      ]
+      "group": "next"
     },
     {
       "snsTitle": "청년부 소식",
       "cardPhoto": "/assets/youth-retreat.jpg",
       "breadcrumb": "HOME · 다음세대 · 공동체",
+      "applications": [
+        "cell",
+        "praise",
+        "mentoring"
+      ],
       "org": [
         {
           "tier": 1,
@@ -457,16 +462,6 @@
       "banner": "https://www.jesusro.com/user/saveDir/board/www26/3204_1684040318_6.jpg",
       "time": "주일 13:00 · 본당",
       "leaderTitle": "담당 교역자",
-      "headline": "예배와 나눔으로 서로의 일상에 동행하는 청년 공동체입니다.",
-      "leaderName": "이장재 목사",
-      "verse": {
-        "text": "청년이 무엇으로 자기의 행실을 깨끗하게 하리이까\n주의 말씀만 지킬 따름이니이다",
-        "ref": "시편 119:9 · 청년부 핵심 말씀"
-      },
-      "notices": [],
-      "leaderMessage": "예배와 나눔으로 서로의 일상에 동행하는 청년 공동체입니다.",
-      "age": "전교인",
-      "group": "next",
       "cells": [
         {
           "name": "러닝 셀",
@@ -501,11 +496,16 @@
           "leader": "문가은 자매"
         }
       ],
-      "applications": [
-        "cell",
-        "praise",
-        "mentoring"
-      ]
+      "headline": "예배와 나눔으로 서로의 일상에 동행하는 청년 공동체입니다.",
+      "leaderName": "이장재 목사",
+      "verse": {
+        "text": "청년이 무엇으로 자기의 행실을 깨끗하게 하리이까\n주의 말씀만 지킬 따름이니이다",
+        "ref": "시편 119:9 · 청년부 핵심 말씀"
+      },
+      "notices": [],
+      "leaderMessage": "예배와 나눔으로 서로의 일상에 동행하는 청년 공동체입니다.",
+      "age": "전교인",
+      "group": "next"
     },
     {
       "snsTitle": "목장 · 소그룹 소식",
