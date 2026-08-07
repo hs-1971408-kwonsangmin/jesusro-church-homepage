@@ -181,15 +181,15 @@
       "albums": [
         {
           "cat": "retreat",
-          "image": "/assets/youth-retreat.jpg",
-          "title": "여름수련회 · 복음을 삶으로!",
-          "date": "2026.07"
+          "image": "https://www.jesusro.com/user/saveDir/board/www25/3879_1782048138_13.jpg",
+          "title": "겨울수련회 ",
+          "date": "2026.02"
         },
         {
           "cat": "retreat",
-          "image": "/assets/church-winter.jpg",
-          "title": "겨울수련회",
-          "date": "2026.01"
+          "image": "/assets/여름수련회.jpeg",
+          "title": "여름수련회",
+          "date": "2026.07"
         },
         {
           "cat": "worship",
@@ -199,21 +199,9 @@
         },
         {
           "cat": "event",
-          "image": "/assets/church-spring.jpg",
-          "title": "부활절 연합예배",
+          "image": "https://www.jesusro.com/user/saveDir/board/www25/3883_1782052838_8.jpg",
+          "title": "부활절 연합예배 버스킹",
           "date": "2026.04"
-        },
-        {
-          "cat": "event",
-          "image": "/assets/church-family.jpg",
-          "title": "어버이 주일",
-          "date": "2026.05"
-        },
-        {
-          "cat": "worship",
-          "image": "/assets/church-autumn.jpg",
-          "title": "가을 야외예배",
-          "date": "2025.11"
         }
       ],
       "meta": [
