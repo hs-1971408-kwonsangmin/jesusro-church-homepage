@@ -11,7 +11,7 @@
         {
           "name": "김석진 목사",
           "role": "담임목사",
-          "photo": "",
+          "photo": "https://www.jesusro.com/core/module/people/skin001/images/blank_4_3.png",
           "message": "예수님 안에서 한 사람의 오늘을 품고, 다음 세대의 내일을 준비하는 교회가 되겠습니다."
         }
       ]
@@ -22,10 +22,30 @@
       "title": "교역자",
       "note": "각 부서를 섬기는 교역자입니다.",
       "people": [
-        { "name": "원삼열 목사", "role": "청소년부", "photo": "/assets/pasted-graphic-1.png", "message": "" },
-        { "name": "이장재 목사", "role": "청년부", "photo": "/assets/pasted-graphic.png", "message": "" },
-        { "name": "한효리 전도사", "role": "유치부", "photo": "/assets/pasted-graphic-3.png", "message": "" },
-        { "name": "고영현 전도사", "role": "초등부", "photo": "/assets/pasted-graphic-2.png", "message": "" }
+        {
+          "name": "원삼열 목사",
+          "role": "청소년부",
+          "photo": "/assets/pasted-graphic-1.png",
+          "message": ""
+        },
+        {
+          "name": "이장재 목사",
+          "role": "청년부",
+          "photo": "/assets/pasted-graphic.png",
+          "message": ""
+        },
+        {
+          "name": "한효리 전도사",
+          "role": "유치부",
+          "photo": "/assets/pasted-graphic-3.png",
+          "message": ""
+        },
+        {
+          "name": "고영현 전도사",
+          "role": "초등부",
+          "photo": "/assets/pasted-graphic-2.png",
+          "message": ""
+        }
       ]
     },
     {
@@ -34,12 +54,42 @@
       "title": "장로",
       "note": "교회를 함께 세우는 장로입니다.",
       "people": [
-        { "name": "이규희 장로", "role": "", "photo": "", "message": "" },
-        { "name": "이홍규 장로", "role": "", "photo": "", "message": "" },
-        { "name": "이헌웅 장로", "role": "", "photo": "", "message": "" },
-        { "name": "전용운 장로", "role": "", "photo": "", "message": "" },
-        { "name": "황종휘 장로", "role": "", "photo": "", "message": "" },
-        { "name": "김중성 장로", "role": "", "photo": "", "message": "" }
+        {
+          "name": "이규희 장로",
+          "role": "",
+          "photo": "",
+          "message": ""
+        },
+        {
+          "name": "이홍규 장로",
+          "role": "",
+          "photo": "",
+          "message": ""
+        },
+        {
+          "name": "이헌웅 장로",
+          "role": "",
+          "photo": "",
+          "message": ""
+        },
+        {
+          "name": "전용운 장로",
+          "role": "",
+          "photo": "",
+          "message": ""
+        },
+        {
+          "name": "황종휘 장로",
+          "role": "",
+          "photo": "",
+          "message": ""
+        },
+        {
+          "name": "김중성 장로",
+          "role": "",
+          "photo": "",
+          "message": ""
+        }
       ]
     }
   ]
