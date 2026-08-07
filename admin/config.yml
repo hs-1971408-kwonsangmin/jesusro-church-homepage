@@ -1,0 +1,389 @@
+# 예수로교회 홈페이지 · 콘텐츠 관리 설정
+#
+# ┌── 로그인 설정 (아직 안 되어 있습니다) ────────────────────────────────┐
+# │ 아래 backend 블록은 임시값입니다. DecapBridge에서 사이트를 등록하면    │
+# │ 붙여넣을 backend 설정이 생성됩니다. 그 값으로 이 블록을 통째로 교체하세요. │
+# │   1) https://decapbridge.com 가입                                    │
+# │   2) Create site → 저장소 hs-1971408-kwonsangmin/jesusro-church-homepage 연결 │
+# │   3) 생성된 backend 설정을 복사해 아래를 교체                          │
+# │   4) 목사님·부장집사님을 이메일로 초대                                 │
+# └──────────────────────────────────────────────────────────────────────┘
+#
+# 로그인 설정 전이라도 내 컴퓨터에서 먼저 써볼 수 있습니다 (local_backend):
+#   터미널 1:  npx decap-server
+#   터미널 2:  python3 -m http.server 8000
+#   브라우저:  http://localhost:8000/admin/
+backend:
+  name: github
+  repo: hs-1971408-kwonsangmin/jesusro-church-homepage
+  branch: main
+
+# 로컬에서 로그인 없이 테스트할 때 사용 (npx decap-server 필요)
+local_backend: true
+
+# 업로드한 사진이 저장되는 곳 — 주보·앨범 파일을 여기로 끌어다 놓으면 됩니다
+media_folder: "assets"
+public_folder: "/assets"
+
+locale: "ko"
+publish_mode: simple
+
+collections:
+  # ───────────────────────── 교회 기본 정보 ─────────────────────────
+  - name: "site"
+    label: "교회 기본 정보"
+    files:
+      - name: "site"
+        label: "교회 정보 · 예배 시간"
+        file: "content/site.json"
+        fields:
+          - { label: "교회 이름", name: "churchName", widget: "string" }
+          - { label: "영문 이름", name: "churchNameEn", widget: "string" }
+          - { label: "한 줄 소개", name: "tagline", widget: "string" }
+          - { label: "주소", name: "address", widget: "string" }
+          - { label: "전화번호", name: "tel", widget: "string" }
+          - { label: "담임목사", name: "seniorPastor", widget: "string", hint: "주보의 설교·축도 칸에 자동으로 들어갑니다" }
+          - { label: "첫 화면 큰 문구", name: "heroTitle", widget: "text" }
+          - { label: "첫 화면 설명", name: "heroSubtitle", widget: "text" }
+          - label: "예배 시간"
+            name: "worship"
+            widget: "list"
+            label_singular: "예배"
+            summary: "{{fields.name}} — {{fields.time}}"
+            fields:
+              - { label: "요일(영문)", name: "day", widget: "string", hint: "SUNDAY, WEDNESDAY 등" }
+              - { label: "시간", name: "time", widget: "string" }
+              - { label: "예배 이름", name: "name", widget: "string" }
+              - { label: "장소", name: "place", widget: "string" }
+
+  # ───────────────────────── 상단 메뉴 ─────────────────────────
+  - name: "menu"
+    label: "상단 메뉴"
+    files:
+      - name: "menu"
+        label: "메뉴 추가 · 수정 · 삭제"
+        file: "content/menu.json"
+        fields:
+          - label: "메뉴 항목"
+            name: "items"
+            widget: "list"
+            label_singular: "메뉴"
+            summary: "{{fields.label}}"
+            hint: "드래그해서 순서를 바꿀 수 있습니다"
+            fields:
+              - { label: "메뉴 이름", name: "label", widget: "string" }
+              - label: "연결될 페이지"
+                name: "page"
+                widget: "select"
+                options: &pages
+                  - { label: "홈", value: "home" }
+                  - { label: "담임목사 인사말", value: "greeting" }
+                  - { label: "설교 아카이브", value: "sermon" }
+                  - { label: "온라인 주보", value: "bulletin" }
+                  - { label: "교회 소식", value: "board" }
+                  - { label: "부서 안내", value: "dept" }
+                  - { label: "사진첩", value: "gallery" }
+                  - { label: "새가족", value: "family" }
+                  - { label: "오시는 길", value: "visit" }
+                  - { label: "부서 · 영아부", value: "dept-infant" }
+                  - { label: "부서 · 유치부", value: "dept-kids" }
+                  - { label: "부서 · 아동부", value: "dept-child" }
+                  - { label: "부서 · 청소년부", value: "dept-youth" }
+                  - { label: "부서 · 청년부", value: "dept-young" }
+                  - { label: "부서 · 목장 소그룹", value: "dept-smallgroup" }
+                  - { label: "부서 · 여전도회", value: "dept-women" }
+                  - { label: "부서 · 남선교회", value: "dept-men" }
+              - label: "하위 메뉴"
+                name: "children"
+                widget: "list"
+                required: false
+                label_singular: "하위 메뉴"
+                summary: "{{fields.label}}"
+                fields:
+                  - { label: "이름", name: "label", widget: "string" }
+                  - { label: "연결될 페이지", name: "page", widget: "select", options: *pages }
+
+  # ───────────────────────── 부서 ─────────────────────────
+  - name: "departments"
+    label: "부서 · 조직도"
+    files:
+      - name: "departments"
+        label: "부서 페이지 (조직도 · 담당자 이름)"
+        file: "content/departments.json"
+        fields:
+          - label: "부서"
+            name: "items"
+            widget: "list"
+            label_singular: "부서"
+            summary: "{{fields.name}} — {{fields.leaderName}}"
+            fields:
+              - { label: "부서 이름", name: "name", widget: "string" }
+              - { label: "주소용 영문 이름", name: "slug", widget: "string", hint: "주소에 쓰입니다(#dept-youth). 되도록 바꾸지 마세요" }
+              - label: "구분"
+                name: "group"
+                widget: "select"
+                options:
+                  - { label: "다음세대", value: "next" }
+                  - { label: "장년 · 공동체", value: "adult" }
+              - { label: "대상 연령", name: "age", widget: "string" }
+              - { label: "모임 시간 (카드 표시용)", name: "time", widget: "string" }
+              - { label: "한 줄 소개", name: "summary", widget: "text" }
+              - { label: "페이지 상단 문구", name: "headline", widget: "text" }
+              - { label: "안내 경로", name: "breadcrumb", widget: "string" }
+              - { label: "페이지 상단 사진", name: "banner", widget: "image", required: false }
+              - { label: "부서 카드 사진", name: "cardPhoto", widget: "image", required: false }
+              - { label: "담당자 직함", name: "leaderTitle", widget: "string", hint: "담당 교역자 / 담당 등" }
+              - { label: "담당자 이름", name: "leaderName", widget: "string" }
+              - { label: "담당자 인사말", name: "leaderMessage", widget: "text" }
+              - label: "안내 항목 (예배 시간·장소·대상)"
+                name: "meta"
+                widget: "list"
+                required: false
+                summary: "{{fields.label}} · {{fields.value}}"
+                fields:
+                  - { label: "항목", name: "label", widget: "string" }
+                  - { label: "내용", name: "value", widget: "string" }
+              - label: "핵심 말씀"
+                name: "verse"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "말씀 본문", name: "text", widget: "text", required: false }
+                  - { label: "출처", name: "ref", widget: "string", required: false }
+              - label: "비전"
+                name: "visions"
+                widget: "list"
+                required: false
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "제목", name: "title", widget: "string" }
+                  - { label: "설명", name: "text", widget: "text" }
+              - label: "조직도"
+                name: "org"
+                widget: "list"
+                required: false
+                label_singular: "직책"
+                summary: "{{fields.title}} — {{fields.name}}"
+                hint: "단계 1이 맨 위입니다. 같은 단계는 한 줄에 나란히 놓입니다."
+                fields:
+                  - { label: "단계", name: "tier", widget: "number", value_type: "int", min: 1, max: 6, default: 2 }
+                  - { label: "영문 표기", name: "label", widget: "string", hint: "PASTOR, SUPPORT, ADMIN 등" }
+                  - { label: "직책", name: "title", widget: "string", hint: "부장집사, 총무, 회장 등" }
+                  - { label: "이름", name: "name", widget: "string", required: false, hint: "비워두면 직책만 표시됩니다" }
+              - label: "사진첩 분류"
+                name: "albumCats"
+                widget: "list"
+                required: false
+                summary: "{{fields.label}}"
+                fields:
+                  - { label: "분류 코드", name: "key", widget: "string", hint: "영문 소문자 (retreat, event, worship)" }
+                  - { label: "분류 이름", name: "label", widget: "string" }
+              - label: "부서 사진첩"
+                name: "albums"
+                widget: "list"
+                required: false
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "사진", name: "image", widget: "image" }
+                  - { label: "제목", name: "title", widget: "string" }
+                  - { label: "날짜", name: "date", widget: "string" }
+                  - { label: "분류 코드", name: "cat", widget: "string" }
+              - label: "부서 게시판"
+                name: "notices"
+                widget: "list"
+                required: false
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "날짜", name: "date", widget: "string" }
+                  - { label: "분류", name: "cat", widget: "string" }
+                  - { label: "제목", name: "title", widget: "string" }
+              - label: "연간 일정"
+                name: "yearPlan"
+                widget: "list"
+                required: false
+                summary: "{{fields.period}}"
+                fields:
+                  - { label: "기간", name: "period", widget: "string", hint: "1–3월 등" }
+                  - { label: "일정", name: "items", widget: "list", field: { label: "일정", name: "item", widget: "string" } }
+              - { label: "하단 배너 제목", name: "snsTitle", widget: "string", required: false }
+              - { label: "하단 배너 설명", name: "snsText", widget: "text", required: false }
+
+  # ───────────────────────── 주보 ─────────────────────────
+  - name: "bulletins"
+    label: "온라인 주보"
+    files:
+      - name: "bulletins"
+        label: "주보 (파일 끌어다 놓기)"
+        file: "content/bulletins.json"
+        fields:
+          - label: "월별 주보"
+            name: "months"
+            widget: "list"
+            label_singular: "월"
+            summary: "{{fields.year}}년 {{fields.month}}월"
+            fields:
+              - { label: "연도", name: "year", widget: "number", value_type: "int", default: 2026 }
+              - { label: "월", name: "month", widget: "number", value_type: "int", min: 1, max: 12 }
+              - label: "주보"
+                name: "items"
+                widget: "list"
+                label_singular: "주보"
+                summary: "{{fields.date}} {{fields.title}}"
+                fields:
+                  - label: "주보 이미지"
+                    name: "image"
+                    widget: "image"
+                    required: false
+                    hint: "이곳에 주보 사진이나 스캔 파일을 끌어다 놓으세요. 비워두면 글자 정보만 표시됩니다."
+                  - { label: "날짜", name: "date", widget: "string", hint: "07.26 형식" }
+                  - { label: "설교 제목", name: "title", widget: "string" }
+                  - { label: "본문", name: "verse", widget: "string" }
+                  - { label: "인도", name: "lead", widget: "string" }
+                  - { label: "대표기도", name: "prayer", widget: "string" }
+                  - label: "찬양"
+                    name: "music"
+                    widget: "list"
+                    required: false
+                    summary: "{{fields.title}}"
+                    fields:
+                      - { label: "곡명", name: "title", widget: "string" }
+                      - { label: "구분", name: "kind", widget: "string", hint: "회중 찬양 / 찬양대 특송 등" }
+
+  # ───────────────────────── 설교 ─────────────────────────
+  - name: "sermons"
+    label: "설교"
+    files:
+      - name: "sermons"
+        label: "설교 아카이브"
+        file: "content/sermons.json"
+        fields:
+          - label: "설교"
+            name: "items"
+            widget: "list"
+            label_singular: "설교"
+            summary: "{{fields.date}} {{fields.title}}"
+            fields:
+              - { label: "고유 번호", name: "id", widget: "string", hint: "s1, s2 … 겹치지 않게" }
+              - { label: "날짜", name: "date", widget: "string", hint: "2026.07.26 형식" }
+              - label: "예배 구분"
+                name: "type"
+                widget: "select"
+                options: ["주일예배", "수요예배", "새벽예배"]
+              - { label: "시리즈", name: "series", widget: "string" }
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "본문", name: "verse", widget: "string" }
+              - { label: "설교자", name: "speaker", widget: "string" }
+              - { label: "본문 말씀", name: "quote", widget: "text" }
+              - { label: "요약", name: "summary", widget: "text" }
+              - { label: "적용 질문", name: "apply", widget: "text", required: false }
+              - { label: "기도문", name: "pray", widget: "text", required: false }
+              - { label: "인도", name: "lead", widget: "string", required: false }
+              - { label: "대표기도", name: "prayer", widget: "string", required: false }
+
+  # ───────────────────────── 공지 ─────────────────────────
+  - name: "notices"
+    label: "교회 소식"
+    files:
+      - name: "notices"
+        label: "공지사항"
+        file: "content/notices.json"
+        fields:
+          - label: "공지"
+            name: "items"
+            widget: "list"
+            label_singular: "공지"
+            summary: "{{fields.date}} {{fields.title}}"
+            fields:
+              - { label: "고유 번호", name: "id", widget: "string", hint: "n1, n2 … 겹치지 않게" }
+              - { label: "날짜", name: "date", widget: "string", hint: "2026.07.20 형식" }
+              - label: "분류"
+                name: "category"
+                widget: "select"
+                options: ["예배", "행사", "모집", "안내"]
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "새 글 표시(NEW)", name: "new", widget: "boolean", default: false }
+              - { label: "내용", name: "body", widget: "text" }
+
+  # ───────────────────────── 사진첩 ─────────────────────────
+  - name: "gallery"
+    label: "사진첩"
+    files:
+      - name: "gallery"
+        label: "사진첩"
+        file: "content/gallery.json"
+        fields:
+          - label: "사진"
+            name: "items"
+            widget: "list"
+            label_singular: "사진"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "사진", name: "image", widget: "image" }
+              - label: "계절"
+                name: "key"
+                widget: "select"
+                options:
+                  - { label: "봄", value: "spring" }
+                  - { label: "여름", value: "summer" }
+                  - { label: "가을", value: "autumn" }
+                  - { label: "겨울", value: "winter" }
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "날짜", name: "date", widget: "string", hint: "2026.04 형식" }
+              - { label: "설명", name: "text", widget: "text" }
+
+  # ───────────────────────── 행사 일정 ─────────────────────────
+  - name: "calendar"
+    label: "행사 일정"
+    files:
+      - name: "calendar"
+        label: "첫 화면 달력"
+        file: "content/calendar.json"
+        fields:
+          - { label: "연도", name: "year", widget: "number", value_type: "int" }
+          - { label: "월", name: "month", widget: "number", value_type: "int", min: 1, max: 12 }
+          - { label: "1일의 요일", name: "startWeekday", widget: "number", value_type: "int", min: 0, max: 6, hint: "일요일 0, 월요일 1 … 토요일 6" }
+          - { label: "그 달의 일수", name: "days", widget: "number", value_type: "int", min: 28, max: 31 }
+          - { label: "기본 선택 날짜", name: "selected", widget: "number", value_type: "int", min: 1, max: 31 }
+          - label: "일정"
+            name: "events"
+            widget: "list"
+            label_singular: "날짜"
+            summary: "{{fields.day}}일"
+            fields:
+              - { label: "일", name: "day", widget: "number", value_type: "int", min: 1, max: 31 }
+              - label: "그날의 일정"
+                name: "items"
+                widget: "list"
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "일정 이름", name: "title", widget: "string" }
+                  - { label: "시간 · 장소", name: "sub", widget: "string" }
+                  - { label: "분류", name: "kind", widget: "string" }
+
+  # ───────────────────────── 시설 안내 ─────────────────────────
+  - name: "facility"
+    label: "시설 안내 (평면도)"
+    files:
+      - name: "facility"
+        label: "층별 안내"
+        file: "content/facility.json"
+        fields:
+          - label: "1층"
+            name: "first"
+            widget: "object"
+            fields: &floor
+              - { label: "층 표기", name: "no", widget: "string" }
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "설명", name: "description", widget: "text" }
+              - { label: "안내 순서", name: "steps", widget: "list", field: { label: "안내", name: "step", widget: "string" } }
+              - label: "공간"
+                name: "zones"
+                widget: "list"
+                summary: "{{fields.name}}"
+                fields:
+                  - { label: "공간 이름", name: "name", widget: "string" }
+                  - { label: "영문 표기", name: "label", widget: "string" }
+                  - { label: "배치 코드", name: "className", widget: "string", hint: "배치가 바뀔 수 있으니 되도록 그대로 두세요" }
+                  - { label: "설명", name: "info", widget: "text" }
+          - { label: "지하 1층", name: "basement", widget: "object", fields: *floor }
+          - { label: "2층", name: "second", widget: "object", fields: *floor }

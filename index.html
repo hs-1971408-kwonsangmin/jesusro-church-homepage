@@ -176,6 +176,14 @@
       .sns-band{display:block}.sns-btn{margin-top:16px;width:100%}
     }
     @media(max-width:420px){.vision-grid,.album-grid,.yt-cal{grid-template-columns:1fr}}
+    /* 조직도 이름 · 주보 이미지 (CMS 편집 대응) */
+    .org-node .org-name{display:block;margin-top:6px;font-style:normal;font-size:11.5px;font-weight:700;color:#8a6a3c;letter-spacing:-.02em}
+    .bulletin.has-image{padding-top:0;overflow:hidden}
+    .bulletin-thumb{display:block;width:calc(100% + 52px);margin:0 -26px 18px;aspect-ratio:4/3;background:#e9e4da center/contain no-repeat}
+    .bul-scan{margin:18px 0 4px}
+    .bul-scan img{display:block;width:100%;border:1px solid #e2ddd3;background:#fff}
+    .bul-scan .more{margin-top:10px;display:inline-block;text-decoration:none}
+    @media(max-width:760px){.bulletin-thumb{width:calc(100% + 40px);margin:0 -20px 14px}}
   </style>
 </head>
 <body class="home-active">
@@ -184,17 +192,9 @@
   <div class="prototype">C안 · <b>PREMIUM LIGHT</b> — 밝은 톤의 사진 기반 홈페이지 리뉴얼 시안 / 메뉴와 세부 페이지는 실제로 작동하는 프로토타입입니다</div>
   <header id="header">
     <nav class="wrap nav" aria-label="주 메뉴">
-      <button class="brand" onclick="go('home')" aria-label="예수로교회 홈으로"><strong>예수로교회</strong><small>JESUSRO CHURCH</small></button>
-      <ul class="menu" id="mainMenu">
-        <li><a data-nav="home" class="active" onclick="go('home')">홈</a></li>
-        <li><button data-nav="greeting" onclick="go('greeting')">교회 소개</button><div class="sub"><a onclick="go('greeting')">담임목사 인사말</a><a onclick="go('greeting')">비전과 사명</a><a onclick="go('visit')">시설 안내</a></div></li>
-        <li><button data-nav="sermon" onclick="go('sermon')">예배 · 말씀</button><div class="sub"><a onclick="go('sermon')">설교 아카이브</a><a onclick="go('bulletin')">온라인 주보</a><a onclick="go('visit')">예배 안내</a></div></li>
-        <li><button data-nav="dept" onclick="go('dept')">다음세대 · 공동체</button><div class="sub"><a onclick="go('dept')">부서 안내</a><a onclick="go('youth')">청소년부</a><a onclick="go('dept')">목장 · 소그룹</a><a onclick="go('dept')">선교 · 섬김</a></div></li>
-        <li><button data-nav="board" onclick="go('board')">교회 소식</button><div class="sub"><a onclick="go('board')">공지사항</a><a onclick="go('gallery')">사진첩</a><a onclick="go('board')">목회 칼럼</a></div></li>
-        <li><button data-nav="family" onclick="go('family')">새가족</button><div class="sub"><a onclick="go('family')">새가족 안내 · 등록</a><a onclick="go('family')">새가족 교육</a></div></li>
-        <li><a data-nav="visit" onclick="go('visit')">오시는 길</a></li>
-      </ul>
-      <button class="offer" onclick="toast('온라인 헌금 안내는 정식 홈페이지 연결 시 제공됩니다.')">ONLINE OFFERING</button>
+      <button class="brand" data-go="home" aria-label="예수로교회 홈으로"><strong>예수로교회</strong><small>JESUSRO CHURCH</small></button>
+      <ul class="menu" id="mainMenu"></ul>
+      <button class="offer" data-toast="온라인 헌금 안내는 정식 홈페이지 연결 시 제공됩니다.">ONLINE OFFERING</button>
       <button class="nav-toggle" id="navToggle" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button>
     </nav>
   </header>
@@ -210,11 +210,11 @@
           <div class="eyebrow" id="seasonName">SUMMER · 푸른 들 위의 십자가</div>
           <h1>함께 예배하고,<br><span class="gold">함께 살아가는</span> 교회</h1>
           <p>예수님 안에서 한 사람의 오늘을 품고, 다음 세대의 내일을 준비합니다.</p>
-          <div class="actions"><button class="button primary" onclick="go('sermon')">이번 주 말씀 보기</button><button class="button ghost" onclick="go('visit')">처음 오시는 길</button></div>
+          <div class="actions"><button class="button primary" data-go="sermon">이번 주 말씀 보기</button><button class="button ghost" data-go="visit">처음 오시는 길</button></div>
         </div>
         <aside class="weekly" aria-label="예배 시간">
           <h2>THIS WEEK</h2><div class="weekly-row"><span>주일 1부</span><b>08:00</b></div><div class="weekly-row"><span>주일 2부</span><b>11:00</b></div><div class="weekly-row"><span>수요 저녁예배</span><b>20:00</b></div><div class="weekly-row"><span>토요 새벽예배</span><b>06:30</b></div>
-          <button class="weekly-live" onclick="toast('라이브 예배는 정식 YouTube 채널 연결 후 이용할 수 있습니다.')"><span class="live-dot"></span>LIVE 온라인 예배</button>
+          <button class="weekly-live" data-toast="라이브 예배는 정식 YouTube 채널 연결 후 이용할 수 있습니다."><span class="live-dot"></span>LIVE 온라인 예배</button>
         </aside>
         <div class="season" aria-label="계절 사진 선택"><button class="active" data-season-button="summer"><span>SUMMER</span></button><button data-season-button="spring"><span>SPRING</span></button><button data-season-button="autumn"><span>AUTUMN</span></button><button data-season-button="winter"><span>WINTER</span></button></div>
         <div class="scroll-cue">SCROLL</div>
@@ -228,17 +228,17 @@
           <p style="margin-top:18px">사랑과 기쁨이 넘치는 교회, 예수로교회에 오신 여러분을 주님의 이름으로 환영합니다.</p>
           <p>예수로교회는 대한예수교장로회(합동)에 소속된 교회로, 새천년이 시작되는 2000년 1월 1일 건강한 교회의 열망을 가진 믿음의 성도들이 “작은 목장, 큰 공동체”의 비전을 가지고 “바로 그 교회”로 시작하였습니다.</p>
           <div class="greet-sign"><div><small>담임목사</small><b>김석진</b></div></div>
-          <button class="more" style="margin-top:22px" onclick="go('greeting')">교회 소개 자세히 보기</button>
+          <button class="more" style="margin-top:22px" data-go="greeting">교회 소개 자세히 보기</button>
         </div>
       </div></section>
-      <section class="dark"><div class="wrap"><div class="section-top reveal"><div><div class="kick">WORSHIP</div><h2 class="title">함께 드리는 예배</h2><p class="desc">처음 오시는 분은 주일 2부 예배를 추천드립니다. 예배 후 새가족실에서 따뜻한 차를 준비해 두었습니다.</p></div><button class="more" onclick="go('visit')">예배 안내와 오시는 길</button></div><div class="worship-grid reveal"><article class="worship-card"><small>SUNDAY</small><time>08:00</time><b>주일 1부 예배</b><span>본당</span></article><article class="worship-card"><small>SUNDAY</small><time>11:00</time><b>주일 2부 예배</b><span>본당 · 주일학교 동시 진행</span></article><article class="worship-card"><small>WEDNESDAY</small><time>20:00</time><b>수요 저녁예배</b><span>본당</span></article><article class="worship-card"><small>SATURDAY</small><time>06:30</time><b>토요 새벽예배</b><span>본당</span></article></div></div></section>
-      <section class="void"><div class="wrap"><div class="section-top reveal"><div><div class="kick">THIS SUNDAY</div><h2 class="title">예수님으로 살리</h2><p class="desc">설교 영상과 함께 그 주의 찬양, 설교 노트, 온라인 주보를 한 자리에서 확인할 수 있습니다.</p></div><button class="more" onclick="go('sermon')">설교 아카이브 전체보기</button></div><div class="feature reveal"><button class="player" style="background-image:url('assets/church-summer.jpg')" onclick="openSermon('s1')" aria-label="예수님으로 살리 설교 상세 보기"><span class="play"></span><span class="player-caption"><h3>예수님으로 살리</h3><p>고린도후서 4:7–10 · 담임목사 · 2026.07.26</p></span></button><div><p class="verse">“우리가 이 보배를 질그릇에 가졌으니 이는 심히 큰 능력은 하나님께 있고 우리에게 있지 아니함을 알게 하려 함이라”</p><p class="detail-copy">고린도후서 4장 7절 · Living by Jesus</p><div class="tabs" role="tablist"><button class="active" data-home-tab="music">관련 찬양</button><button data-home-tab="note">설교 노트</button><button data-home-tab="homeBulTab">이번 주 주보</button></div><div class="tab-panel active" id="music"><div class="info-row"><span>주의 은혜라</span><span>찬양대 특송</span></div><div class="info-row"><span>나의 반석이신 하나님</span><span>회중 찬양</span></div><div class="info-row"><span>보배로운 주</span><span>청년 워십</span></div></div><div class="tab-panel" id="note"><p class="detail-copy">질그릇에 보배를 담으신 이유는 심히 큰 능력이 하나님께 있고 우리에게 있지 않음을 알게 하려 하심입니다. 이번 한 주, 내 힘이 아닌 예수님으로 반응할 한 가지를 정해 보세요.</p></div><div class="tab-panel" id="homeBulTab"><div class="info-row"><span>인도</span><span>임병영 목사</span></div><div class="info-row"><span>기도</span><span>이흥기 장로</span></div><div class="info-row"><span>본문</span><span>고린도후서 4:7–10</span></div><button class="more" style="margin-top:17px" onclick="go('bulletin')">온라인 주보 전체 보기</button></div></div></div></div></section>
+      <section class="dark"><div class="wrap"><div class="section-top reveal"><div><div class="kick">WORSHIP</div><h2 class="title">함께 드리는 예배</h2><p class="desc">처음 오시는 분은 주일 2부 예배를 추천드립니다. 예배 후 새가족실에서 따뜻한 차를 준비해 두었습니다.</p></div><button class="more" data-go="visit">예배 안내와 오시는 길</button></div><div class="worship-grid reveal"><article class="worship-card"><small>SUNDAY</small><time>08:00</time><b>주일 1부 예배</b><span>본당</span></article><article class="worship-card"><small>SUNDAY</small><time>11:00</time><b>주일 2부 예배</b><span>본당 · 주일학교 동시 진행</span></article><article class="worship-card"><small>WEDNESDAY</small><time>20:00</time><b>수요 저녁예배</b><span>본당</span></article><article class="worship-card"><small>SATURDAY</small><time>06:30</time><b>토요 새벽예배</b><span>본당</span></article></div></div></section>
+      <section class="void"><div class="wrap"><div class="section-top reveal"><div><div class="kick">THIS SUNDAY</div><h2 class="title">예수님으로 살리</h2><p class="desc">설교 영상과 함께 그 주의 찬양, 설교 노트, 온라인 주보를 한 자리에서 확인할 수 있습니다.</p></div><button class="more" data-go="sermon">설교 아카이브 전체보기</button></div><div class="feature reveal"><button class="player" style="background-image:url('assets/church-summer.jpg')" onclick="openSermon('s1')" aria-label="예수님으로 살리 설교 상세 보기"><span class="play"></span><span class="player-caption"><h3>예수님으로 살리</h3><p>고린도후서 4:7–10 · 담임목사 · 2026.07.26</p></span></button><div><p class="verse">“우리가 이 보배를 질그릇에 가졌으니 이는 심히 큰 능력은 하나님께 있고 우리에게 있지 아니함을 알게 하려 함이라”</p><p class="detail-copy">고린도후서 4장 7절 · Living by Jesus</p><div class="tabs" role="tablist"><button class="active" data-home-tab="music">관련 찬양</button><button data-home-tab="note">설교 노트</button><button data-home-tab="homeBulTab">이번 주 주보</button></div><div class="tab-panel active" id="music"><div class="info-row"><span>주의 은혜라</span><span>찬양대 특송</span></div><div class="info-row"><span>나의 반석이신 하나님</span><span>회중 찬양</span></div><div class="info-row"><span>보배로운 주</span><span>청년 워십</span></div></div><div class="tab-panel" id="note"><p class="detail-copy">질그릇에 보배를 담으신 이유는 심히 큰 능력이 하나님께 있고 우리에게 있지 않음을 알게 하려 하심입니다. 이번 한 주, 내 힘이 아닌 예수님으로 반응할 한 가지를 정해 보세요.</p></div><div class="tab-panel" id="homeBulTab"><div class="info-row"><span>인도</span><span>임병영 목사</span></div><div class="info-row"><span>기도</span><span>이흥기 장로</span></div><div class="info-row"><span>본문</span><span>고린도후서 4:7–10</span></div><button class="more" style="margin-top:17px" data-go="bulletin">온라인 주보 전체 보기</button></div></div></div></div></section>
       <section class="stat-band"><div class="wrap stats reveal"><div><div class="number" data-count="4">0</div><small>SEASONS</small><span>사계절을 함께 걷는 한 해</span></div><div><div class="number" data-count="6">0</div><small>DEPARTMENTS</small><span>영아부터 장년까지 전 세대</span></div><div><div class="number" data-count="12">0</div><small>SMALL GROUPS</small><span>매주 모이는 목장 공동체</span></div><div><div class="number" data-count="52">0</div><small>SUNDAYS</small><span>한 주도 쉬지 않는 예배</span></div></div></section>
-      <section class="void"><div class="wrap"><div class="section-top reveal"><div><div class="kick">MINISTRY</div><h2 class="title">함께 자라가는 공동체</h2><p class="desc">각자의 자리에서, 각 세대의 언어로 하나님을 예배합니다.</p></div><button class="more" onclick="go('dept')">부서 전체 안내</button></div><div class="ministry-grid reveal"><button class="ministry" onclick="go('dept')"><span class="ministry-image" style="background-image:url('assets/church-spring.jpg')"></span><span class="ministry-text"><small>SMALL GROUP</small><h3>목장 · 소그룹</h3><p>가까이 사는 성도들이 매주 모여 말씀과 삶을 나눕니다.</p><em>우리 동네 목장 찾기 →</em></span></button><button class="ministry" onclick="go('dept')"><span class="ministry-image" style="background-image:url('assets/church-autumn.jpg')"></span><span class="ministry-text"><small>NEXT GENERATION</small><h3>다음세대</h3><p>영아부부터 청년부까지, 각 세대가 자기 언어로 예배합니다.</p><em>부서별 안내 보기 →</em></span></button><button class="ministry" onclick="go('dept')"><span class="ministry-image" style="background-image:url('assets/church-winter.jpg')"></span><span class="ministry-text"><small>MISSION</small><h3>선교 · 섬김</h3><p>지역의 이웃을 섬기고 국내외 선교와 함께 걷습니다.</p><em>섬김에 참여하기 →</em></span></button></div></div></section>
-      <section class="dark"><div class="wrap two-grid"><div class="reveal"><div class="kick">NOTICE</div><h2 class="title" style="margin-bottom:24px">교회 소식</h2><div id="homeNotices"></div><button class="more" style="margin-top:23px" onclick="go('board')">공지 전체보기</button></div><div class="reveal"><div class="calendar"><div class="calendar-head"><b>2026년 7월</b><span>CHURCH CALENDAR</span></div><div class="calendar-days"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div><div class="calendar-grid" id="calendarGrid"></div><div class="events" id="events"></div></div></div></div></section>
+      <section class="void"><div class="wrap"><div class="section-top reveal"><div><div class="kick">MINISTRY</div><h2 class="title">함께 자라가는 공동체</h2><p class="desc">각자의 자리에서, 각 세대의 언어로 하나님을 예배합니다.</p></div><button class="more" data-go="dept">부서 전체 안내</button></div><div class="ministry-grid reveal"><button class="ministry" data-go="dept"><span class="ministry-image" style="background-image:url('assets/church-spring.jpg')"></span><span class="ministry-text"><small>SMALL GROUP</small><h3>목장 · 소그룹</h3><p>가까이 사는 성도들이 매주 모여 말씀과 삶을 나눕니다.</p><em>우리 동네 목장 찾기 →</em></span></button><button class="ministry" data-go="dept"><span class="ministry-image" style="background-image:url('assets/church-autumn.jpg')"></span><span class="ministry-text"><small>NEXT GENERATION</small><h3>다음세대</h3><p>영아부부터 청년부까지, 각 세대가 자기 언어로 예배합니다.</p><em>부서별 안내 보기 →</em></span></button><button class="ministry" data-go="dept"><span class="ministry-image" style="background-image:url('assets/church-winter.jpg')"></span><span class="ministry-text"><small>MISSION</small><h3>선교 · 섬김</h3><p>지역의 이웃을 섬기고 국내외 선교와 함께 걷습니다.</p><em>섬김에 참여하기 →</em></span></button></div></div></section>
+      <section class="dark"><div class="wrap two-grid"><div class="reveal"><div class="kick">NOTICE</div><h2 class="title" style="margin-bottom:24px">교회 소식</h2><div id="homeNotices"></div><button class="more" style="margin-top:23px" data-go="board">공지 전체보기</button></div><div class="reveal"><div class="calendar"><div class="calendar-head"><b>2026년 7월</b><span>CHURCH CALENDAR</span></div><div class="calendar-days"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div><div class="calendar-grid" id="calendarGrid"></div><div class="events" id="events"></div></div></div></div></section>
       <section class="light"><div class="wrap story"><div class="reveal"><div class="kick">OUR STORY</div><h2 class="title">함께 걸어온 길</h2><p class="desc">한 해 한 해, 성도들과 함께 쌓아온 시간입니다.</p></div><div class="timeline reveal"><div class="timeline-item"><div class="timeline-season">봄</div><b>전교인 사진 촬영 · 부활절 연합예배</b><p>벚꽃이 피는 교회 마당에서 온 교우가 모여 한 해를 시작합니다.</p></div><div class="timeline-item"><div class="timeline-season">여름</div><b>여름성경학교 · 청년부 수련회</b><p>다음세대가 말씀 안에서 뜨겁게 자라나는 계절입니다.</p></div><div class="timeline-item"><div class="timeline-season">가을</div><b>추수감사절 · 전도 축제</b><p>한 해의 열매를 감사하며 이웃을 초청합니다.</p></div><div class="timeline-item"><div class="timeline-season">겨울</div><b>성탄 예배 · 송구영신 예배</b><p>눈 덮인 예배당에서 한 해를 돌아보고 새해를 준비합니다.</p></div></div></div></section>
-      <section class="dark"><div class="wrap"><div class="section-top reveal"><div><div class="kick">GALLERY</div><h2 class="title">사계절의 기록</h2></div><button class="more" onclick="go('gallery')">사진첩 전체보기</button></div><div class="gallery-preview reveal"><button style="background-image:url('assets/church-spring.jpg')" onclick="openGallery('spring')"></button><button style="background-image:url('assets/church-summer.jpg')" onclick="openGallery('summer')"></button><button style="background-image:url('assets/church-autumn.jpg')" onclick="openGallery('autumn')"></button><button style="background-image:url('assets/church-winter.jpg')" onclick="openGallery('winter')"></button></div></div></section>
-      <section class="cta" style="background-image:url('assets/church-spring.jpg')"><div class="wrap reveal"><h2>이 사진 안에<br>당신의 자리도 남겨 두었습니다</h2><p>처음 오신 날, 편하게 예배드리고 싶으실 때<br>저희가 조용히 곁을 지키겠습니다.</p><button class="button primary" onclick="go('family')">새가족으로 등록하기</button></div></section>
+      <section class="dark"><div class="wrap"><div class="section-top reveal"><div><div class="kick">GALLERY</div><h2 class="title">사계절의 기록</h2></div><button class="more" data-go="gallery">사진첩 전체보기</button></div><div class="gallery-preview reveal"><button style="background-image:url('assets/church-spring.jpg')" onclick="openGallery('spring')"></button><button style="background-image:url('assets/church-summer.jpg')" onclick="openGallery('summer')"></button><button style="background-image:url('assets/church-autumn.jpg')" onclick="openGallery('autumn')"></button><button style="background-image:url('assets/church-winter.jpg')" onclick="openGallery('winter')"></button></div></div></section>
+      <section class="cta" style="background-image:url('assets/church-spring.jpg')"><div class="wrap reveal"><h2>이 사진 안에<br>당신의 자리도 남겨 두었습니다</h2><p>처음 오신 날, 편하게 예배드리고 싶으실 때<br>저희가 조용히 곁을 지키겠습니다.</p><button class="button primary" data-go="family">새가족으로 등록하기</button></div></section>
     </div>
     <section class="page" id="greeting"><div class="page-head" style="background-image:url('assets/pastor-welcome.jpg')"><div class="wrap"><div class="bread">HOME · 교회 소개</div><h1>담임목사 인사말</h1><p>예수로교회에 오신 여러분을 주님의 이름으로 환영합니다.</p></div></div>
       <div class="content"><div class="wrap">
@@ -266,100 +266,29 @@
           <article class="quick-card"><span>LOCATION</span><h3>파주 교하</h3><p>통일 한국의 중심이 될 교하에서 전원교회의 비전을 이어갑니다.</p></article>
         </div>
       </div></div></section>
-    <section class="page" id="youth"><div class="page-head" style="background-image:url('assets/youth-retreat.jpg')"><div class="wrap"><div class="bread">HOME · 다음세대 · 공동체</div><h1>청소년부</h1><p>말씀 위에 서서, 세상 속에서 믿음으로 살아가는 청소년 공동체입니다.</p></div></div>
-      <div class="content"><div class="wrap">
-
-        <div class="kick">DEPARTMENT</div>
-        <h2 class="title">부서 소개</h2>
-        <div class="yt-hero" style="margin-top:26px">
-          <div class="yt-photo" style="background-image:url('assets/youth-retreat.jpg')"></div>
-          <div>
-            <div class="kick">담당 교역자</div>
-            <h3 style="font-family:var(--serif);font-size:26px;letter-spacing:-.06em;margin:10px 0 10px">최다은 전도사</h3>
-            <p style="color:#5f6a75;font-size:13.5px;margin:0 0 16px">한 사람의 오늘을 소중히 여기며, 청소년들이 스스로 말씀 앞에 서도록 함께 걷겠습니다. 언제든 편하게 이야기 나눠요.</p>
-            <dl style="margin:0;border-top:1px solid #e5e0d8;padding-top:14px">
-              <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #efe9de;font-size:12.5px"><dt style="color:#7c8490">예배 시간</dt><dd style="margin:0;font-weight:700">주일 오전 11:00</dd></div>
-              <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #efe9de;font-size:12.5px"><dt style="color:#7c8490">예배 장소</dt><dd style="margin:0;font-weight:700">교육관 3층 비전홀</dd></div>
-              <div style="display:flex;justify-content:space-between;padding:9px 0;font-size:12.5px"><dt style="color:#7c8490">대상</dt><dd style="margin:0;font-weight:700">중학교 1학년 ~ 고등학교 3학년</dd></div>
-            </dl>
-          </div>
-        </div>
-
-        <div class="yt-verse">
-          <small>CORE VERSE</small>
-          <p>“누구든지 네 연소함을 업신여기지 못하게 하고<br>오직 말과 행실과 사랑과 믿음과 정절에 있어서<br>믿는 자에게 본이 되어”</p>
-          <span>디모데전서 4:12 · 청소년부 핵심 말씀</span>
-        </div>
-        <div class="vision-grid" style="margin-top:0">
-          <article class="vision-card"><small>VISION 01</small><b>말씀으로 서는 세대</b><p>매주 말씀을 스스로 읽고 묵상하며, 삶의 기준을 세워갑니다.</p></article>
-          <article class="vision-card"><small>VISION 02</small><b>함께 자라는 공동체</b><p>또래와 교사가 함께 기도하고 나누며 신앙의 친구가 됩니다.</p></article>
-          <article class="vision-card"><small>VISION 03</small><b>세상 속의 본</b><p>학교와 일상에서 믿음의 본이 되는 청소년으로 살아갑니다.</p></article>
-        </div>
-
-        <div style="margin-top:70px"><div class="kick">ORGANIZATION</div><h2 class="title">부서 구성</h2></div>
-        <div class="org">
-          <div class="org-row"><div class="org-node top"><small>PASTOR</small><b>담당 교역자</b></div></div>
-          <div class="org-line"></div>
-          <div class="org-row">
-            <div class="org-node"><small>SUPPORT</small><b>부장집사</b></div>
-            <div class="org-node"><small>ADMIN</small><b>총무</b></div>
-            <div class="org-node"><small>TEACHER</small><b>교사</b></div>
-          </div>
-          <div class="org-line"></div>
-          <div class="org-row"><div class="org-node mid"><small>WORSHIP TEAM</small><b>예배 사역팀</b></div></div>
-          <div class="org-line"></div>
-          <div class="org-row">
-            <div class="org-node"><small>PRAISE</small><b>찬양팀</b></div>
-            <div class="org-node"><small>WORSHIP</small><b>워십팀</b></div>
-            <div class="org-node"><small>MEDIA</small><b>미디어팀</b></div>
-            <div class="org-node"><small>SERVICE</small><b>예배섬김팀</b></div>
-          </div>
-        </div>
-
-        <div style="margin-top:70px"><div class="kick">OUR STORY</div><h2 class="title">우리들의 이야기</h2>
-        <p class="desc" style="color:#66727c">수련회와 행사, 예배의 순간을 사진으로 기록하고 나눕니다.</p></div>
-        <div class="album-tabs" id="albumTabs">
-          <button class="active" data-album="all">전체</button>
-          <button data-album="retreat">수련회</button>
-          <button data-album="event">행사</button>
-          <button data-album="worship">예배</button>
-        </div>
-        <div class="album-grid" id="albumGrid"></div>
-
-        <div style="margin-top:70px"><div class="kick">NOTICE</div><h2 class="title">청소년부 게시판</h2></div>
-        <div class="list" id="youthBoard" style="margin-top:22px"></div>
-
-        <div style="margin-top:70px"><div class="kick">CALENDAR</div><h2 class="title">연간 일정</h2>
-        <p class="desc" style="color:#66727c">청소년부의 한 해 주요 일정입니다.</p></div>
-        <div class="yt-cal" id="youthCal"></div>
-
-        <div class="sns-band">
-          <div><b>청소년부 인스타그램</b><p>예배와 일상의 소식을 가장 빠르게 만나보세요. (개설 예정)</p></div>
-          <button class="sns-btn" onclick="toast('청소년부 공식 인스타그램 개설 후 연결됩니다.')">@ INSTAGRAM 바로가기</button>
-        </div>
-      </div></div></section>
+    <!-- 부서 상세 페이지는 content/departments.json 을 읽어 동적으로 생성됩니다 -->
     <section class="page" id="sermon"><div class="page-head" style="background-image:url('assets/church-summer.jpg')"><div class="wrap"><div class="bread">HOME · 예배 · 말씀</div><h1>설교 아카이브</h1><p>말씀을 다시 듣고, 한 주의 삶으로 이어가 보세요.</p></div></div><div class="content"><div class="wrap"><div class="kick">SERMON ARCHIVE</div><h2 class="title">최근 말씀</h2><div class="toolbar"><select class="filter" id="sermonType"><option value="">모든 예배</option><option>주일예배</option><option>수요예배</option><option>새벽예배</option></select><select class="filter" id="sermonSeries"><option value="">모든 시리즈</option><option>예수님으로</option><option>삶의 자리</option><option>복음의 길</option></select><input class="control search" id="sermonSearch" placeholder="제목, 본문, 설교자 검색"><button class="search-button" id="sermonSearchBtn">검색</button></div><div class="result-bar"><em>총 <b id="sermonCount">0</b>편의 설교</em><div class="sort-group"><button class="active" data-sort="new">최신순</button><button data-sort="old">오래된순</button><button class="reset" onclick="resetSermonFilters()">필터 초기화</button></div></div>
-<div class="list" id="sermonList"></div><div class="pagination"><button class="active">1</button><button onclick="toast('시연용 데이터의 마지막 페이지입니다.')">2</button></div></div></div></section>
+<div class="list" id="sermonList"></div><div class="pagination"><button class="active">1</button><button data-toast="시연용 데이터의 마지막 페이지입니다.">2</button></div></div></div></section>
     <section class="page" id="bulletin"><div class="page-head" style="background-image:url('assets/church-autumn.jpg')"><div class="wrap"><div class="bread">HOME · 예배 · 말씀</div><h1>온라인 주보</h1><p>예배 순서와 공동체의 한 주 소식을 미리 확인하세요.</p></div></div><div class="content"><div class="wrap"><div class="kick">WEEKLY BULLETIN</div><h2 class="title">이번 달 주보</h2><div class="toolbar"><select class="filter" id="bulletinMonth"><option value="7">2026년 7월</option><option value="6">2026년 6월</option><option value="5">2026년 5월</option></select><button class="search-button" onclick="renderBulletins()">조회</button></div><div class="bulletin-grid" id="bulletinGrid"></div></div></div></section>
-    <section class="page" id="board"><div class="page-head" style="background-image:url('assets/church-spring.jpg')"><div class="wrap"><div class="bread">HOME · 교회 소식</div><h1>교회 소식</h1><p>함께 알아야 할 소식과 참여할 수 있는 일정을 전합니다.</p></div></div><div class="content notice-board"><div class="wrap"><div class="kick">NEWS & NOTICE</div><h2 class="title">공지사항</h2><div class="toolbar"><select class="filter" id="noticeCategory"><option value="">전체</option><option>예배</option><option>행사</option><option>모집</option><option>안내</option></select><input class="control search" id="noticeSearch" placeholder="제목으로 검색"><button class="search-button" id="noticeSearchBtn">검색</button></div><div class="list" id="noticeList"></div><div class="pagination"><button class="active">1</button><button onclick="toast('시연용 데이터의 마지막 페이지입니다.')">2</button></div></div></div></section>
+    <section class="page" id="board"><div class="page-head" style="background-image:url('assets/church-spring.jpg')"><div class="wrap"><div class="bread">HOME · 교회 소식</div><h1>교회 소식</h1><p>함께 알아야 할 소식과 참여할 수 있는 일정을 전합니다.</p></div></div><div class="content notice-board"><div class="wrap"><div class="kick">NEWS & NOTICE</div><h2 class="title">공지사항</h2><div class="toolbar"><select class="filter" id="noticeCategory"><option value="">전체</option><option>예배</option><option>행사</option><option>모집</option><option>안내</option></select><input class="control search" id="noticeSearch" placeholder="제목으로 검색"><button class="search-button" id="noticeSearchBtn">검색</button></div><div class="list" id="noticeList"></div><div class="pagination"><button class="active">1</button><button data-toast="시연용 데이터의 마지막 페이지입니다.">2</button></div></div></div></section>
     <section class="page" id="dept"><div class="page-head" style="background-image:url('assets/church-winter.jpg')"><div class="wrap"><div class="bread">HOME · 다음세대 · 공동체</div><h1>함께 자라는 공동체</h1><p>각 세대의 언어로, 각자의 자리에서 예수님을 알아 갑니다.</p></div></div><div class="content"><div class="wrap"><div class="kick">DEPARTMENTS</div><h2 class="title">부서 안내</h2><div class="dept-tabs" id="deptTabs"><button class="active" data-dept="all">전체</button><button data-dept="next">다음세대</button><button data-dept="adult">장년 · 공동체</button></div><div class="dept-grid" id="deptGrid"></div>
-<div class="sns-band" style="margin-top:40px"><div><b>청소년부 전용 페이지</b><p>부서 소개·조직도·앨범·게시판·연간 일정을 한 곳에서 확인하세요.</p></div><button class="sns-btn" onclick="go('youth')">청소년부 페이지 열기 →</button></div></div></div></section>
+<div class="sns-band" style="margin-top:40px"><div><b>청소년부 전용 페이지</b><p>부서 소개·조직도·앨범·게시판·연간 일정을 한 곳에서 확인하세요.</p></div><button class="sns-btn" data-go="youth">청소년부 페이지 열기 →</button></div></div></div></section>
     <section class="page" id="gallery"><div class="page-head" style="background-image:url('assets/church-autumn.jpg')"><div class="wrap"><div class="bread">HOME · 교회 소식</div><h1>사진첩</h1><p>예배와 일상의 순간들, 함께 지나온 계절을 기록합니다.</p></div></div><div class="content"><div class="wrap"><div class="kick">GALLERY</div><h2 class="title">사계절의 기록</h2><div class="dept-tabs" id="galleryTabs"><button class="active" data-gallery-filter="all">전체</button><button data-gallery-filter="spring">봄</button><button data-gallery-filter="summer">여름</button><button data-gallery-filter="autumn">가을</button><button data-gallery-filter="winter">겨울</button></div><div class="full-gallery" id="fullGallery"></div></div></div></section>
     <section class="page" id="family"><div class="page-head" style="background-image:url('assets/church-spring.jpg')"><div class="wrap"><div class="bread">HOME · 새가족</div><h1>처음 오신 당신을 환영합니다</h1><p>준비하실 것은 없습니다. 편한 마음으로 예배에 오세요.</p></div></div><div class="content"><div class="wrap family-layout"><div class="family-lead"><div class="kick">NEW FAMILY</div><h2>낯설지 않도록,<br>따뜻하게 곁에 있겠습니다</h2><p>예배 후 새가족실에서 따뜻한 차를 준비해 두었습니다. 원하실 때 인사 나누시면 되고, 조용히 예배만 드리고 가셔도 괜찮습니다.</p><div class="steps"><div class="step"><strong>1</strong><div><b>주일 예배에 오세요</b><p>처음 오시는 분께는 주일 2부(오전 11시)를 추천드립니다.</p></div></div><div class="step"><strong>2</strong><div><b>새가족실에서 차 한 잔</b><p>예배 후 원하시면 안내해 드립니다. 강요하지 않습니다.</p></div></div><div class="step"><strong>3</strong><div><b>4주 새가족 교육</b><p>교회와 신앙의 기초를 편안하게 나눕니다.</p></div></div></div></div><form class="form" id="familyForm"><h3>온라인 방문 등록</h3><div class="field"><label for="familyName">이름 *</label><input id="familyName" required placeholder="이름을 입력해 주세요"></div><div class="field"><label for="familyPhone">연락처 *</label><input id="familyPhone" required inputmode="tel" placeholder="010-0000-0000"></div><div class="field"><label for="familyVisit">방문 예정 예배</label><select id="familyVisit"><option>주일 2부 예배 · 11:00</option><option>주일 1부 예배 · 08:00</option><option>수요 저녁예배 · 20:00</option><option>아직 정하지 않았어요</option></select></div><div class="field"><label for="familyMessage">남기고 싶은 말씀</label><textarea id="familyMessage" placeholder="기도 제목이나 궁금한 점을 자유롭게 적어 주세요."></textarea></div><label class="agree"><input type="checkbox" id="familyAgree" required> <span>개인정보 수집 및 이용에 동의합니다. 입력 내용은 새가족 안내 목적 외에는 사용하지 않습니다.</span></label><button class="submit">방문 등록 신청하기</button></form></div></div></section>
-    <section class="page" id="visit"><div class="page-head" style="background-image:url('assets/church-summer.jpg')"><div class="wrap"><div class="bread">HOME · VISIT US</div><h1>예수로교회로 오시는 길</h1><p>처음 오시는 날도, 방문 전부터 편안하도록 안내해 드립니다.</p></div></div><div class="content"><div class="wrap"><div class="visit-layout"><div class="route-map" aria-label="예수로교회 위치 안내 지도"><span class="map-road-label one">교하로</span><span class="map-road-label two">파주 방면</span><div class="map-marker"><span class="map-pin" aria-hidden="true"></span><b>예수로교회</b><small>경기도 파주시 교하로 677-79</small></div></div><aside class="visit-info"><h2>방문 안내</h2><dl><div><dt>ADDRESS</dt><dd>경기도 파주시 교하로 677-79</dd></div><div><dt>TEL</dt><dd>031-946-6161<small>예배·새가족·주차 문의</small></dd></div><div><dt>PARKING</dt><dd>교회 지하 주차장 이용 가능<small>주일 혼잡 시 안내팀이 주차를 도와드립니다.</small></dd></div><div><dt>BUS</dt><dd>교하 방면 정류장 하차 · 도보 5분<small>정확한 노선은 지도 앱에서 출발지를 설정해 확인해 주세요.</small></dd></div></dl><div class="map-actions"><a class="map-link primary" href="https://map.naver.com/p/search/%EA%B2%BD%EA%B8%B0%EB%8F%84%20%ED%8C%8C%EC%A3%BC%EC%8B%9C%20%EA%B5%90%ED%95%98%EB%A1%9C%20677-79" target="_blank" rel="noopener">NAVER MAP</a><a class="map-link" href="https://map.kakao.com/link/search/%EA%B2%BD%EA%B8%B0%EB%8F%84%20%ED%8C%8C%EC%A3%BC%EC%8B%9C%20%EA%B5%90%ED%95%98%EB%A1%9C%20677-79" target="_blank" rel="noopener">KAKAO MAP</a><a class="map-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=%EA%B2%BD%EA%B8%B0%EB%8F%84%20%ED%8C%8C%EC%A3%BC%EC%8B%9C%20%EA%B5%90%ED%95%98%EB%A1%9C%20677-79" target="_blank" rel="noopener">GOOGLE 길찾기</a><button class="map-copy" type="button" onclick="copyAddress()">주소 복사</button><a class="map-link" href="tel:+82319466161">전화 연결</a><button class="map-copy" type="button" onclick="go('family')">첫 방문 등록</button></div><p class="map-note">모바일에서는 설치된 지도 앱으로 연결될 수 있으며, 기기 설정에 따라 웹 지도로 열릴 수 있습니다.</p></aside></div><div class="visit-quick"><article class="quick-card"><span>FIRST VISIT</span><h3>처음 방문하세요?</h3><p>방문 전 등록을 남겨주시면 예배 시간과 새가족실 위치를 미리 안내해 드립니다.</p></article><article class="quick-card"><span>ARRIVAL</span><h3>도착 후 동선</h3><p>주차 후 주출입구로 오시면 안내데스크에서 예배 공간과 자녀 부서를 안내합니다.</p></article><article class="quick-card"><span>ACCESSIBILITY</span><h3>도움이 필요하세요?</h3><p>유모차·휠체어·보행 도움이 필요하시면 방문 전 전화로 알려주세요. 안내팀이 함께하겠습니다.</p></article></div><section class="facility-guide" id="facilityGuide"><div class="facility-head"><div><div class="kick">FACILITY GUIDE</div><h2 class="title">교회 시설 안내</h2><p class="desc">처음 오신 분이 바로 찾을 수 있도록 층별 주요 공간을 안내합니다.</p></div><button class="more" type="button" onclick="toast('각 공간을 누르면 간단한 안내를 볼 수 있습니다.')">평면도 이용 방법</button></div><div class="floor-tabs" id="floorTabs"><button class="active" data-floor="first">1층 · 예배와 환영</button><button data-floor="basement">B1 · 주차와 진입</button><button data-floor="second">2층 · 교육과 모임</button></div><div class="floor-layout"><div class="floor-plan" id="floorPlan" aria-label="1층 안내용 평면도"><button class="plan-zone family" data-zone="새가족실"><small>WELCOME</small><b>새가족실</b></button><button class="plan-zone cafe" data-zone="로비 카페"><small>FELLOWSHIP</small><b>로비 카페</b></button><button class="plan-zone office" data-zone="안내데스크"><small>GUIDE</small><b>안내데스크</b></button><button class="plan-zone entry" data-zone="주출입구"><small>ENTRANCE</small><b>주출입구</b></button><button class="plan-zone lobby" data-zone="로비"><small>LOBBY</small><b>로비</b></button><button class="plan-zone sanctuary" data-zone="본당"><small>WORSHIP</small><b>본당</b></button></div><aside class="floor-detail"><span class="floor-no" id="floorNo">FIRST FLOOR · 1F</span><h3 id="floorTitle">예배와 환영의 공간</h3><p id="floorDescription">주출입구에서 안내데스크를 지나 본당과 새가족실로 자연스럽게 이동할 수 있는 방문 동선입니다.</p><ul class="floor-list" id="floorList"><li><i>1</i><span>주출입구에서 안내데스크를 먼저 찾아 주세요.</span></li><li><i>2</i><span>처음 오신 분은 새가족실에서 안내를 받을 수 있습니다.</span></li><li><i>3</i><span>예배 시작 전 로비에서 잠시 쉬어가실 수 있습니다.</span></li></ul></aside></div><p class="facility-note">※ 방문 안내를 위한 개념 평면도입니다. 실제 공간명·출입 동선·안전 정보는 최종 건축 도면과 운영 안내에 맞춰 확인·교체해 주세요.</p></section></div></div></section>
+    <section class="page" id="visit"><div class="page-head" style="background-image:url('assets/church-summer.jpg')"><div class="wrap"><div class="bread">HOME · VISIT US</div><h1>예수로교회로 오시는 길</h1><p>처음 오시는 날도, 방문 전부터 편안하도록 안내해 드립니다.</p></div></div><div class="content"><div class="wrap"><div class="visit-layout"><div class="route-map" aria-label="예수로교회 위치 안내 지도"><span class="map-road-label one">교하로</span><span class="map-road-label two">파주 방면</span><div class="map-marker"><span class="map-pin" aria-hidden="true"></span><b>예수로교회</b><small>경기도 파주시 교하로 677-79</small></div></div><aside class="visit-info"><h2>방문 안내</h2><dl><div><dt>ADDRESS</dt><dd>경기도 파주시 교하로 677-79</dd></div><div><dt>TEL</dt><dd>031-946-6161<small>예배·새가족·주차 문의</small></dd></div><div><dt>PARKING</dt><dd>교회 지하 주차장 이용 가능<small>주일 혼잡 시 안내팀이 주차를 도와드립니다.</small></dd></div><div><dt>BUS</dt><dd>교하 방면 정류장 하차 · 도보 5분<small>정확한 노선은 지도 앱에서 출발지를 설정해 확인해 주세요.</small></dd></div></dl><div class="map-actions"><a class="map-link primary" href="https://map.naver.com/p/search/%EA%B2%BD%EA%B8%B0%EB%8F%84%20%ED%8C%8C%EC%A3%BC%EC%8B%9C%20%EA%B5%90%ED%95%98%EB%A1%9C%20677-79" target="_blank" rel="noopener">NAVER MAP</a><a class="map-link" href="https://map.kakao.com/link/search/%EA%B2%BD%EA%B8%B0%EB%8F%84%20%ED%8C%8C%EC%A3%BC%EC%8B%9C%20%EA%B5%90%ED%95%98%EB%A1%9C%20677-79" target="_blank" rel="noopener">KAKAO MAP</a><a class="map-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=%EA%B2%BD%EA%B8%B0%EB%8F%84%20%ED%8C%8C%EC%A3%BC%EC%8B%9C%20%EA%B5%90%ED%95%98%EB%A1%9C%20677-79" target="_blank" rel="noopener">GOOGLE 길찾기</a><button class="map-copy" type="button" onclick="copyAddress()">주소 복사</button><a class="map-link" href="tel:+82319466161">전화 연결</a><button class="map-copy" type="button" data-go="family">첫 방문 등록</button></div><p class="map-note">모바일에서는 설치된 지도 앱으로 연결될 수 있으며, 기기 설정에 따라 웹 지도로 열릴 수 있습니다.</p></aside></div><div class="visit-quick"><article class="quick-card"><span>FIRST VISIT</span><h3>처음 방문하세요?</h3><p>방문 전 등록을 남겨주시면 예배 시간과 새가족실 위치를 미리 안내해 드립니다.</p></article><article class="quick-card"><span>ARRIVAL</span><h3>도착 후 동선</h3><p>주차 후 주출입구로 오시면 안내데스크에서 예배 공간과 자녀 부서를 안내합니다.</p></article><article class="quick-card"><span>ACCESSIBILITY</span><h3>도움이 필요하세요?</h3><p>유모차·휠체어·보행 도움이 필요하시면 방문 전 전화로 알려주세요. 안내팀이 함께하겠습니다.</p></article></div><section class="facility-guide" id="facilityGuide"><div class="facility-head"><div><div class="kick">FACILITY GUIDE</div><h2 class="title">교회 시설 안내</h2><p class="desc">처음 오신 분이 바로 찾을 수 있도록 층별 주요 공간을 안내합니다.</p></div><button class="more" type="button" data-toast="각 공간을 누르면 간단한 안내를 볼 수 있습니다.">평면도 이용 방법</button></div><div class="floor-tabs" id="floorTabs"><button class="active" data-floor="first">1층 · 예배와 환영</button><button data-floor="basement">B1 · 주차와 진입</button><button data-floor="second">2층 · 교육과 모임</button></div><div class="floor-layout"><div class="floor-plan" id="floorPlan" aria-label="1층 안내용 평면도"><button class="plan-zone family" data-zone="새가족실"><small>WELCOME</small><b>새가족실</b></button><button class="plan-zone cafe" data-zone="로비 카페"><small>FELLOWSHIP</small><b>로비 카페</b></button><button class="plan-zone office" data-zone="안내데스크"><small>GUIDE</small><b>안내데스크</b></button><button class="plan-zone entry" data-zone="주출입구"><small>ENTRANCE</small><b>주출입구</b></button><button class="plan-zone lobby" data-zone="로비"><small>LOBBY</small><b>로비</b></button><button class="plan-zone sanctuary" data-zone="본당"><small>WORSHIP</small><b>본당</b></button></div><aside class="floor-detail"><span class="floor-no" id="floorNo">FIRST FLOOR · 1F</span><h3 id="floorTitle">예배와 환영의 공간</h3><p id="floorDescription">주출입구에서 안내데스크를 지나 본당과 새가족실로 자연스럽게 이동할 수 있는 방문 동선입니다.</p><ul class="floor-list" id="floorList"><li><i>1</i><span>주출입구에서 안내데스크를 먼저 찾아 주세요.</span></li><li><i>2</i><span>처음 오신 분은 새가족실에서 안내를 받을 수 있습니다.</span></li><li><i>3</i><span>예배 시작 전 로비에서 잠시 쉬어가실 수 있습니다.</span></li></ul></aside></div><p class="facility-note">※ 방문 안내를 위한 개념 평면도입니다. 실제 공간명·출입 동선·안전 정보는 최종 건축 도면과 운영 안내에 맞춰 확인·교체해 주세요.</p></section></div></div></section>
   </main>
-  <footer><div class="wrap"><div class="footer-grid"><div class="footer-brand"><b>예수로교회</b><p>경기도 파주시 교하로 677-79<br>031-946-6161</p><div class="socials"><button onclick="toast('YouTube 채널은 정식 사이트 연결 시 제공됩니다.')">YT</button><button onclick="toast('Instagram 채널은 정식 사이트 연결 시 제공됩니다.')">IG</button><button onclick="toast('Facebook 채널은 정식 사이트 연결 시 제공됩니다.')">FB</button></div></div><div><h4>예배 · 말씀</h4><a onclick="go('sermon')">설교 아카이브</a><a onclick="go('bulletin')">온라인 주보</a><a onclick="go('visit')">예배 안내</a></div><div><h4>공동체</h4><a onclick="go('dept')">부서 안내</a><a onclick="go('board')">교회 소식</a><a onclick="go('gallery')">사진첩</a></div><div><h4>참여하기</h4><a onclick="go('family')">새가족 등록</a><a onclick="toast('온라인 헌금은 정식 홈페이지 연결 시 제공됩니다.')">온라인 헌금</a><a onclick="go('visit')">오시는 길</a></div></div><div class="copyright"><span>© 2026 JESUSRO CHURCH. All rights reserved.</span><span>C안 PREMIUM LIGHT · 홈페이지 리뉴얼 시안</span></div></div></footer>
+  <footer><div class="wrap"><div class="footer-grid"><div class="footer-brand"><b>예수로교회</b><p>경기도 파주시 교하로 677-79<br>031-946-6161</p><div class="socials"><button data-toast="YouTube 채널은 정식 사이트 연결 시 제공됩니다.">YT</button><button data-toast="Instagram 채널은 정식 사이트 연결 시 제공됩니다.">IG</button><button data-toast="Facebook 채널은 정식 사이트 연결 시 제공됩니다.">FB</button></div></div><div><h4>예배 · 말씀</h4><a data-go="sermon">설교 아카이브</a><a data-go="bulletin">온라인 주보</a><a data-go="visit">예배 안내</a></div><div><h4>공동체</h4><a data-go="dept">부서 안내</a><a data-go="board">교회 소식</a><a data-go="gallery">사진첩</a></div><div><h4>참여하기</h4><a data-go="family">새가족 등록</a><a data-toast="온라인 헌금은 정식 홈페이지 연결 시 제공됩니다.">온라인 헌금</a><a data-go="visit">오시는 길</a></div></div><div class="copyright"><span>© 2026 JESUSRO CHURCH. All rights reserved.</span><span>C안 PREMIUM LIGHT · 홈페이지 리뉴얼 시안</span></div></div></footer>
   <div class="modal" id="galleryModal" role="dialog" aria-modal="true" aria-label="사진 크게 보기"><div class="modal-card"><button class="modal-close" onclick="closeModal('galleryModal')" aria-label="닫기">×</button><img class="modal-image" id="galleryImage" alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><div class="modal-info"><h2 id="galleryTitle"></h2><p id="galleryText"></p></div></div></div>
   <div class="modal" id="sermonModal" role="dialog" aria-modal="true" aria-label="설교 상세"><article class="modal-card sermon-modal"><button class="modal-close" onclick="closeModal('sermonModal')" aria-label="닫기">×</button><div class="sermon-meta" id="sermonMeta"></div><h2 id="sermonTitle"></h2><blockquote id="sermonVerse"></blockquote>
     <div class="sd-tabs" id="sdTabs"><button class="active" data-sd="sdNote">설교 노트</button><button data-sd="sdMusic">관련 찬양</button><button data-sd="sdBul">그 주 주보</button></div>
     <div class="sd-panel active" id="sdNote"><div class="sd-note"><h4>MESSAGE</h4><p id="sermonSummary"></p><h4>APPLICATION</h4><p id="sermonApply"></p><h4>PRAYER</h4><p id="sermonPray"></p></div></div>
     <div class="sd-panel" id="sdMusic"><div id="sermonMusic"></div></div>
     <div class="sd-panel" id="sdBul"><div id="sermonBul"></div></div>
-    <button class="button primary" style="margin-top:20px" onclick="toast('정식 홈페이지에서는 YouTube 설교 영상이 재생됩니다.')">설교 영상 재생</button>
+    <button class="button primary" style="margin-top:20px" data-toast="정식 홈페이지에서는 YouTube 설교 영상이 재생됩니다.">설교 영상 재생</button>
     <div class="sd-move"><button type="button" onclick="moveSermon(1)">‹ 이전 설교</button><button type="button" onclick="moveSermon(-1)">다음 설교 ›</button></div>
     <div class="sd-rel"><b>SAME SERIES</b><div id="sermonRelated"></div></div></article></div>
   <div class="modal" id="noticeModal" role="dialog" aria-modal="true" aria-label="공지 상세"><article class="modal-card sermon-modal"><button class="modal-close" onclick="closeModal('noticeModal')" aria-label="닫기">×</button><div class="sermon-meta" id="noticeMeta"></div><h2 id="noticeTitle"></h2><p id="noticeBody" style="margin-top:18px"></p><div class="sd-move"><button type="button" onclick="moveNotice(1)">‹ 이전 글</button><button type="button" onclick="moveNotice(-1)">다음 글 ›</button></div></article></div>
-  <div class="modal" id="bulletinModal" role="dialog" aria-modal="true" aria-label="주보 상세"><article class="modal-card sermon-modal"><button class="modal-close" onclick="closeModal('bulletinModal')" aria-label="닫기">×</button><div class="sermon-meta" id="bulMeta"></div><h2 id="bulTitle"></h2><blockquote id="bulVerse"></blockquote>
+  <div class="modal" id="bulletinModal" role="dialog" aria-modal="true" aria-label="주보 상세"><article class="modal-card sermon-modal"><button class="modal-close" onclick="closeModal('bulletinModal')" aria-label="닫기">×</button><div class="sermon-meta" id="bulMeta"></div><h2 id="bulTitle"></h2><blockquote id="bulVerse"></blockquote><div class="bul-scan" id="bulScan" hidden></div>
     <div class="sd-tabs" id="bulTabs"><button class="active" data-bul="bulOrder">예배 순서</button><button data-bul="bulMusic">찬양</button><button data-bul="bulNews">교회 소식</button></div>
     <div class="sd-panel active" id="bulOrder"><div id="bulOrderBody"></div></div>
     <div class="sd-panel" id="bulMusic"><div id="bulMusicBody"></div></div>
@@ -367,137 +296,212 @@
   </article></div>
   <div class="toast" id="toast" role="status"></div>
   <script>
-    const sermons=[
-      {id:'s1',date:'2026.07.26',type:'주일예배',series:'예수님으로',title:'예수님으로 살리',verse:'고린도후서 4:7–10',speaker:'담임목사',quote:'우리가 이 보배를 질그릇에 가졌으니 이는 심히 큰 능력은 하나님께 있고 우리에게 있지 아니함을 알게 하려 함이라.',summary:'복음의 보배를 질그릇에 담으신 하나님은 우리의 연약함 속에서도 당신의 능력을 드러내십니다. 내 힘이 아닌 예수님으로 오늘을 살아가는 한 주가 되기를 소망합니다.',apply:'이번 한 주, 어떤 영역에서 내 힘이 아닌 예수님으로 반응하기 원하십니까?',pray:'연약함 가운데 그리스도의 능력이 드러나는 한 주가 되게 하소서.',music:[['주의 은혜라','찬양대 특송'],['나의 반석이신 하나님','회중 찬양'],['보배로운 주','청년 워십']],lead:'임병영 목사',prayer:'이흥기 장로'},
-      {id:'s2',date:'2026.07.19',type:'주일예배',series:'삶의 자리',title:'인도하심을 따라가려면',verse:'잠언 16:9',speaker:'담임목사',quote:'사람이 마음으로 자기의 길을 계획할지라도 그의 걸음을 인도하시는 이는 여호와시니라.',summary:'내가 계획하는 길과 하나님이 인도하시는 걸음 사이에서, 말씀과 기도로 한 걸음씩 순종하는 삶을 나눕니다.'},
-      {id:'s3',date:'2026.07.15',type:'수요예배',series:'복음의 길',title:'다시 일으키시는 은혜',verse:'시편 23:1–3',speaker:'이은정 전도사',quote:'내 영혼을 소생시키시고 자기 이름을 위하여 의의 길로 인도하시는도다.',summary:'지친 영혼을 다시 소생시키시는 선한 목자 예수님의 은혜를 묵상합니다.'},
-      {id:'s4',date:'2026.07.12',type:'주일예배',series:'예수님으로',title:'무화과나무 아래로',verse:'요한복음 1:43–51',speaker:'담임목사',quote:'보라 이는 참으로 이스라엘 사람이라 그 속에 간사한 것이 없도다.',summary:'예수님은 우리가 알아차리지 못한 자리에서도 우리를 보고 계십니다. 부르심 앞에 정직하게 응답하는 믿음을 살핍니다.'},
-      {id:'s5',date:'2026.07.05',type:'주일예배',series:'삶의 자리',title:'다시 안겨주신 은혜',verse:'호세아 2:1–10',speaker:'담임목사',quote:'내가 그를 거기서 인도하여 광야로 데리고 가서 그의 마음을 위로하고.',summary:'멀어진 마음을 다시 품으시는 하나님의 사랑과 회복의 약속을 전합니다.'},
-      {id:'s6',date:'2026.06.28',type:'주일예배',series:'복음의 길',title:'천국은 마치',verse:'마태복음 20:1–10',speaker:'담임목사',quote:'이와 같이 나중 된 자로서 먼저 되고 먼저 된 자로서 나중 되리라.',summary:'하나님의 은혜는 비교와 계산을 넘어, 모든 사람에게 넉넉히 임합니다.'},
-      {id:'s7',date:'2026.06.24',type:'수요예배',series:'복음의 길',title:'말씀 앞에 서는 시간',verse:'히브리서 4:12',speaker:'김민수 목사',quote:'하나님의 말씀은 살아 있고 활력이 있어 좌우에 날선 어떤 검보다도 예리하여.',summary:'말씀이 우리의 생각과 마음을 비추고, 새롭게 하시는 시간을 갖습니다.'}
-    ];
-    const notices=[
-      {id:'n1',date:'2026.07.20',category:'행사',title:'2026 여름성경학교 자원봉사자를 모집합니다',new:true,body:'여름성경학교가 8월 첫째 주에 진행됩니다. 다음세대가 즐겁고 안전하게 말씀을 만날 수 있도록 교사와 진행 보조로 함께해 주세요.'},
-      {id:'n2',date:'2026.07.14',category:'예배',title:'7월 셋째 주 주일예배 안내',new:true,body:'주일 1부와 2부 예배는 평소와 같이 진행됩니다. 예배 후 새가족 환영회가 있습니다.'},
-      {id:'n3',date:'2026.07.06',category:'안내',title:'새가족 환영회 · 매월 첫 주일',new:false,body:'처음 오신 분과 새가족을 위한 환영회입니다. 예배 후 새가족실에서 진행합니다.'},
-      {id:'n4',date:'2026.06.28',category:'모집',title:'하반기 목장 리더 훈련 신청 안내',new:false,body:'새롭게 목장을 섬길 리더와 예비 리더를 위한 훈련 과정을 시작합니다.'},
-      {id:'n5',date:'2026.06.20',category:'행사',title:'청년부 여름 수련회 참가 신청',new:false,body:'청년부 여름 수련회가 8월 14일부터 16일까지 진행됩니다. 신청서를 작성해 주세요.'},
-      {id:'n6',date:'2026.06.07',category:'안내',title:'2026 하반기 결혼예배 접수 안내',new:false,body:'하반기 결혼예배를 계획하시는 가정은 사무실로 미리 문의해 주세요.'},
-      {id:'n7',date:'2026.05.31',category:'예배',title:'성찬예배 및 기도회 안내',new:false,body:'6월 첫 주일에는 성찬예배가 있습니다. 기도로 준비해 주세요.'}
-    ];
-    const departments=[
-      {group:'next',age:'0–4세',name:'영아부',time:'주일 11:00 · 영아부실',leader:'박은혜 전도사',text:'가정과 함께 예배의 기쁨을 배우는 영아 공동체입니다.'},
-      {group:'next',age:'5–7세',name:'유치부',time:'주일 11:00 · 유치부실',leader:'김하늘 전도사',text:'놀이와 말씀으로 하나님을 즐겁게 만나는 시간입니다.',photo:'kids-worship.jpg'},
-      {group:'next',age:'초등 1–6학년',name:'아동부',time:'주일 11:00 · 교육관 2층',leader:'이준호 전도사',text:'친구들과 함께 말씀을 배우고 삶으로 실천합니다.'},
-      {group:'next',age:'중·고등학생',name:'청소년부',time:'주일 11:00 · 교육관 3층 비전홀',leader:'최다은 전도사',text:'하나님을 알고 세상 속에서 믿음으로 살아갑니다.',photo:'youth-retreat.jpg',page:'youth'},
-      {group:'next',age:'19–35세',name:'청년부',time:'주일 14:00 · 청년부실',leader:'김민수 목사',text:'예배와 나눔으로 서로의 일상에 동행하는 청년 공동체입니다.',photo:'youth-retreat.jpg'},
-      {group:'adult',age:'전 세대',name:'목장 · 소그룹',time:'평일 저녁 · 가정별',leader:'목장 리더',text:'가까이 사는 이웃과 매주 모여 말씀과 삶을 나눕니다.'},
-      {group:'adult',age:'장년',name:'여전도회',time:'월별 모임 · 친교실',leader:'각 회장단',text:'기도와 섬김으로 교회와 이웃을 세워 갑니다.'},
-      {group:'adult',age:'장년',name:'남선교회',time:'월별 모임 · 친교실',leader:'각 회장단',text:'예배와 친교, 지역 섬김에 함께합니다.'}
-    ];
-    const gallery=[
-      {key:'spring',file:'church-spring.jpg',title:'벚꽃이 피는 교회 마당',date:'2026.04',text:'봄볕 아래, 처음 오시는 분을 맞이하는 교회 앞마당입니다.'},
-      {key:'summer',file:'church-summer.jpg',title:'푸른 들 위의 십자가',date:'2026.07',text:'초록 들판과 하늘 사이에 서 있는 예배당의 여름 풍경입니다.'},
-      {key:'autumn',file:'church-autumn.jpg',title:'단풍으로 물든 예배당',date:'2025.11',text:'가을빛으로 물든 산자락과 교회의 모습입니다.'},
-      {key:'winter',file:'church-winter.jpg',title:'눈 내린 예수로교회',date:'2026.01',text:'하얀 눈이 포근하게 내려앉은 겨울 아침의 예배당입니다.'},
-      {key:'spring',file:'church-spring.jpg',title:'따뜻한 봄의 예배당',date:'2026.04',text:'계절의 변화 속에서도 변함없이 열려 있는 예배당입니다.'},
-      {key:'summer',file:'church-summer.jpg',title:'여름 들녘의 교회',date:'2026.07',text:'자연과 조화롭게 어우러진 교회의 전경입니다.'},
-      {key:'autumn',file:'church-autumn.jpg',title:'감사의 계절',date:'2025.11',text:'추수감사절을 준비하며 바라본 교회의 가을 풍경입니다.'},
-      {key:'winter',file:'church-winter.jpg',title:'새해를 기다리는 눈',date:'2026.01',text:'한 해를 돌아보고 새해를 준비하는 고요한 풍경입니다.'},
-      {key:'summer',file:'youth-retreat.jpg',title:'청년부 여름수련회 · 복음을 삶으로!',date:'2026.07',text:'복닥복닥 맑은교회 수련원에서 함께한 청년부 여름수련회의 마지막 날입니다.'},
-      {key:'spring',file:'church-family.jpg',title:'전교인 봄 사진',date:'2026.04',text:'매년 봄, 온 교우가 교회 마당에 모여 한 해를 시작합니다.'},
-      {key:'summer',file:'kids-worship.jpg',title:'주일학교 예배',date:'2026.07',text:'주일 오전 11시, 다음세대가 함께 드리는 예배의 현장입니다.'}
-    ];
-    const calendarEvents={5:[{title:'수요 저녁예배',sub:'20:00 · 본당',kind:'예배'}],12:[{title:'새가족 환영회',sub:'2부 예배 후 · 새가족실',kind:'새가족'}],19:[{title:'여름성경학교 교사 모임',sub:'13:00 · 교육관',kind:'교육'}],22:[{title:'수요 저녁예배',sub:'20:00 · 본당',kind:'예배'}],26:[{title:'주일 1·2부 예배',sub:'08:00 / 11:00 · 본당',kind:'예배'},{title:'청년부 기도회',sub:'14:00 · 청년부실',kind:'청년'}]};
-    const floorPlans={
-      first:{no:'FIRST FLOOR · 1F',title:'예배와 환영의 공간',description:'주출입구에서 안내데스크를 지나 본당과 새가족실로 자연스럽게 이동할 수 있는 방문 동선입니다.',steps:['주출입구에서 안내데스크를 먼저 찾아 주세요.','처음 오신 분은 새가족실에서 안내를 받을 수 있습니다.','예배 시작 전 로비에서 잠시 쉬어가실 수 있습니다.'],zones:[{name:'새가족실',label:'WELCOME',className:'family',info:'처음 방문하신 분을 위한 안내와 환영의 공간입니다.'},{name:'로비 카페',label:'FELLOWSHIP',className:'cafe',info:'예배 전후 편하게 대화하고 쉬어가는 공간입니다.'},{name:'안내데스크',label:'GUIDE',className:'office',info:'예배와 자녀 부서, 시설 이용을 안내합니다.'},{name:'주출입구',label:'ENTRANCE',className:'entry',info:'처음 오시면 이 출입구로 들어와 주세요.'},{name:'로비',label:'LOBBY',className:'lobby',info:'본당과 새가족실, 안내데스크를 연결하는 공간입니다.'},{name:'본당',label:'WORSHIP',className:'sanctuary',info:'주일 1부와 2부, 수요예배가 드려지는 예배 공간입니다.'}]},
-      basement:{no:'BASEMENT · B1',title:'주차와 진입의 공간',description:'차량으로 오시는 분을 위한 지하 주차장과 주출입구로 이어지는 기본 동선을 안내합니다.',steps:['주차 후 엘리베이터 또는 계단을 이용해 1층으로 이동해 주세요.','처음 방문하신 분은 안내데스크에서 주차·예배 동선을 확인할 수 있습니다.','주일 혼잡 시간에는 주차 안내팀의 안내에 따라 주세요.'],zones:[{name:'지하 주차장',label:'PARKING',className:'garage',info:'방문객 차량을 위한 주차 공간입니다.'},{name:'차량 진입로',label:'DRIVE IN',className:'parking-entry',info:'안전한 진입과 출차를 위해 안내 표지에 따라 주세요.'},{name:'엘리베이터',label:'LIFT',className:'elevator',info:'1층 로비로 이동하는 편의 동선입니다.'},{name:'계단',label:'STAIR',className:'stair',info:'계단 이용 시 난간을 잡고 이동해 주세요.'},{name:'보행 통로',label:'WALKWAY',className:'hall',info:'주차장과 엘리베이터·계단을 연결하는 보행 통로입니다.'}]},
-      second:{no:'SECOND FLOOR · 2F',title:'교육과 모임의 공간',description:'다음세대 예배와 소그룹, 교역자 상담이 이루어지는 교육·모임 공간입니다.',steps:['자녀 부서는 안내데스크에서 해당 교실 위치를 먼저 확인해 주세요.','모임 공간 이용은 부서 및 일정 안내에 따라 주세요.','상담이나 문의가 필요하면 담당자 또는 안내팀에 알려주세요.'],zones:[{name:'교육 교실',label:'NEXT GEN',className:'classroom',info:'다음세대 예배와 교육을 위한 교실입니다.'},{name:'학생·청년실',label:'YOUTH',className:'youth',info:'학생부와 청년부 모임에 사용하는 공간입니다.'},{name:'소그룹실',label:'SMALL GROUP',className:'group',info:'목장과 소그룹 나눔을 위한 공간입니다.'},{name:'교역자실',label:'PASTORAL',className:'staff',info:'교역자 상담 및 사무를 위한 공간입니다.'},{name:'계단·엘리베이터',label:'ACCESS',className:'second-stair',info:'각 층을 연결하는 이동 공간입니다.'}]}
-    };
-    function copyAddress(){const address='경기도 파주시 교하로 677-79';if(window.navigator&&window.navigator.clipboard&&window.navigator.clipboard.writeText){window.navigator.clipboard.writeText(address).then(function(){toast('주소를 복사했습니다. 지도 앱에 붙여넣어 길찾기를 시작하세요.')}).catch(function(){window.prompt('아래 주소를 복사해 주세요.',address)})}else{window.prompt('아래 주소를 복사해 주세요.',address)}}
-    function renderFloorPlan(floor){const plan=floorPlans[floor];if(!plan)return;const map=document.getElementById('floorPlan');map.className='floor-plan is-'+floor;map.setAttribute('aria-label',plan.title+' 안내용 평면도');document.getElementById('floorNo').textContent=plan.no;document.getElementById('floorTitle').textContent=plan.title;document.getElementById('floorDescription').textContent=plan.description;document.getElementById('floorList').innerHTML=plan.steps.map(function(step,index){return '<li><i>'+(index+1)+'</i><span>'+step+'</span></li>'}).join('');map.innerHTML=plan.zones.map(function(zone){return '<button class="plan-zone '+zone.className+'" type="button" data-zone="'+zone.name+'"><small>'+zone.label+'</small><b>'+zone.name+'</b></button>'}).join('');map.querySelectorAll('.plan-zone').forEach(function(button){button.addEventListener('click',function(){const zone=plan.zones.find(function(item){return item.name===button.dataset.zone});if(zone)toast(zone.name+' · '+zone.info)})})}
+    /* ===== 콘텐츠 로딩 =====
+       편집 가능한 데이터는 전부 content/*.json 에 있고, CMS(/admin/)가 그 파일을 고친다.
+       fetch를 쓰므로 file:// 로 직접 열면 CORS에 막힌다. 로컬 확인은 http 서버로:
+         python3 -m http.server 8000   ->   http://localhost:8000 */
+    let sermons=[],notices=[],departments=[],gallery=[],calendarEvents={},floorPlans={},
+        bulletinData={},menuItems=[],site={},calendarMeta={year:2026,month:7,startWeekday:3,days:31,selected:26};
 
-    /* ===== 청소년부 ===== */
-    const youthAlbums=[
-      {cat:'retreat',file:'youth-retreat.jpg',title:'여름수련회 · 복음을 삶으로!',date:'2026.07'},
-      {cat:'retreat',file:'church-winter.jpg',title:'겨울수련회',date:'2026.01'},
-      {cat:'worship',file:'kids-worship.jpg',title:'주일 예배',date:'2026.07'},
-      {cat:'event',file:'church-spring.jpg',title:'부활절 연합예배',date:'2026.04'},
-      {cat:'event',file:'church-family.jpg',title:'어버이 주일',date:'2026.05'},
-      {cat:'worship',file:'church-autumn.jpg',title:'가을 야외예배',date:'2025.11'}
-    ];
-    const youthNotices=[
-      {date:'2026.07.22',cat:'수련회',title:'여름수련회 참가 신청 및 준비물 안내'},
-      {date:'2026.07.15',cat:'예배',title:'7월 넷째 주 청소년부 예배 장소 변경 안내'},
-      {date:'2026.07.02',cat:'모집',title:'2학기 예배 사역팀(찬양·워십·미디어) 모집'},
-      {date:'2026.06.21',cat:'행사',title:'상반기 생일파티 · 6월 마지막 주일'},
-      {date:'2026.06.07',cat:'안내',title:'중간고사 기간 특별 기도회 안내'}
-    ];
-    const youthYear=[
-      {m:'1–3월',items:['겨울수련회','새학기 환영예배','고3 축복기도회']},
-      {m:'4–6월',items:['부활절 연합예배','어버이 주일','상반기 생일파티']},
-      {m:'7–9월',items:['여름수련회','여름성경학교 섬김','가을 야외예배']},
-      {m:'10–12월',items:['추수감사절','성탄 축하예배','송년 감사예배']}
-    ];
-    function renderYouthAlbums(filter){
-      const list=youthAlbums.filter(function(a){return filter==='all'||a.cat===filter});
-      document.getElementById('albumGrid').innerHTML=list.length?list.map(function(a){
-        return '<button class="album-card" style="background-image:url(\'assets/'+a.file+'\')" onclick="openYouthAlbum(\''+a.file+'\',\''+a.title+'\',\''+a.date+'\')"><div><small>'+a.date+'</small><b>'+a.title+'</b></div></button>'}).join(''):'<div class="empty">등록된 앨범이 없습니다.</div>';
+    function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+    function nl2br(v){return esc(v).replace(/\n/g,'<br>')}
+
+    async function loadContent(){
+      const names=['site','menu','sermons','notices','departments','gallery','calendar','facility','bulletins'];
+      const data={};
+      await Promise.all(names.map(function(n){
+        return fetch('content/'+n+'.json',{cache:'no-cache'})
+          .then(function(r){if(!r.ok)throw new Error('content/'+n+'.json — HTTP '+r.status);return r.json()})
+          .then(function(j){data[n]=j})}));
+      site=data.site; menuItems=data.menu.items;
+      sermons=data.sermons.items; notices=data.notices.items;
+      departments=data.departments.items; gallery=data.gallery.items;
+      floorPlans=data.facility; calendarMeta=data.calendar;
+      calendarEvents={}; data.calendar.events.forEach(function(e){calendarEvents[e.day]=e.items});
+      bulletinData={}; data.bulletins.months.forEach(function(m){bulletinData[m.month]=m.items});
     }
-    function openYouthAlbum(file,title,date){
-      document.getElementById('galleryImage').src='assets/'+file;
-      document.getElementById('galleryImage').alt=title;
-      document.getElementById('galleryTitle').textContent=title;
-      document.getElementById('galleryText').textContent=date+' · 청소년부 앨범';
-      document.getElementById('galleryModal').classList.add('open');
+
+    /* ===== 상단 메뉴 (content/menu.json) ===== */
+    function renderMenu(){
+      document.getElementById('mainMenu').innerHTML=menuItems.map(function(m){
+        const sub=(m.children&&m.children.length)
+          ? '<div class="sub">'+m.children.map(function(c){
+              return '<a data-go="'+esc(c.page)+'">'+esc(c.label)+'</a>'}).join('')+'</div>' : '';
+        const tag=sub?'button':'a';
+        return '<li><'+tag+' data-nav="'+esc(m.page)+'" data-go="'+esc(m.page)+'">'+esc(m.label)+'</'+tag+'>'+sub+'</li>';
+      }).join('');
     }
-    function renderYouthBoard(){
-      document.getElementById('youthBoard').innerHTML=youthNotices.map(function(n){
-        return '<button class="list-row" onclick="toast(\'정식 홈페이지에서는 청소년부 공지 상세가 열립니다.\')"><span class="label">'+n.cat+'</span><strong>'+n.title+'</strong><span>청소년부</span><span>'+n.date+'</span></button>'}).join('');
+
+    /* ===== 부서 상세 페이지 생성 (청소년부 틀을 전 부서에 적용) ===== */
+    function departmentPageMarkup(d){
+      const meta=(d.meta||[]).map(function(m,i,arr){
+        return '<div style="display:flex;justify-content:space-between;padding:9px 0;'+
+          (i<arr.length-1?'border-bottom:1px solid #efe9de;':'')+'font-size:12.5px">'+
+          '<dt style="color:#7c8490">'+esc(m.label)+'</dt>'+
+          '<dd style="margin:0;font-weight:700">'+esc(m.value)+'</dd></div>'}).join('');
+
+      const visions=(d.visions||[]).map(function(v,i){
+        return '<article class="vision-card"><small>VISION 0'+(i+1)+'</small><b>'+esc(v.title)+
+          '</b><p>'+esc(v.text)+'</p></article>'}).join('');
+
+      const tiers=[...new Set((d.org||[]).map(function(o){return o.tier}))].sort();
+      const org=tiers.map(function(t,i){
+        const nodes=d.org.filter(function(o){return o.tier===t});
+        const cls=t===1?' top':(nodes.length===1?' mid':'');
+        return (i?'<div class="org-line"></div>':'')+'<div class="org-row">'+nodes.map(function(o){
+          return '<div class="org-node'+cls+'"><small>'+esc(o.label)+'</small><b>'+esc(o.title)+'</b>'+
+            (o.name?'<em class="org-name">'+esc(o.name)+'</em>':'')+'</div>'}).join('')+'</div>'}).join('');
+
+      const tabs=[{key:'all',label:'전체'}].concat(d.albumCats||[]).map(function(c,i){
+        return '<button class="'+(i?'':'active')+'" data-album="'+esc(c.key)+'">'+esc(c.label)+'</button>'}).join('');
+
+      return '<div class="page-head" style="background-image:url(\''+esc(d.banner)+'\')"><div class="wrap">'+
+        '<div class="bread">'+esc(d.breadcrumb)+'</div><h1>'+esc(d.name)+'</h1><p>'+esc(d.headline)+'</p>'+
+        '</div></div><div class="content"><div class="wrap">'+
+
+        '<div class="kick">DEPARTMENT</div><h2 class="title">부서 소개</h2>'+
+        '<div class="yt-hero" style="margin-top:26px">'+
+          '<div class="yt-photo" style="background-image:url(\''+esc(d.banner)+'\')"></div><div>'+
+          '<div class="kick">'+esc(d.leaderTitle)+'</div>'+
+          '<h3 style="font-family:var(--serif);font-size:26px;letter-spacing:-.06em;margin:10px 0 10px">'+esc(d.leaderName)+'</h3>'+
+          '<p style="color:#5f6a75;font-size:13.5px;margin:0 0 16px">'+esc(d.leaderMessage)+'</p>'+
+          '<dl style="margin:0;border-top:1px solid #e5e0d8;padding-top:14px">'+meta+'</dl></div></div>'+
+
+        (d.verse&&d.verse.text ? '<div class="yt-verse"><small>CORE VERSE</small><p>“'+nl2br(d.verse.text)+
+          '”</p><span>'+esc(d.verse.ref)+'</span></div>' : '')+
+        (visions?'<div class="vision-grid" style="margin-top:0">'+visions+'</div>':'')+
+
+        '<div style="margin-top:70px"><div class="kick">ORGANIZATION</div><h2 class="title">부서 구성</h2></div>'+
+        '<div class="org">'+org+'</div>'+
+
+        '<div style="margin-top:70px"><div class="kick">OUR STORY</div><h2 class="title">우리들의 이야기</h2>'+
+        '<p class="desc" style="color:#66727c">예배와 행사의 순간을 사진으로 기록하고 나눕니다.</p></div>'+
+        '<div class="album-tabs" data-album-tabs="'+esc(d.slug)+'">'+tabs+'</div>'+
+        '<div class="album-grid" id="albumGrid-'+esc(d.slug)+'"></div>'+
+
+        '<div style="margin-top:70px"><div class="kick">NOTICE</div><h2 class="title">'+esc(d.name)+' 게시판</h2></div>'+
+        '<div class="list" id="deptBoard-'+esc(d.slug)+'" style="margin-top:22px"></div>'+
+
+        '<div style="margin-top:70px"><div class="kick">CALENDAR</div><h2 class="title">연간 일정</h2>'+
+        '<p class="desc" style="color:#66727c">'+esc(d.name)+'의 한 해 주요 일정입니다.</p></div>'+
+        '<div class="yt-cal" id="deptCal-'+esc(d.slug)+'"></div>'+
+
+        '<div class="sns-band"><div><b>'+esc(d.snsTitle)+'</b><p>'+esc(d.snsText)+'</p></div>'+
+        '<button class="sns-btn" data-toast="'+esc(d.name)+' 채널은 정식 홈페이지 연결 시 제공됩니다.">소식 받아보기</button></div>'+
+        '</div></div>';
     }
-    function renderYouthCal(){
-      document.getElementById('youthCal').innerHTML=youthYear.map(function(y){
-        return '<div class="yt-month"><b>'+y.m+'</b><ul>'+y.items.map(function(i){return '<li>'+i+'</li>'}).join('')+'</ul></div>'}).join('');
+
+    function buildDepartmentPages(){
+      const main=document.getElementById('content');
+      departments.forEach(function(d){
+        const sec=document.createElement('section');
+        sec.className='page'; sec.id='dept-'+d.slug;
+        sec.innerHTML=departmentPageMarkup(d);
+        main.appendChild(sec);
+      });
     }
+
+    function renderDeptAlbums(slug,filter){
+      const d=departments.find(function(x){return x.slug===slug});
+      const list=(d.albums||[]).filter(function(a){return filter==='all'||a.cat===filter});
+      document.getElementById('albumGrid-'+slug).innerHTML=list.length?list.map(function(a){
+        return '<button class="album-card" style="background-image:url(\''+esc(a.image)+'\')" '+
+          'data-album-open=\''+esc(JSON.stringify({image:a.image,title:a.title,date:a.date,dept:d.name}))+'\'>'+
+          '<div><small>'+esc(a.date)+'</small><b>'+esc(a.title)+'</b></div></button>'}).join('')
+        :'<div class="empty">등록된 사진이 없습니다.</div>';
+    }
+    function renderDeptBoard(slug){
+      const d=departments.find(function(x){return x.slug===slug});
+      document.getElementById('deptBoard-'+slug).innerHTML=(d.notices||[]).length?d.notices.map(function(n){
+        return '<button class="list-row" data-toast="정식 홈페이지에서는 게시글 상세가 열립니다."><span class="label">'+
+          esc(n.cat)+'</span><strong>'+esc(n.title)+'</strong><span>'+esc(d.name)+'</span><span>'+esc(n.date)+'</span></button>'}).join('')
+        :'<div class="empty">등록된 게시글이 없습니다.</div>';
+    }
+    function renderDeptCal(slug){
+      const d=departments.find(function(x){return x.slug===slug});
+      document.getElementById('deptCal-'+slug).innerHTML=(d.yearPlan||[]).map(function(y){
+        return '<div class="yt-month"><b>'+esc(y.period)+'</b><ul>'+
+          (y.items||[]).map(function(i){return '<li>'+esc(i)+'</li>'}).join('')+'</ul></div>'}).join('');
+    }
+    function renderDeptPage(slug){renderDeptAlbums(slug,'all');renderDeptBoard(slug);renderDeptCal(slug)}
+
+    /* ===== 페이지 전환 ===== */
     let currentPage='home',currentSeason='summer',seasonTimer,toastTimer;
     function go(page){
+      if(!document.getElementById(page))page='home';
       document.querySelectorAll('.page').forEach(function(p){p.classList.toggle('on',p.id===page)});
       currentPage=page;document.body.classList.toggle('home-active',page==='home');
       document.querySelectorAll('[data-nav]').forEach(function(n){n.classList.toggle('active',n.dataset.nav===page)});
-      document.getElementById('mainMenu').classList.remove('open');document.getElementById('navToggle').setAttribute('aria-expanded','false');
+      document.getElementById('mainMenu').classList.remove('open');
+      document.getElementById('navToggle').setAttribute('aria-expanded','false');
       window.scrollTo({top:0,behavior:'auto'});
-      if(page==='sermon')renderSermons();if(page==='bulletin')renderBulletins();if(page==='board')renderNotices();if(page==='dept')renderDepartments('all');if(page==='gallery')renderGallery('all');if(page==='youth'){renderYouthAlbums('all');renderYouthBoard();renderYouthCal()}
+      if(page==='sermon')renderSermons();if(page==='bulletin')renderBulletins();
+      if(page==='board')renderNotices();if(page==='dept')renderDepartments('all');
+      if(page==='gallery')renderGallery('all');
+      if(page.indexOf('dept-')===0)renderDeptPage(page.slice(5));
       if(location.hash.slice(1)!==page)history.replaceState(null,'','#'+page);
     }
-    function toast(message){const el=document.getElementById('toast');el.textContent=message;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(function(){el.classList.remove('show')},3100)}
+    function toast(message){const el=document.getElementById('toast');el.textContent=message;el.classList.add('show');
+      clearTimeout(toastTimer);toastTimer=setTimeout(function(){el.classList.remove('show')},3100)}
     function setSeason(season,manual){
-      const names={summer:'SUMMER · 푸른 들 위의 십자가',spring:'SPRING · 벚꽃이 피는 교회 마당',autumn:'AUTUMN · 단풍으로 물든 예배당',winter:'WINTER · 눈 내린 예배당'};
-      currentSeason=season;document.querySelectorAll('.hero-layer').forEach(function(el){el.classList.toggle('on',el.dataset.season===season)});document.querySelectorAll('[data-season-button]').forEach(function(el){el.classList.toggle('active',el.dataset.seasonButton===season)});document.getElementById('seasonName').textContent=names[season];
+      const names={summer:'SUMMER · 푸른 들 위의 십자가',spring:'SPRING · 벚꽃이 피는 교회 마당',
+        autumn:'AUTUMN · 단풍으로 물든 예배당',winter:'WINTER · 눈 내린 예배당'};
+      currentSeason=season;
+      document.querySelectorAll('.hero-layer').forEach(function(el){el.classList.toggle('on',el.dataset.season===season)});
+      document.querySelectorAll('[data-season-button]').forEach(function(el){el.classList.toggle('active',el.dataset.seasonButton===season)});
+      document.getElementById('seasonName').textContent=names[season];
       if(manual){clearInterval(seasonTimer);seasonTimer=setInterval(nextSeason,6000)}
     }
-    function nextSeason(){const order=['summer','spring','autumn','winter'];setSeason(order[(order.indexOf(currentSeason)+1)%order.length],false)}
-    function renderHomeNotices(){document.getElementById('homeNotices').innerHTML=notices.slice(0,5).map(function(n){return '<button class="notice-item" onclick="openNotice(\''+n.id+'\')"><span class="notice-date">'+n.date.slice(5).replace('-','.')+'</span><span class="notice-title">'+n.title+(n.new?'<i class="notice-tag">NEW</i>':'')+'</span></button>'}).join('')}
+    function nextSeason(){const order=['summer','spring','autumn','winter'];
+      setSeason(order[(order.indexOf(currentSeason)+1)%order.length],false)}
+
+    function renderHomeNotices(){document.getElementById('homeNotices').innerHTML=notices.slice(0,5).map(function(n){
+      return '<button class="notice-item" data-notice="'+esc(n.id)+'"><span class="notice-date">'+
+        esc(n.date.slice(5).replace('-','.'))+'</span><span class="notice-title">'+esc(n.title)+
+        (n.new?'<i class="notice-tag">NEW</i>':'')+'</span></button>'}).join('')}
+
     function renderCalendar(){
-      const start=3,days=31,grid=document.getElementById('calendarGrid');let markup='';
+      const start=calendarMeta.startWeekday,days=calendarMeta.days,grid=document.getElementById('calendarGrid');
+      let markup='';
       for(let i=0;i<start;i++)markup+='<button class="off" tabindex="-1"></button>';
-      for(let day=1;day<=days;day++){const event=calendarEvents[day],selected=day===26;markup+='<button class="'+(event?'event ':'')+(selected?'selected':'')+'" '+(event?'onclick="showEvents('+day+')"':'')+'>'+day+'</button>'}grid.innerHTML=markup;showEvents(26);
+      for(let day=1;day<=days;day++){const event=calendarEvents[day],selected=day===calendarMeta.selected;
+        markup+='<button class="'+(event?'event ':'')+(selected?'selected':'')+'"'+
+          (event?' data-day="'+day+'"':'')+'>'+day+'</button>'}
+      grid.innerHTML=markup;
+      document.querySelector('.calendar-head b').textContent=calendarMeta.year+'년 '+calendarMeta.month+'월';
+      showEvents(calendarMeta.selected);
     }
-    function showEvents(day){const list=calendarEvents[day]||[];document.getElementById('events').innerHTML=list.length?list.map(function(e){return '<div class="event-row"><div class="event-date">7월 '+day+'일</div><div class="event-title">'+e.title+'<small>'+e.sub+'</small></div><span class="event-kind">'+e.kind+'</span></div>'}).join(''):'<div class="event-row"><div class="event-title">등록된 일정이 없습니다.</div></div>'}
+    function showEvents(day){const list=calendarEvents[day]||[];
+      document.getElementById('events').innerHTML=list.length?list.map(function(e){
+        return '<div class="event-row"><div class="event-date">'+calendarMeta.month+'월 '+day+'일</div>'+
+          '<div class="event-title">'+esc(e.title)+'<small>'+esc(e.sub)+'</small></div>'+
+          '<span class="event-kind">'+esc(e.kind)+'</span></div>'}).join('')
+        :'<div class="event-row"><div class="event-title">등록된 일정이 없습니다.</div></div>'}
+
+    /* ===== 설교 ===== */
     let sermonSort='new',sermonView=[];
     function filteredSermons(){
-      const type=document.getElementById('sermonType').value,series=document.getElementById('sermonSeries').value,q=document.getElementById('sermonSearch').value.trim().toLowerCase();
-      let r=sermons.filter(function(s){return(!type||s.type===type)&&(!series||s.series===series)&&(!q||(s.title+s.verse+s.speaker+s.series).toLowerCase().includes(q))});
+      const type=document.getElementById('sermonType').value,series=document.getElementById('sermonSeries').value,
+        q=document.getElementById('sermonSearch').value.trim().toLowerCase();
+      let r=sermons.filter(function(s){return(!type||s.type===type)&&(!series||s.series===series)&&
+        (!q||(s.title+s.verse+s.speaker+s.series).toLowerCase().includes(q))});
       r.sort(function(a,b){return sermonSort==='new'?b.date.localeCompare(a.date):a.date.localeCompare(b.date)});
       return r;
     }
     function renderSermons(){
       const filtered=filteredSermons();sermonView=filtered;
       document.getElementById('sermonCount').textContent=filtered.length;
-      document.getElementById('sermonList').innerHTML=filtered.length?filtered.map(function(s){return '<button class="list-row" onclick="openSermon(\''+s.id+'\')"><span class="label">'+s.type+'</span><strong>'+s.title+'<br><span>'+s.verse+'</span></strong><span>'+s.speaker+'</span><span>'+s.date+'</span></button>'}).join(''):'<div class="empty">조건에 맞는 설교가 없습니다. 필터를 초기화해 보세요.</div>';
+      document.getElementById('sermonList').innerHTML=filtered.length?filtered.map(function(s){
+        return '<button class="list-row" data-sermon="'+esc(s.id)+'"><span class="label">'+esc(s.type)+
+          '</span><strong>'+esc(s.title)+'<br><span>'+esc(s.verse)+'</span></strong><span>'+
+          esc(s.speaker)+'</span><span>'+esc(s.date)+'</span></button>'}).join('')
+        :'<div class="empty">조건에 맞는 설교가 없습니다. 필터를 초기화해 보세요.</div>';
     }
     function resetSermonFilters(){
-      document.getElementById('sermonType').value='';document.getElementById('sermonSeries').value='';document.getElementById('sermonSearch').value='';
-      sermonSort='new';document.querySelectorAll('.sort-group [data-sort]').forEach(function(b){b.classList.toggle('active',b.dataset.sort==='new')});
+      document.getElementById('sermonType').value='';document.getElementById('sermonSeries').value='';
+      document.getElementById('sermonSearch').value='';sermonSort='new';
+      document.querySelectorAll('.sort-group [data-sort]').forEach(function(b){b.classList.toggle('active',b.dataset.sort==='new')});
       renderSermons();
     }
     let currentSermon=null;
@@ -510,103 +514,255 @@
       document.getElementById('sermonApply').textContent=s.apply||'이번 한 주, 이 말씀을 어떤 자리에서 살아내기 원하십니까?';
       document.getElementById('sermonPray').textContent=s.pray||'말씀이 삶이 되도록 도와주시기를 기도합니다.';
       const music=s.music||[['이 주의 찬양','회중 찬양']];
-      document.getElementById('sermonMusic').innerHTML=music.map(function(m){return '<div class="sd-row"><span>'+m[0]+'</span><span>'+m[1]+'</span></div>'}).join('');
+      document.getElementById('sermonMusic').innerHTML=music.map(function(m){
+        return '<div class="sd-row"><span>'+esc(m[0])+'</span><span>'+esc(m[1])+'</span></div>'}).join('');
       document.getElementById('sermonBul').innerHTML=
-        '<div class="sd-row"><span>인도</span><span>'+(s.lead||'담당 교역자')+'</span></div>'+
-        '<div class="sd-row"><span>기도</span><span>'+(s.prayer||'담당 장로')+'</span></div>'+
-        '<div class="sd-row"><span>설교</span><span>'+s.speaker+'</span></div>'+
-        '<div class="sd-row"><span>본문</span><span>'+s.verse+'</span></div>'+
-        '<button class="more" style="margin-top:16px" onclick="closeModal(\'sermonModal\');go(\'bulletin\')">온라인 주보 전체 보기</button>';
+        '<div class="sd-row"><span>인도</span><span>'+esc(s.lead||'담당 교역자')+'</span></div>'+
+        '<div class="sd-row"><span>기도</span><span>'+esc(s.prayer||'담당 장로')+'</span></div>'+
+        '<div class="sd-row"><span>설교</span><span>'+esc(s.speaker)+'</span></div>'+
+        '<div class="sd-row"><span>본문</span><span>'+esc(s.verse)+'</span></div>'+
+        '<button class="more" style="margin-top:16px" data-go-modal="bulletin">온라인 주보 전체 보기</button>';
       const rel=sermons.filter(function(x){return x.series===s.series&&x.id!==s.id}).slice(0,3);
-      document.getElementById('sermonRelated').innerHTML=rel.length?rel.map(function(x){return '<button type="button" onclick="openSermon(\''+x.id+'\')"><b>'+x.title+'</b><span>'+x.date+'</span></button>'}).join(''):'<p style="color:#8b939c;font-size:12px;margin:0">같은 시리즈의 다른 설교가 없습니다.</p>';
+      document.getElementById('sermonRelated').innerHTML=rel.length?rel.map(function(x){
+        return '<button type="button" data-sermon="'+esc(x.id)+'"><b>'+esc(x.title)+'</b><span>'+esc(x.date)+'</span></button>'}).join('')
+        :'<p style="color:#8b939c;font-size:12px;margin:0">같은 시리즈의 다른 설교가 없습니다.</p>';
       document.querySelectorAll('#sdTabs button').forEach(function(b,i){b.classList.toggle('active',i===0)});
       document.querySelectorAll('#sermonModal .sd-panel').forEach(function(p,i){p.classList.toggle('active',i===0)});
       document.getElementById('sermonModal').classList.add('open');
     }
     function moveSermon(dir){
       let list=(sermonView&&sermonView.length?sermonView.slice():sermons.slice());
-      if(!list.some(function(x){return x.id===currentSermon.id})) list=sermons.slice();
+      if(!list.some(function(x){return x.id===currentSermon.id}))list=sermons.slice();
       list.sort(function(a,b){return b.date.localeCompare(a.date)});
       const i=list.findIndex(function(x){return x.id===currentSermon.id});
       const n=i+(dir>0?1:-1);
       if(i<0||n<0||n>=list.length){toast(dir>0?'가장 오래된 설교입니다.':'가장 최신 설교입니다.');return}
       openSermon(list[n].id);
     }
-    const bulletinData={
-      7:[['07.26','예수님으로 살리','고린도후서 4:7–10','임병영 목사','이흥기 장로',[['주의 은혜라','찬양대 특송'],['나의 반석이신 하나님','회중 찬양']]],
-         ['07.19','인도하심을 따라가려면','잠언 16:9','이기표 목사','정성현 장로',[['주가 나의 목자 되시니','회중 찬양'],['인도하소서','찬양대 특송']]],
-         ['07.12','무화과나무 아래로','요한복음 1:43–51','장정민 목사','이흥기 장로',[['나 주의 도움 받고자','회중 찬양']]],
-         ['07.05','다시 안겨주신 은혜','호세아 2:1–10','임병영 목사','정성현 장로',[['내게 있는 향유 옥합','찬양대 특송']]]],
-      6:[['06.28','천국은 마치','마태복음 20:1–10','이기표 목사','이흥기 장로',[['주 은혜임을','회중 찬양']]],
-         ['06.21','말씀 앞에 서는 시간','히브리서 4:12','김민수 목사','정성현 장로',[['주의 말씀 앞에','회중 찬양']]],
-         ['06.14','그 이름을 부르며','시편 116:1–2','임병영 목사','이흥기 장로',[['그 이름 예수','찬양대 특송']]]],
-      5:[['05.31','성령으로 새롭게','사도행전 2:1–4','담임목사','정성현 장로',[['성령이 오셨네','회중 찬양']]],
-         ['05.24','감사로 드리는 삶','데살로니가전서 5:18','담임목사','이흥기 장로',[['감사로 제사드리며','찬양대 특송']]]]
-    };
+
+    /* ===== 주보 (이미지 포함) ===== */
     function renderBulletins(){
       const month=Number(document.getElementById('bulletinMonth').value);
-      document.getElementById('bulletinGrid').innerHTML=(bulletinData[month]||[]).map(function(b,i){
-        return '<button class="bulletin" onclick="openBulletin('+month+','+i+')"><span class="bulletin-top"><span>WEEKLY BULLETIN</span><span>2026.'+b[0]+'</span></span><h3>'+b[1]+'</h3><p>'+b[2]+'</p></button>'}).join('');
+      const list=bulletinData[month]||[];
+      document.getElementById('bulletinGrid').innerHTML=list.length?list.map(function(b,i){
+        const thumb=b.image?'<span class="bulletin-thumb" style="background-image:url(\''+esc(b.image)+'\')"></span>':'';
+        return '<button class="bulletin'+(b.image?' has-image':'')+'" data-bulletin="'+month+':'+i+'">'+thumb+
+          '<span class="bulletin-top"><span>WEEKLY BULLETIN</span><span>'+esc(b.year||2026)+'.'+esc(b.date)+'</span></span>'+
+          '<h3>'+esc(b.title)+'</h3><p>'+esc(b.verse)+'</p></button>'}).join('')
+        :'<div class="empty">등록된 주보가 없습니다.</div>';
     }
     function openBulletin(month,i){
-      const b=bulletinData[Number(month)][i];
-      document.getElementById('bulMeta').textContent='WEEKLY BULLETIN · 2026.'+b[0]+' 주일예배';
-      document.getElementById('bulTitle').textContent=b[1];
-      document.getElementById('bulVerse').textContent='본문 · '+b[2];
+      const b=bulletinData[Number(month)][i];if(!b)return;
+      document.getElementById('bulMeta').textContent='WEEKLY BULLETIN · 2026.'+b.date+' 주일예배';
+      document.getElementById('bulTitle').textContent=b.title;
+      document.getElementById('bulVerse').textContent='본문 · '+b.verse;
+      const scan=document.getElementById('bulScan');
+      if(b.image){scan.innerHTML='<img src="'+esc(b.image)+'" alt="'+esc(b.title)+' 주보 이미지" loading="lazy">'+
+        '<a class="more" href="'+esc(b.image)+'" target="_blank" rel="noopener">원본 크기로 보기</a>';scan.hidden=false}
+      else{scan.innerHTML='';scan.hidden=true}
       document.getElementById('bulOrderBody').innerHTML=
         '<div class="sd-row"><span>예배</span><span>주일 1부 08:00 / 2부 11:00</span></div>'+
-        '<div class="sd-row"><span>인도</span><span>'+b[3]+'</span></div>'+
-        '<div class="sd-row"><span>기도</span><span>'+b[4]+'</span></div>'+
-        '<div class="sd-row"><span>설교</span><span>담임목사</span></div>'+
-        '<div class="sd-row"><span>본문</span><span>'+b[2]+'</span></div>'+
-        '<div class="sd-row"><span>축도</span><span>담임목사</span></div>';
-      document.getElementById('bulMusicBody').innerHTML=b[5].map(function(m){return '<div class="sd-row"><span>'+m[0]+'</span><span>'+m[1]+'</span></div>'}).join('');
-      document.getElementById('bulNewsBody').innerHTML=notices.slice(0,4).map(function(n){return '<div class="sd-row"><span>'+n.title+'</span><span>'+n.date+'</span></div>'}).join('');
+        '<div class="sd-row"><span>인도</span><span>'+esc(b.lead)+'</span></div>'+
+        '<div class="sd-row"><span>기도</span><span>'+esc(b.prayer)+'</span></div>'+
+        '<div class="sd-row"><span>설교</span><span>'+esc(site.seniorPastor||'담임목사')+'</span></div>'+
+        '<div class="sd-row"><span>본문</span><span>'+esc(b.verse)+'</span></div>'+
+        '<div class="sd-row"><span>축도</span><span>'+esc(site.seniorPastor||'담임목사')+'</span></div>';
+      document.getElementById('bulMusicBody').innerHTML=(b.music||[]).map(function(m){
+        return '<div class="sd-row"><span>'+esc(m.title)+'</span><span>'+esc(m.kind)+'</span></div>'}).join('');
+      document.getElementById('bulNewsBody').innerHTML=notices.slice(0,4).map(function(n){
+        return '<div class="sd-row"><span>'+esc(n.title)+'</span><span>'+esc(n.date)+'</span></div>'}).join('');
       document.querySelectorAll('#bulTabs button').forEach(function(x,idx){x.classList.toggle('active',idx===0)});
       document.querySelectorAll('#bulletinModal .sd-panel').forEach(function(p,idx){p.classList.toggle('active',idx===0)});
       document.getElementById('bulletinModal').classList.add('open');
     }
+
+    /* ===== 공지 ===== */
     function renderNotices(){
-      const cat=document.getElementById('noticeCategory').value,q=document.getElementById('noticeSearch').value.trim().toLowerCase();const filtered=notices.filter(function(n){return(!cat||n.category===cat)&&(!q||n.title.toLowerCase().includes(q))});
-      document.getElementById('noticeList').innerHTML=filtered.length?filtered.map(function(n){return '<button class="list-row" onclick="openNotice(\''+n.id+'\')"><span class="label">'+n.category+'</span><strong>'+n.title+(n.new?'<i class="notice-tag">NEW</i>':'')+'</strong><span>예수로교회</span><span>'+n.date+'</span></button>'}).join(''):'<div class="empty">조건에 맞는 공지사항이 없습니다.</div>';
+      const cat=document.getElementById('noticeCategory').value,
+        q=document.getElementById('noticeSearch').value.trim().toLowerCase();
+      const filtered=notices.filter(function(n){return(!cat||n.category===cat)&&(!q||n.title.toLowerCase().includes(q))});
+      document.getElementById('noticeList').innerHTML=filtered.length?filtered.map(function(n){
+        return '<button class="list-row" data-notice="'+esc(n.id)+'"><span class="label">'+esc(n.category)+
+          '</span><strong>'+esc(n.title)+(n.new?'<i class="notice-tag">NEW</i>':'')+
+          '</strong><span>'+esc(site.churchName||'예수로교회')+'</span><span>'+esc(n.date)+'</span></button>'}).join('')
+        :'<div class="empty">조건에 맞는 공지사항이 없습니다.</div>';
     }
     let currentNotice=null;
     function openNotice(id){const n=notices.find(function(x){return x.id===id});if(!n)return;currentNotice=n;
-      document.getElementById('noticeMeta').textContent=n.category+' · 예수로교회 · '+n.date;
+      document.getElementById('noticeMeta').textContent=n.category+' · '+(site.churchName||'예수로교회')+' · '+n.date;
       document.getElementById('noticeTitle').textContent=n.title;
       document.getElementById('noticeBody').textContent=n.body;
       document.getElementById('noticeModal').classList.add('open')}
     function moveNotice(dir){let i=notices.findIndex(function(x){return x.id===currentNotice.id})+dir;
       if(i<0||i>=notices.length){toast('마지막 글입니다.');return}openNotice(notices[i].id)}
+
+    /* ===== 부서 카드 ===== */
     function renderDepartments(group){
-      document.getElementById('deptGrid').innerHTML=departments.filter(function(d){return group==='all'||d.group===group}).map(function(d){
-        const photo=d.photo?'<div style="aspect-ratio:16/10;background:center/cover url(\'assets/'+d.photo+'\');margin:-26px -26px 20px"></div>':'';
-        const link=d.page?'<button onclick="go(\''+d.page+'\')">부서 페이지 보기 →</button>':'<button onclick="toast(\''+d.name+' 담당자에게 연결될 수 있도록 정식 홈페이지에서 문의 기능을 제공합니다.\')">문의하기 →</button>';
-        return '<article class="department">'+photo+'<div class="dept-age">'+d.age+'</div><h3>'+d.name+'</h3><p>'+d.text+'</p><dl><dt>모임</dt><dd>'+d.time+'</dd><br><dt>담당</dt><dd>'+d.leader+'</dd></dl>'+link+'</article>'}).join('')}
-    function renderGallery(filter){const result=gallery.filter(function(g){return filter==='all'||g.key===filter});document.getElementById('fullGallery').innerHTML=result.map(function(g,index){return '<button class="gallery-card" style="background-image:url(\'assets/'+g.file+'\')" onclick="openGalleryByData('+gallery.indexOf(g)+')"><div><small>'+g.date+'</small><b>'+g.title+'</b></div></button>'}).join('')}
-    function openGallery(key){const g=gallery.find(function(x){return x.key===key});if(g)showGallery(g)}function openGalleryByData(index){showGallery(gallery[index])}function showGallery(g){document.getElementById('galleryImage').src='assets/'+g.file;document.getElementById('galleryImage').alt=g.title;document.getElementById('galleryTitle').textContent=g.title;document.getElementById('galleryText').textContent=g.date+' · '+g.text;document.getElementById('galleryModal').classList.add('open')}
+      document.getElementById('deptGrid').innerHTML=departments.filter(function(d){
+        return group==='all'||d.group===group}).map(function(d){
+        const photo=d.cardPhoto?'<div style="aspect-ratio:16/10;background:center/cover url(\''+esc(d.cardPhoto)+
+          '\');margin:-26px -26px 20px"></div>':'';
+        return '<article class="department">'+photo+'<div class="dept-age">'+esc(d.age)+'</div>'+
+          '<h3>'+esc(d.name)+'</h3><p>'+esc(d.summary)+'</p>'+
+          '<dl><dt>모임</dt><dd>'+esc(d.time)+'</dd><br><dt>담당</dt><dd>'+esc(d.leaderName)+'</dd></dl>'+
+          '<button data-go="dept-'+esc(d.slug)+'">부서 페이지 보기 →</button></article>'}).join('')}
+
+    /* ===== 갤러리 ===== */
+    function renderGallery(filter){
+      const result=gallery.filter(function(g){return filter==='all'||g.key===filter});
+      document.getElementById('fullGallery').innerHTML=result.map(function(g){
+        return '<button class="gallery-card" style="background-image:url(\''+esc(g.image)+'\')" '+
+          'data-gallery="'+gallery.indexOf(g)+'"><div><small>'+esc(g.date)+'</small><b>'+esc(g.title)+
+          '</b></div></button>'}).join('')}
+    function openGallery(key){const g=gallery.find(function(x){return x.key===key});if(g)showGallery(g)}
+    function showGallery(g){
+      document.getElementById('galleryImage').src=g.image;
+      document.getElementById('galleryImage').alt=g.title;
+      document.getElementById('galleryTitle').textContent=g.title;
+      document.getElementById('galleryText').textContent=g.date+' · '+g.text;
+      document.getElementById('galleryModal').classList.add('open')}
+    function showImage(src,title,sub){
+      document.getElementById('galleryImage').src=src;
+      document.getElementById('galleryImage').alt=title;
+      document.getElementById('galleryTitle').textContent=title;
+      document.getElementById('galleryText').textContent=sub;
+      document.getElementById('galleryModal').classList.add('open')}
     function closeModal(id){document.getElementById(id).classList.remove('open')}
-    function initReveal(){const observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('visible');const count=entry.target.querySelectorAll('[data-count]');count.forEach(runCounter);observer.unobserve(entry.target)}})},{threshold:.12});document.querySelectorAll('.reveal').forEach(function(el){observer.observe(el)})}
-    function runCounter(el){if(el.dataset.done)return;el.dataset.done='1';let target=Number(el.dataset.count),value=0,step=Math.max(1,Math.ceil(target/32));let timer=setInterval(function(){value=Math.min(target,value+step);el.textContent=value;if(value===target)clearInterval(timer)},35)}
-    document.getElementById('navToggle').addEventListener('click',function(){const menu=document.getElementById('mainMenu'),open=menu.classList.toggle('open');this.setAttribute('aria-expanded',String(open))});
-    document.querySelectorAll('[data-season-button]').forEach(function(b){b.addEventListener('click',function(){setSeason(b.dataset.seasonButton,true)})});
-    document.querySelectorAll('[data-home-tab]').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('[data-home-tab]').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.tab-panel').forEach(function(x){x.classList.remove('active')});b.classList.add('active');document.getElementById(b.dataset.homeTab).classList.add('active')})});
-    document.getElementById('sermonSearchBtn').addEventListener('click',renderSermons);document.getElementById('sermonSearch').addEventListener('keydown',function(e){if(e.key==='Enter')renderSermons()});document.getElementById('sermonType').addEventListener('change',renderSermons);document.getElementById('sermonSeries').addEventListener('change',renderSermons);
-    document.getElementById('noticeSearchBtn').addEventListener('click',renderNotices);document.getElementById('noticeSearch').addEventListener('keydown',function(e){if(e.key==='Enter')renderNotices()});document.getElementById('noticeCategory').addEventListener('change',renderNotices);
-    document.getElementById('deptTabs').addEventListener('click',function(e){if(!e.target.matches('button'))return;this.querySelectorAll('button').forEach(function(b){b.classList.remove('active')});e.target.classList.add('active');renderDepartments(e.target.dataset.dept)});
-    document.getElementById('galleryTabs').addEventListener('click',function(e){if(!e.target.matches('button'))return;this.querySelectorAll('button').forEach(function(b){b.classList.remove('active')});e.target.classList.add('active');renderGallery(e.target.dataset.galleryFilter)});
-    document.getElementById('familyForm').addEventListener('submit',function(e){e.preventDefault();toast(document.getElementById('familyName').value+'님, 방문 등록이 접수되었습니다. 곧 안내드리겠습니다.');this.reset()});
-    document.querySelectorAll('.modal').forEach(function(m){m.addEventListener('click',function(e){if(e.target===m)m.classList.remove('open')})});document.addEventListener('keydown',function(e){if(e.key==='Escape')document.querySelectorAll('.modal.open').forEach(function(m){m.classList.remove('open')})});
-    window.addEventListener('scroll',function(){document.getElementById('header').classList.toggle('solid',window.scrollY>50);const max=document.documentElement.scrollHeight-window.innerHeight;document.getElementById('progress').style.width=(max?window.scrollY/max*100:0)+'%'},{passive:true});
-    document.querySelectorAll('#sdTabs button').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('#sdTabs button').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('#sermonModal .sd-panel').forEach(function(p){p.classList.remove('active')});b.classList.add('active');document.getElementById(b.dataset.sd).classList.add('active')})});
-    document.querySelectorAll('#bulTabs button').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('#bulTabs button').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('#bulletinModal .sd-panel').forEach(function(p){p.classList.remove('active')});b.classList.add('active');document.getElementById(b.dataset.bul).classList.add('active')})});
-    document.querySelectorAll('.sort-group [data-sort]').forEach(function(b){b.addEventListener('click',function(){sermonSort=b.dataset.sort;document.querySelectorAll('.sort-group [data-sort]').forEach(function(x){x.classList.remove('active')});b.classList.add('active');renderSermons()})});
+
+    /* ===== 오시는 길 ===== */
+    function copyAddress(){const address=site.address||'경기도 파주시 교하로 677-79';
+      if(window.navigator&&window.navigator.clipboard&&window.navigator.clipboard.writeText){
+        window.navigator.clipboard.writeText(address).then(function(){
+          toast('주소를 복사했습니다. 지도 앱에 붙여넣어 길찾기를 시작하세요.')})
+        .catch(function(){window.prompt('아래 주소를 복사해 주세요.',address)})}
+      else{window.prompt('아래 주소를 복사해 주세요.',address)}}
+    function renderFloorPlan(floor){
+      const plan=floorPlans[floor];if(!plan)return;
+      const map=document.getElementById('floorPlan');
+      map.className='floor-plan is-'+floor;map.setAttribute('aria-label',plan.title+' 안내용 평면도');
+      document.getElementById('floorNo').textContent=plan.no;
+      document.getElementById('floorTitle').textContent=plan.title;
+      document.getElementById('floorDescription').textContent=plan.description;
+      document.getElementById('floorList').innerHTML=plan.steps.map(function(step,index){
+        return '<li><i>'+(index+1)+'</i><span>'+esc(step)+'</span></li>'}).join('');
+      map.innerHTML=plan.zones.map(function(zone){
+        return '<button class="plan-zone '+esc(zone.className)+'" type="button" data-zone="'+esc(zone.name)+
+          '"><small>'+esc(zone.label)+'</small><b>'+esc(zone.name)+'</b></button>'}).join('');
+      map.querySelectorAll('.plan-zone').forEach(function(button){
+        button.addEventListener('click',function(){
+          const zone=plan.zones.find(function(item){return item.name===button.dataset.zone});
+          if(zone)toast(zone.name+' · '+zone.info)})})}
+
+    function initReveal(){
+      const observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){
+        if(entry.isIntersecting){entry.target.classList.add('visible');
+          entry.target.querySelectorAll('[data-count]').forEach(runCounter);observer.unobserve(entry.target)}})},{threshold:.12});
+      document.querySelectorAll('.reveal').forEach(function(el){observer.observe(el)})}
+    function runCounter(el){if(el.dataset.done)return;el.dataset.done='1';
+      let target=Number(el.dataset.count),value=0,step=Math.max(1,Math.ceil(target/32));
+      let timer=setInterval(function(){value=Math.min(target,value+step);el.textContent=value;
+        if(value===target)clearInterval(timer)},35)}
+
+    /* ===== 이벤트 위임 (동적 생성 요소까지 한 번에 처리) ===== */
+    document.addEventListener('click',function(e){
+      const t=e.target.closest('[data-go],[data-toast],[data-sermon],[data-notice],[data-bulletin],[data-gallery],[data-album-open],[data-day],[data-go-modal]');
+      if(!t)return;
+      if(t.dataset.go!==undefined)return go(t.dataset.go);
+      if(t.dataset.toast!==undefined)return toast(t.dataset.toast);
+      if(t.dataset.sermon!==undefined)return openSermon(t.dataset.sermon);
+      if(t.dataset.notice!==undefined)return openNotice(t.dataset.notice);
+      if(t.dataset.day!==undefined)return showEvents(Number(t.dataset.day));
+      if(t.dataset.gallery!==undefined)return showGallery(gallery[Number(t.dataset.gallery)]);
+      if(t.dataset.bulletin!==undefined){const p=t.dataset.bulletin.split(':');return openBulletin(p[0],Number(p[1]))}
+      if(t.dataset.albumOpen!==undefined){const a=JSON.parse(t.dataset.albumOpen);
+        return showImage(a.image,a.title,a.date+' · '+a.dept+' 앨범')}
+      if(t.dataset.goModal!==undefined){closeModal('sermonModal');return go(t.dataset.goModal)}
+    });
+    document.addEventListener('click',function(e){
+      const tabs=e.target.closest('[data-album-tabs]');
+      if(!tabs||!e.target.matches('button'))return;
+      tabs.querySelectorAll('button').forEach(function(b){b.classList.remove('active')});
+      e.target.classList.add('active');
+      renderDeptAlbums(tabs.dataset.albumTabs,e.target.dataset.album);
+    });
+
+    document.getElementById('navToggle').addEventListener('click',function(){
+      const menu=document.getElementById('mainMenu'),open=menu.classList.toggle('open');
+      this.setAttribute('aria-expanded',String(open))});
+    document.querySelectorAll('[data-season-button]').forEach(function(b){
+      b.addEventListener('click',function(){setSeason(b.dataset.seasonButton,true)})});
+    document.querySelectorAll('[data-home-tab]').forEach(function(b){b.addEventListener('click',function(){
+      document.querySelectorAll('[data-home-tab]').forEach(function(x){x.classList.remove('active')});
+      document.querySelectorAll('.tab-panel').forEach(function(x){x.classList.remove('active')});
+      b.classList.add('active');document.getElementById(b.dataset.homeTab).classList.add('active')})});
+    document.getElementById('sermonSearchBtn').addEventListener('click',renderSermons);
+    document.getElementById('sermonSearch').addEventListener('keydown',function(e){if(e.key==='Enter')renderSermons()});
+    document.getElementById('sermonType').addEventListener('change',renderSermons);
+    document.getElementById('sermonSeries').addEventListener('change',renderSermons);
+    document.getElementById('noticeSearchBtn').addEventListener('click',renderNotices);
+    document.getElementById('noticeSearch').addEventListener('keydown',function(e){if(e.key==='Enter')renderNotices()});
+    document.getElementById('noticeCategory').addEventListener('change',renderNotices);
+    document.getElementById('deptTabs').addEventListener('click',function(e){
+      if(!e.target.matches('button'))return;
+      this.querySelectorAll('button').forEach(function(b){b.classList.remove('active')});
+      e.target.classList.add('active');renderDepartments(e.target.dataset.dept)});
+    document.getElementById('galleryTabs').addEventListener('click',function(e){
+      if(!e.target.matches('button'))return;
+      this.querySelectorAll('button').forEach(function(b){b.classList.remove('active')});
+      e.target.classList.add('active');renderGallery(e.target.dataset.galleryFilter)});
+    document.getElementById('familyForm').addEventListener('submit',function(e){e.preventDefault();
+      toast(document.getElementById('familyName').value+'님, 방문 등록이 접수되었습니다. 곧 안내드리겠습니다.');this.reset()});
+    document.querySelectorAll('.modal').forEach(function(m){m.addEventListener('click',function(e){
+      if(e.target===m)m.classList.remove('open')})});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')
+      document.querySelectorAll('.modal.open').forEach(function(m){m.classList.remove('open')})});
+    window.addEventListener('scroll',function(){
+      document.getElementById('header').classList.toggle('solid',window.scrollY>50);
+      const max=document.documentElement.scrollHeight-window.innerHeight;
+      document.getElementById('progress').style.width=(max?window.scrollY/max*100:0)+'%'},{passive:true});
+    document.querySelectorAll('#sdTabs button').forEach(function(b){b.addEventListener('click',function(){
+      document.querySelectorAll('#sdTabs button').forEach(function(x){x.classList.remove('active')});
+      document.querySelectorAll('#sermonModal .sd-panel').forEach(function(p){p.classList.remove('active')});
+      b.classList.add('active');document.getElementById(b.dataset.sd).classList.add('active')})});
+    document.querySelectorAll('#bulTabs button').forEach(function(b){b.addEventListener('click',function(){
+      document.querySelectorAll('#bulTabs button').forEach(function(x){x.classList.remove('active')});
+      document.querySelectorAll('#bulletinModal .sd-panel').forEach(function(p){p.classList.remove('active')});
+      b.classList.add('active');document.getElementById(b.dataset.bul).classList.add('active')})});
+    document.querySelectorAll('.sort-group [data-sort]').forEach(function(b){b.addEventListener('click',function(){
+      sermonSort=b.dataset.sort;
+      document.querySelectorAll('.sort-group [data-sort]').forEach(function(x){x.classList.remove('active')});
+      b.classList.add('active');renderSermons()})});
     document.getElementById('bulletinMonth').addEventListener('change',renderBulletins);
-    document.getElementById('albumTabs').addEventListener('click',function(e){if(!e.target.matches('button'))return;this.querySelectorAll('button').forEach(function(b){b.classList.remove('active')});e.target.classList.add('active');renderYouthAlbums(e.target.dataset.album)});
-    document.getElementById('floorTabs').addEventListener('click',function(e){if(!e.target.matches('button'))return;this.querySelectorAll('button').forEach(function(b){b.classList.remove('active')});e.target.classList.add('active');renderFloorPlan(e.target.dataset.floor)});
-    window.addEventListener('hashchange',function(){const h=location.hash.slice(1);if(h&&document.getElementById(h))go(h)});
-    renderHomeNotices();renderCalendar();renderFloorPlan('first');initReveal();seasonTimer=setInterval(nextSeason,6000);
-    (function(){const h=location.hash.slice(1);if(h&&document.getElementById(h))go(h)})();
+    document.getElementById('floorTabs').addEventListener('click',function(e){
+      if(!e.target.matches('button'))return;
+      this.querySelectorAll('button').forEach(function(b){b.classList.remove('active')});
+      e.target.classList.add('active');renderFloorPlan(e.target.dataset.floor)});
+    window.addEventListener('hashchange',function(){const h=location.hash.slice(1);
+      if(h&&document.getElementById(h))go(h)});
+
+    /* ===== 시작 ===== */
+    loadContent().then(function(){
+      renderMenu();
+      buildDepartmentPages();
+      renderHomeNotices();
+      renderCalendar();
+      renderFloorPlan('first');
+      const monthSelect=document.getElementById('bulletinMonth');
+      monthSelect.innerHTML=Object.keys(bulletinData).sort(function(a,b){return b-a}).map(function(m){
+        return '<option value="'+m+'">'+calendarMeta.year+'년 '+m+'월</option>'}).join('');
+      initReveal();
+      seasonTimer=setInterval(nextSeason,6000);
+      const h=location.hash.slice(1);
+      if(h&&document.getElementById(h))go(h);
+    }).catch(function(err){
+      console.error(err);
+      document.getElementById('content').insertAdjacentHTML('afterbegin',
+        '<div style="padding:160px 24px 80px;text-align:center;color:#8a6d3b">'+
+        '<h2 style="font-family:var(--serif)">콘텐츠를 불러오지 못했습니다</h2>'+
+        '<p style="font-size:13px">'+esc(err.message)+'</p>'+
+        '<p style="font-size:12px;color:#98a0aa">index.html을 파일로 직접 열면 브라우저 보안정책(CORS)에 막힙니다.<br>'+
+        '터미널에서 <code>python3 -m http.server 8000</code> 실행 후 http://localhost:8000 으로 접속해 주세요.</p></div>');
+    });
   </script>
 </body>
 </html>
