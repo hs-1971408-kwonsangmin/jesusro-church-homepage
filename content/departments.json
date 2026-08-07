@@ -2,7 +2,7 @@
   "items": [
     {
       "snsTitle": "유치부 소식",
-      "cardPhoto": "/assets/kids-worship.jpg",
+      "cardPhoto": "https://www.jesusro.com/user/saveDir/board/www23/3722_1752885619_34.jpg",
       "breadcrumb": "HOME · 다음세대 · 공동체",
       "org": [
         {
@@ -104,7 +104,7 @@
           "label": "행사"
         }
       ],
-      "banner": "/assets/kids-worship.jpg",
+      "banner": "https://www.jesusro.com/user/saveDir/board/www23/3692_1746940005_12.jpg",
       "time": "주일 11:00 · 유치부실",
       "leaderTitle": "담당 교역자",
       "headline": "놀이와 말씀으로 하나님을 즐겁게 만나는 시간입니다.",
