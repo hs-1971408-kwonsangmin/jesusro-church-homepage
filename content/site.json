@@ -1,7 +1,11 @@
 {
+  "youtube": "https://www.youtube.com/@예수로교회-p7v",
   "seniorPastor": "김석진 목사",
+  "offering": "",
+  "facebook": "",
   "churchName": "예수로교회",
   "heroSubtitle": "예수님 안에서 한 사람의 오늘을 품고, 다음 세대의 내일을 준비합니다.",
+  "instagram": "",
   "address": "경기도 파주시 교하로 677-79",
   "worship": [
     {
@@ -37,9 +41,5 @@
   ],
   "tel": "031-946-6161",
   "churchNameEn": "JESUSRO CHURCH",
-  "heroTitle": "함께 예배하고,\n함께 살아가는 교회",
-  "youtube": "https://www.youtube.com/@jesusro",
-  "instagram": "",
-  "facebook": "",
-  "offering": ""
+  "heroTitle": "함께 예배하고,\n함께 살아가는 교회"
 }
