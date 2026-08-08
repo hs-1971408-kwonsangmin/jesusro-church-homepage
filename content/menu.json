@@ -82,16 +82,6 @@
       ]
     },
     {
-      "label": "새가족",
-      "page": "family",
-      "children": [
-        {
-          "label": "새가족 안내 · 등록",
-          "page": "family"
-        }
-      ]
-    },
-    {
       "label": "오시는 길",
       "page": "visit",
       "children": []
