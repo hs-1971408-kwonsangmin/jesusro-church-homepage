@@ -3,38 +3,7 @@
   "churchName": "예수로교회",
   "heroSubtitle": "예수님 안에서 한 사람의 오늘을 품고, 다음 세대의 내일을 준비합니다.",
   "address": "경기도 파주시 교하로 677-79",
-  "worship": [
-    {
-      "day": "SUNDAY",
-      "time": "09:00",
-      "name": "주일 1부 예배",
-      "place": "본당"
-    },
-    {
-      "day": "SUNDAY",
-      "time": "11:00",
-      "name": "주일 2부 예배",
-      "place": "본당 "
-    },
-    {
-      "day": "SUNDAY",
-      "time": "13:00",
-      "name": "주일 3부 예배",
-      "place": "본당"
-    },
-    {
-      "day": "WEDNESDAY",
-      "time": "20:00",
-      "name": "수요 저녁예배",
-      "place": "본당"
-    },
-    {
-      "day": "SATURDAY",
-      "time": "06:30",
-      "name": "토요 새벽예배",
-      "place": "본당"
-    }
-  ],
+  "worship": [],
   "tel": "031-946-6161",
   "churchNameEn": "JESUSRO CHURCH",
   "heroTitle": "함께 예배하고,\n함께 살아가는 교회"
