@@ -1,5 +1,8 @@
 {
-  "headerButton": { "label": "새가족 등록", "page": "family" },
+  "headerButton": {
+    "label": "새가족 등록",
+    "page": "family"
+  },
   "items": [
     {
       "icon": "new",
@@ -11,7 +14,8 @@
       "icon": "clock",
       "label": "예배 시간",
       "desc": "주일 09:00 · 11:00 · 13:00",
-      "page": "visit"
+      "page": "home",
+      "scrollTo": "worshipSection"
     },
     {
       "icon": "map",

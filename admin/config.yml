@@ -323,6 +323,7 @@ collections:
               - { label: "제목", name: "label", widget: "string" }
               - { label: "아래 설명", name: "desc", widget: "string", required: false }
               - { label: "갈 페이지", name: "page", widget: "select", options: *pages }
+              - { label: "그 페이지에서 이동할 위치", name: "scrollTo", widget: "string", required: false, hint: "비워두면 페이지 맨 위로 갑니다. worshipSection 을 넣으면 예배 안내로 내려갑니다" }
 
   # ───────────────────────── 첫 화면 사역 카드 ─────────────────────────
   - name: "ministry"
