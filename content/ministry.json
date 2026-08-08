@@ -1,0 +1,33 @@
+{
+  "kick": "MINISTRY",
+  "title": "함께 자라가는 공동체",
+  "desc": "각자의 자리에서, 각 세대의 언어로 하나님을 예배합니다.",
+  "moreLabel": "부서 전체 안내",
+  "morePage": "dept",
+  "items": [
+    {
+      "label": "NEXT GENERATION",
+      "title": "다음세대",
+      "text": "영아부부터 청년부까지, 각 세대가 자기 언어로 예배합니다.",
+      "linkText": "부서별 안내 보기 →",
+      "image": "/assets/church-autumn.jpg",
+      "page": "dept"
+    },
+    {
+      "label": "SMALL GROUP",
+      "title": "목장 · 소그룹",
+      "text": "가까이 사는 성도들이 매주 모여 말씀과 삶을 나눕니다.",
+      "linkText": "우리 동네 목장 찾기 →",
+      "image": "/assets/church-spring.jpg",
+      "page": "dept-smallgroup"
+    },
+    {
+      "label": "MISSION",
+      "title": "선교 · 섬김",
+      "text": "지역의 이웃을 섬기고 국내외 선교와 함께 걷습니다.",
+      "linkText": "섬김에 참여하기 →",
+      "image": "/assets/church-winter.jpg",
+      "page": "dept"
+    }
+  ]
+}

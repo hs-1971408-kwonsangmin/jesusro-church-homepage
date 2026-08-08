@@ -38,8 +38,8 @@
     .offer{background:transparent;border:1px solid var(--gold);color:var(--gold-light);padding:10px 15px;font-size:16px;font-weight:600;letter-spacing:.08em;transition:.2s;white-space:nowrap}.offer:hover{background:var(--gold);color:#17110a}
     .nav-toggle{display:none;width:38px;height:38px;background:none;border:0;padding:7px}.nav-toggle span{display:block;background:#fff;height:1.5px;margin:5px 0}
     main{min-height:100vh}.page{display:none;padding:0;animation:enter .42s ease}.page.on{display:block}@keyframes enter{from{opacity:0;transform:translateY(11px)}to{opacity:1;transform:none}}
-    .hero{min-height:100svh;display:grid;place-items:center;position:relative;overflow:hidden}.hero-layer{position:absolute;inset:-4%;opacity:0;background:center/cover no-repeat;transform:scale(1.04);transition:opacity 1.25s ease,transform 6s ease}.hero-layer.on{opacity:1;transform:scale(1)}.hero-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,7,13,.78),rgba(3,7,13,.18) 36%,rgba(3,7,13,.62) 78%,var(--void)),radial-gradient(ellipse at center,transparent 0%,rgba(3,7,13,.32) 100%)}
-    .hero-inner{position:relative;z-index:1;text-align:center;padding:150px 18px 165px}.eyebrow{color:var(--gold);font-size:16px;font-weight:700;letter-spacing:.34em}.hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(39px,5.5vw,72px);line-height:1.27;letter-spacing:-.075em;margin:23px 0 0;text-shadow:0 4px 28px rgba(0,0,0,.38)}.gold{color:var(--gold-light)}.hero p{max-width:590px;margin:19px auto 0;color:#dde1e7;font-size:13px;letter-spacing:-.02em}
+    .hero{min-height:84svh;display:grid;place-items:center;position:relative;overflow:hidden}.hero-layer{position:absolute;inset:-4%;opacity:0;background:center/cover no-repeat;transform:scale(1.04);transition:opacity 1.25s ease,transform 6s ease}.hero-layer.on{opacity:1;transform:scale(1)}.hero-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,7,13,.78),rgba(3,7,13,.18) 36%,rgba(3,7,13,.62) 78%,var(--void)),radial-gradient(ellipse at center,transparent 0%,rgba(3,7,13,.32) 100%)}
+    .hero-inner{position:relative;z-index:1;text-align:center;padding:112px 18px 124px}.eyebrow{color:var(--gold);font-size:16px;font-weight:700;letter-spacing:.34em}.hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(39px,5.5vw,72px);line-height:1.27;letter-spacing:-.075em;margin:23px 0 0;text-shadow:0 4px 28px rgba(0,0,0,.38)}.gold{color:var(--gold-light)}.hero p{max-width:590px;margin:19px auto 0;color:#dde1e7;font-size:13px;letter-spacing:-.02em}
     .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:36px}.button{border:1px solid transparent;padding:14px 22px;font-size:20px;font-weight:600;letter-spacing:-.02em;transition:.22s}.button.primary{background:linear-gradient(120deg,var(--gold-light),var(--gold));color:#1b140a}.button.primary:hover{box-shadow:0 10px 30px rgba(201,166,107,.38);transform:translateY(-2px)}.button.ghost{border-color:rgba(255,255,255,.45);background:rgba(5,8,13,.16);backdrop-filter:blur(6px);color:#fff}.button.ghost:hover{background:rgba(255,255,255,.12)}
     .weekly{position:absolute;z-index:2;right:max(24px,calc((100vw - 1180px)/2));bottom:77px;width:258px;border:1px solid rgba(255,255,255,.2);background:rgba(6,10,16,.82);backdrop-filter:blur(18px);box-shadow:0 18px 44px rgba(0,0,0,.34);padding:18px 20px}.weekly h2{margin:0 0 10px;color:var(--gold);font-size:16px;letter-spacing:.22em}.weekly-row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.14);font-size:19px;color:#e8ecf2}.weekly-row b{font-family:var(--serif);font-size:13px;color:#fff}.weekly-live{display:block;width:100%;margin-top:12px;padding:9px;border:0;background:#a84442;color:#fff;font-size:17px;font-weight:600}.live-dot{display:inline-block;width:6px;height:6px;background:white;border-radius:50%;margin-right:6px;animation:pulse 1.3s infinite}@keyframes pulse{50%{opacity:.2}}
     .season{position:absolute;z-index:2;bottom:88px;left:50%;display:flex;gap:20px;transform:translateX(-50%)}.season button{position:relative;width:100px;border:0;height:2px;background:rgba(255,255,255,.35)}.season button.active{background:var(--gold)}.season button span{position:absolute;left:50%;bottom:9px;transform:translateX(-50%);color:#f1f1ee;font-size:14px;font-weight:600;letter-spacing:.14em;white-space:nowrap}.scroll-cue{position:absolute;z-index:2;bottom:31px;left:50%;transform:translateX(-50%);color:#b7bdc7;font-size:14px;letter-spacing:.3em}.scroll-cue:after{content:"";display:block;width:1px;height:25px;margin:6px auto 0;background:linear-gradient(var(--gold),transparent)}
@@ -309,6 +309,7 @@
         <div class="scroll-cue">SCROLL</div>
       </section>
       <div class="marquee"><div class="marquee-track"><span>오직 여호와를 앙망하는 자는 새 힘을 얻으리니 <b>· 이사야 40:31 ·</b></span><span>피곤한 자에게는 능력을 주시며 <b>· 이사야 40:29 ·</b></span><span>독수리가 날개치며 올라감 같을 것이요 <b>· 이사야 40:31 ·</b></span><span>오직 여호와를 앙망하는 자는 새 힘을 얻으리니 <b>· 이사야 40:31 ·</b></span><span>피곤한 자에게는 능력을 주시며 <b>· 이사야 40:29 ·</b></span><span>독수리가 날개치며 올라감 같을 것이요 <b>· 이사야 40:31 ·</b></span></div></div>
+      <section class="void" id="ministrySection"><div class="wrap"><div class="section-top reveal"><div><div class="kick" id="ministryKick"></div><h2 class="title" id="ministryTitle"></h2><p class="desc" id="ministryDesc"></p></div><button class="more" id="ministryMore"></button></div><div class="ministry-grid reveal" id="ministryGrid"></div></div></section>
       <section class="light"><div class="wrap greet-band">
         <div class="greet-photo reveal" style="background-image:url('assets/pastor-portrait.jpg')"><span>담임목사 김석진</span></div>
         <div class="greet-body reveal">
@@ -323,7 +324,7 @@
       <section class="dark"><div class="wrap"><div class="section-top reveal"><div><div class="kick">WORSHIP</div><h2 class="title">함께 드리는 예배</h2><p class="desc">처음 오시는 분은 주일 2부 예배를 추천드립니다. 예배 후 새가족실에서 따뜻한 차를 준비해 두었습니다.</p></div><button class="more" data-go="visit">예배 안내와 오시는 길</button></div><div class="worship-grid reveal" id="worshipGrid"></div></div></section>
       <section class="void"><div class="wrap"><div class="section-top reveal"><div><div class="kick">THIS SUNDAY</div><h2 class="title">예수님으로 살리</h2><p class="desc">설교 영상과 함께 그 주의 찬양, 설교 노트, 온라인 주보를 한 자리에서 확인할 수 있습니다.</p></div><button class="more" data-go="sermon">설교 아카이브 전체보기</button></div><div class="feature reveal"><button class="player" style="background-image:url('assets/church-summer.jpg')" onclick="openSermon('s1')" aria-label="예수님으로 살리 설교 상세 보기"><span class="play"></span><span class="player-caption"><h3>예수님으로 살리</h3><p>고린도후서 4:7–10 · 담임목사 · 2026.07.26</p></span></button><div><p class="verse">“우리가 이 보배를 질그릇에 가졌으니 이는 심히 큰 능력은 하나님께 있고 우리에게 있지 아니함을 알게 하려 함이라”</p><p class="detail-copy">고린도후서 4장 7절 · Living by Jesus</p><div class="tabs" role="tablist"><button class="active" data-home-tab="music">관련 찬양</button><button data-home-tab="note">설교 노트</button><button data-home-tab="homeBulTab">이번 주 주보</button></div><div class="tab-panel active" id="music"><div class="info-row"><span>주의 은혜라</span><span>찬양대 특송</span></div><div class="info-row"><span>나의 반석이신 하나님</span><span>회중 찬양</span></div><div class="info-row"><span>보배로운 주</span><span>청년 워십</span></div></div><div class="tab-panel" id="note"><p class="detail-copy">질그릇에 보배를 담으신 이유는 심히 큰 능력이 하나님께 있고 우리에게 있지 않음을 알게 하려 하심입니다. 이번 한 주, 내 힘이 아닌 예수님으로 반응할 한 가지를 정해 보세요.</p></div><div class="tab-panel" id="homeBulTab"><div class="info-row"><span>인도</span><span>임병영 목사</span></div><div class="info-row"><span>기도</span><span>이흥기 장로</span></div><div class="info-row"><span>본문</span><span>고린도후서 4:7–10</span></div><button class="more" style="margin-top:17px" data-go="bulletin">온라인 주보 전체 보기</button></div></div></div></div></section>
       <section class="stat-band"><div class="wrap stats reveal"><div><div class="number" data-count="4">0</div><small>SEASONS</small><span>사계절을 함께 걷는 한 해</span></div><div><div class="number" data-count="6">0</div><small>DEPARTMENTS</small><span>영아부터 장년까지 전 세대</span></div><div><div class="number" data-count="12">0</div><small>SMALL GROUPS</small><span>매주 모이는 목장 공동체</span></div><div><div class="number" data-count="52">0</div><small>SUNDAYS</small><span>한 주도 쉬지 않는 예배</span></div></div></section>
-      <section class="void"><div class="wrap"><div class="section-top reveal"><div><div class="kick">MINISTRY</div><h2 class="title">함께 자라가는 공동체</h2><p class="desc">각자의 자리에서, 각 세대의 언어로 하나님을 예배합니다.</p></div><button class="more" data-go="dept">부서 전체 안내</button></div><div class="ministry-grid reveal"><button class="ministry" data-go="dept"><span class="ministry-image" style="background-image:url('assets/church-spring.jpg')"></span><span class="ministry-text"><small>SMALL GROUP</small><h3>목장 · 소그룹</h3><p>가까이 사는 성도들이 매주 모여 말씀과 삶을 나눕니다.</p><em>우리 동네 목장 찾기 →</em></span></button><button class="ministry" data-go="dept"><span class="ministry-image" style="background-image:url('assets/church-autumn.jpg')"></span><span class="ministry-text"><small>NEXT GENERATION</small><h3>다음세대</h3><p>영아부부터 청년부까지, 각 세대가 자기 언어로 예배합니다.</p><em>부서별 안내 보기 →</em></span></button><button class="ministry" data-go="dept"><span class="ministry-image" style="background-image:url('assets/church-winter.jpg')"></span><span class="ministry-text"><small>MISSION</small><h3>선교 · 섬김</h3><p>지역의 이웃을 섬기고 국내외 선교와 함께 걷습니다.</p><em>섬김에 참여하기 →</em></span></button></div></div></section>
+      
       <section class="dark"><div class="wrap two-grid"><div class="reveal"><div class="kick">NOTICE</div><h2 class="title" style="margin-bottom:24px">교회 소식</h2><div id="homeNotices"></div><button class="more" style="margin-top:23px" data-go="board">공지 전체보기</button></div><div class="reveal"><div class="calendar"><div class="calendar-head"><b>2026년 7월</b><span>CHURCH CALENDAR</span></div><div class="calendar-days"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div><div class="calendar-grid" id="calendarGrid"></div><div class="events" id="events"></div></div></div></div></section>
       <section class="light"><div class="wrap story"><div class="reveal"><div class="kick">OUR STORY</div><h2 class="title">함께 걸어온 길</h2><p class="desc">한 해 한 해, 성도들과 함께 쌓아온 시간입니다.</p></div><div class="timeline reveal"><div class="timeline-item"><div class="timeline-season">봄</div><b>전교인 사진 촬영 · 부활절 연합예배</b><p>벚꽃이 피는 교회 마당에서 온 교우가 모여 한 해를 시작합니다.</p></div><div class="timeline-item"><div class="timeline-season">여름</div><b>여름성경학교 · 청년부 수련회</b><p>다음세대가 말씀 안에서 뜨겁게 자라나는 계절입니다.</p></div><div class="timeline-item"><div class="timeline-season">가을</div><b>추수감사절 · 전도 축제</b><p>한 해의 열매를 감사하며 이웃을 초청합니다.</p></div><div class="timeline-item"><div class="timeline-season">겨울</div><b>성탄 예배 · 송구영신 예배</b><p>눈 덮인 예배당에서 한 해를 돌아보고 새해를 준비합니다.</p></div></div></div></section>
       <section class="dark"><div class="wrap"><div class="section-top reveal"><div><div class="kick">GALLERY</div><h2 class="title">사계절의 기록</h2></div><button class="more" data-go="gallery">사진첩 전체보기</button></div><div class="gallery-preview reveal"><button style="background-image:url('assets/church-spring.jpg')" onclick="openGallery('spring')"></button><button style="background-image:url('assets/church-summer.jpg')" onclick="openGallery('summer')"></button><button style="background-image:url('assets/church-autumn.jpg')" onclick="openGallery('autumn')"></button><button style="background-image:url('assets/church-winter.jpg')" onclick="openGallery('winter')"></button></div></div></section>
@@ -395,7 +396,7 @@
        fetch를 쓰므로 file:// 로 직접 열면 CORS에 막힌다. 로컬 확인은 http 서버로:
          python3 -m http.server 8000   ->   http://localhost:8000 */
     let sermons=[],notices=[],departments=[],gallery=[],calendarEvents={},floorPlans={},
-        bulletinData={},menuItems=[],site={},applications=[],cafe={},staff={},
+        bulletinData={},menuItems=[],site={},applications=[],cafe={},staff={},ministry={},
         calendarMeta={year:2026,month:7,startWeekday:3,days:31,selected:26};
 
     function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){
@@ -403,7 +404,7 @@
     function nl2br(v){return esc(v).replace(/\n/g,'<br>')}
 
     async function loadContent(){
-      const names=['site','menu','sermons','notices','departments','gallery','calendar','facility','bulletins','applications','cafe','staff'];
+      const names=['site','menu','sermons','notices','departments','gallery','calendar','facility','bulletins','applications','cafe','staff','ministry'];
       const data={};
       await Promise.all(names.map(function(n){
         return fetch('content/'+n+'.json',{cache:'no-cache'})
@@ -415,7 +416,7 @@
       floorPlans=data.facility; calendarMeta=data.calendar;
       calendarEvents={}; data.calendar.events.forEach(function(e){calendarEvents[e.day]=e.items});
       bulletinData={}; data.bulletins.months.forEach(function(m){bulletinData[m.month]=m.items});
-      applications=data.applications.items; cafe=data.cafe; staff=data.staff;
+      applications=data.applications.items; cafe=data.cafe; staff=data.staff; ministry=data.ministry;
     }
 
     /* ===== 상단 메뉴 (content/menu.json) ===== */
@@ -635,6 +636,22 @@
       document.querySelectorAll('[data-site-tel]').forEach(function(el){
         if(site.tel){el.textContent=site.tel;
           if(el.tagName==='A')el.href='tel:'+site.tel.replace(/[^0-9+]/g,'')}});
+    }
+
+
+    /* ===== 사역 카드 (content/ministry.json) ===== */
+    function renderMinistry(){
+      const m=ministry;if(!m||!m.items)return;
+      const set=function(id,v){const el=document.getElementById(id);if(el)el.textContent=v||''};
+      set('ministryKick',m.kick); set('ministryTitle',m.title); set('ministryDesc',m.desc);
+      const more=document.getElementById('ministryMore');
+      if(more){more.textContent=m.moreLabel||'';more.dataset.go=m.morePage||'dept';
+        more.hidden=!m.moreLabel}
+      document.getElementById('ministryGrid').innerHTML=m.items.map(function(x){
+        return '<button class="ministry" data-go="'+esc(x.page||'dept')+'">'+
+          '<span class="ministry-image" style="background-image:url(\''+esc(x.image)+'\')"></span>'+
+          '<span class="ministry-text"><small>'+esc(x.label)+'</small><h3>'+esc(x.title)+'</h3>'+
+          '<p>'+esc(x.text)+'</p><em>'+esc(x.linkText)+'</em></span></button>'}).join('');
     }
 
     /* ===== 섬기는 분들 (content/staff.json) ===== */
@@ -991,6 +1008,7 @@
     /* ===== 시작 ===== */
     loadContent().then(function(){
       renderSite();
+      renderMinistry();
       renderMenu();
       buildDepartmentPages();
       renderHomeNotices();

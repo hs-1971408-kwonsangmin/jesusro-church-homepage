@@ -289,6 +289,39 @@ collections:
                       - { label: "곡명", name: "title", widget: "string" }
                       - { label: "구분", name: "kind", widget: "string", hint: "회중 찬양 / 찬양대 특송 등" }
 
+  # ───────────────────────── 첫 화면 사역 카드 ─────────────────────────
+  - name: "ministry"
+    label: "첫 화면 · 사역 카드"
+    files:
+      - name: "ministry"
+        label: "다음세대 · 목장 · 선교 카드"
+        file: "content/ministry.json"
+        fields:
+          - { label: "영문 표기", name: "kick", widget: "string", hint: "MINISTRY 처럼 작게 표시됩니다" }
+          - { label: "제목", name: "title", widget: "string" }
+          - { label: "설명", name: "desc", widget: "text" }
+          - { label: "오른쪽 버튼 글자", name: "moreLabel", widget: "string", required: false, hint: "비워두면 버튼이 숨겨집니다" }
+          - label: "오른쪽 버튼이 갈 페이지"
+            name: "morePage"
+            widget: "select"
+            options: *pages
+          - label: "카드"
+            name: "items"
+            widget: "list"
+            label_singular: "카드"
+            summary: "{{fields.title}}"
+            hint: "드래그해서 순서를 바꿀 수 있습니다"
+            fields:
+              - { label: "사진", name: "image", widget: "image", hint: "가로형 사진이 잘 맞습니다" }
+              - { label: "영문 표기", name: "label", widget: "string", hint: "NEXT GENERATION 등" }
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "설명", name: "text", widget: "text" }
+              - { label: "링크 글자", name: "linkText", widget: "string", hint: "부서별 안내 보기 → 처럼" }
+              - label: "눌렀을 때 갈 페이지"
+                name: "page"
+                widget: "select"
+                options: *pages
+
   # ───────────────────────── 신청서 ─────────────────────────
   - name: "applications"
     label: "신청서"
