@@ -113,7 +113,18 @@
         "text": "어린 아이들이 내게 오는 것을 용납하고\n금하지 말라 하나님의 나라가 이런 자의 것이니라",
         "ref": "마가복음 10:14 · 유치부 핵심 말씀"
       },
-      "notices": [],
+      "notices": [
+        {
+          "date": "2026.08.02",
+          "cat": "안내",
+          "title": "여름 물놀이 데이 안내"
+        },
+        {
+          "date": "2026.07.13",
+          "cat": "행사",
+          "title": "유치부 생일잔치 · 매월 마지막 주일"
+        }
+      ],
       "leaderMessage": "놀이와 말씀으로 하나님을 즐겁게 만나는 시간을 만들어 갑니다.",
       "age": "5–7세",
       "group": "next"
@@ -121,19 +132,167 @@
     {
       "cardPhoto": "https://www.jesusro.com/user/saveDir/board/www24/3475_1713071445_8.jpg",
       "breadcrumb": "초등부실",
-      "org": [],
+      "org": [
+        {
+          "tier": 1,
+          "label": "PASTOR",
+          "title": "담당 교역자",
+          "name": "고영현 전도사"
+        },
+        {
+          "tier": 2,
+          "label": "SUPPORT",
+          "title": "부장집사",
+          "name": "윤성호 집사"
+        },
+        {
+          "tier": 2,
+          "label": "ADMIN",
+          "title": "총무",
+          "name": "배은경 집사"
+        },
+        {
+          "tier": 2,
+          "label": "TEACHER",
+          "title": "교사",
+          "name": "교사 10명"
+        },
+        {
+          "tier": 3,
+          "label": "TEAM",
+          "title": "예배 사역팀",
+          "name": ""
+        },
+        {
+          "tier": 4,
+          "label": "PRAISE",
+          "title": "찬양팀",
+          "name": ""
+        },
+        {
+          "tier": 4,
+          "label": "MEDIA",
+          "title": "미디어팀",
+          "name": ""
+        },
+        {
+          "tier": 4,
+          "label": "CARE",
+          "title": "심방팀",
+          "name": ""
+        }
+      ],
       "summary": "안녕하세요.",
       "leaderPhoto": "/assets/pasted-graphic-2.png",
       "name": "초등부",
       "slug": "elementry",
       "banner": "https://www.jesusro.com/user/saveDir/board/www22/3623_1735784214_5.jpg",
       "time": "11:00",
-      "leaderTitle": "고영현 전도사",
+      "leaderTitle": "담당 교역자",
       "headline": "초등부입니다",
       "leaderName": "고영현 전도사",
-      "leaderMessage": "안녕하세요",
+      "leaderMessage": "아이들이 교회를 \"가야 하는 곳\"이 아니라 \"가고 싶은 곳\"으로 기억하길 바랍니다. 말씀을 스스로 펴는 습관을 함께 만들어 가겠습니다.",
       "age": "8~13세",
-      "group": "next"
+      "group": "next",
+      "meta": [
+        {
+          "label": "예배 시간",
+          "value": "주일 오전 11:00"
+        },
+        {
+          "label": "예배 장소",
+          "value": "별관 2층 초등부실"
+        },
+        {
+          "label": "대상",
+          "value": "초등 1학년 ~ 6학년"
+        }
+      ],
+      "verse": {
+        "text": "오직 우리 주 곧 구주 예수 그리스도의 은혜와\n그를 아는 지식에서 자라 가라",
+        "ref": "베드로후서 3:18 · 초등부 핵심 말씀"
+      },
+      "visions": [
+        {
+          "title": "스스로 펴는 말씀",
+          "text": "매주 성경을 직접 찾아 읽는 습관을 기릅니다."
+        },
+        {
+          "title": "함께 자라는 반",
+          "text": "반별 모임에서 한 주를 나누고 서로를 위해 기도합니다."
+        },
+        {
+          "title": "삶으로 배우는 믿음",
+          "text": "배운 말씀을 가정과 학교에서 실천해 봅니다."
+        }
+      ],
+      "yearPlan": [
+        {
+          "period": "1–3월",
+          "items": [
+            "겨울 성경학교",
+            "새학기 환영예배",
+            "새 친구 초청 주일"
+          ]
+        },
+        {
+          "period": "4–6월",
+          "items": [
+            "부활절 연합예배",
+            "어린이 주일",
+            "가정의 달 행사"
+          ]
+        },
+        {
+          "period": "7–9월",
+          "items": [
+            "여름성경학교",
+            "물놀이 나들이",
+            "가을 야외예배"
+          ]
+        },
+        {
+          "period": "10–12월",
+          "items": [
+            "추수감사절 발표",
+            "성탄 축하예배",
+            "한 해 감사 예배"
+          ]
+        }
+      ],
+      "albumCats": [
+        {
+          "key": "worship",
+          "label": "예배"
+        },
+        {
+          "key": "event",
+          "label": "행사"
+        },
+        {
+          "key": "retreat",
+          "label": "성경학교"
+        }
+      ],
+      "notices": [
+        {
+          "date": "2026.08.02",
+          "cat": "행사",
+          "title": "여름성경학교 사진 안내 · 8월 첫째 주"
+        },
+        {
+          "date": "2026.07.20",
+          "cat": "모집",
+          "title": "2학기 초등부 교사 모집"
+        },
+        {
+          "date": "2026.07.06",
+          "cat": "안내",
+          "title": "여름성경학교 준비물 안내"
+        }
+      ],
+      "snsTitle": "초등부 소식",
+      "snsText": "주일 예배와 행사 소식을 부모님께 전해 드립니다."
     },
     {
       "snsTitle": "청소년부 인스타그램",
@@ -519,132 +678,25 @@
         "text": "청년이 무엇으로 자기의 행실을 깨끗하게 하리이까\n주의 말씀만 지킬 따름이니이다",
         "ref": "시편 119:9 · 청년부 핵심 말씀"
       },
-      "notices": [],
+      "notices": [
+        {
+          "date": "2026.08.03",
+          "cat": "수련회",
+          "title": "여름수련회 사진 공유"
+        },
+        {
+          "date": "2026.07.21",
+          "cat": "모집",
+          "title": "하반기 셀 모임 신청 안내"
+        }
+      ],
       "leaderMessage": "예배와 나눔으로 서로의 일상에 동행하는 청년 공동체입니다.",
       "age": "20~미혼 청년",
-      "group": "next"
-    },
-    {
-      "snsTitle": "목장 · 소그룹 소식",
-      "cardPhoto": "",
-      "breadcrumb": "HOME · 다음세대 · 공동체",
-      "org": [
-        {
-          "tier": 1,
-          "label": "LEADER",
-          "title": "담당",
-          "name": "목장 리더"
-        },
-        {
-          "tier": 2,
-          "label": "MEMBER",
-          "title": "목장 총괄",
-          "name": "이흥기 장로"
-        },
-        {
-          "tier": 2,
-          "label": "ADMIN",
-          "title": "총무",
-          "name": "문경아 집사"
-        },
-        {
-          "tier": 2,
-          "label": "MEMBER",
-          "title": "목자",
-          "name": "목자 12명"
-        }
-      ],
-      "albums": [],
-      "meta": [
-        {
-          "label": "모임 시간",
-          "value": "평일 저녁 (목장별 상이)"
-        },
-        {
-          "label": "모임 장소",
-          "value": "성도 가정"
-        },
-        {
-          "label": "대상",
-          "value": "전 세대"
-        }
-      ],
-      "snsText": "부서 소식과 사진을 이곳에서 나눕니다. 담당자에게 문의해 주세요.",
-      "yearPlan": [
-        {
-          "period": "1–3월",
-          "items": [
-            "목장 개편",
-            "리더 훈련"
-          ]
-        },
-        {
-          "period": "4–6월",
-          "items": [
-            "목장별 나들이",
-            "상반기 연합모임"
-          ]
-        },
-        {
-          "period": "7–9월",
-          "items": [
-            "여름 목장 캠프",
-            "지역 섬김"
-          ]
-        },
-        {
-          "period": "10–12월",
-          "items": [
-            "추수감사 나눔",
-            "송년 목장모임"
-          ]
-        }
-      ],
-      "summary": "가까이 사는 이웃과 매주 모여 말씀과 삶을 나눕니다.",
-      "leaderPhoto": "",
-      "visions": [
-        {
-          "title": "가까운 이웃",
-          "text": "사는 곳을 중심으로 모여 부담 없이 만납니다."
-        },
-        {
-          "title": "말씀과 삶",
-          "text": "한 주의 말씀을 삶의 이야기로 나눕니다."
-        },
-        {
-          "title": "돌봄의 공동체",
-          "text": "기쁨과 어려움을 함께 지고 갑니다."
-        }
-      ],
-      "name": "목장 · 소그룹",
-      "slug": "smallgroup",
-      "albumCats": [
-        {
-          "key": "event",
-          "label": "행사"
-        },
-        {
-          "key": "worship",
-          "label": "예배"
-        }
-      ],
-      "banner": "/assets/church-family.jpg",
-      "time": "평일 저녁 · 가정별",
-      "leaderTitle": "담당",
-      "headline": "가까이 사는 이웃과 매주 모여 말씀과 삶을 나눕니다.",
-      "leaderName": "목장 리더",
-      "verse": {
-        "text": "날마다 마음을 같이하여 성전에 모이기를 힘쓰고\n집에서 떡을 떼며 기쁨과 순전한 마음으로 음식을 먹고",
-        "ref": "사도행전 2:46 · 목장 핵심 말씀"
-      },
-      "notices": [],
-      "leaderMessage": "가까이 사는 성도들이 매주 모여 말씀과 삶을 나누는 자리입니다.",
-      "age": "전 세대",
       "group": "adult"
     },
     {
       "snsTitle": "여전도회 소식",
-      "cardPhoto": "",
+      "cardPhoto": "/assets/church-autumn.jpg",
       "breadcrumb": "HOME · 다음세대 · 공동체",
       "org": [
         {
@@ -755,7 +807,18 @@
         "text": "누구든지 첫째가 되고자 하면\n뭇 사람의 끝이 되며 뭇 사람을 섬기는 자가 되어야 하리라",
         "ref": "마가복음 9:35 · 여전도회 핵심 말씀"
       },
-      "notices": [],
+      "notices": [
+        {
+          "date": "2026.08.01",
+          "cat": "모임",
+          "title": "8월 장년부 월례회 안내"
+        },
+        {
+          "date": "2026.07.12",
+          "cat": "봉사",
+          "title": "교회 시설 정비 봉사 안내"
+        }
+      ],
       "leaderMessage": "기도와 섬김으로 교회와 이웃을 세워 가는 여전도회입니다.",
       "age": "장년",
       "group": "adult"

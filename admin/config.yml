@@ -61,6 +61,10 @@ collections:
           - { label: "주소", name: "address", widget: "string" }
           - { label: "전화번호", name: "tel", widget: "string" }
           - { label: "담임목사", name: "seniorPastor", widget: "string", hint: "주보의 설교·축도 칸에 자동으로 들어갑니다" }
+          - { label: "유튜브 채널 주소", name: "youtube", widget: "string", required: false, hint: "비워두면 LIVE 예배 버튼과 유튜브 링크가 안내 문구만 띄웁니다" }
+          - { label: "인스타그램 주소", name: "instagram", widget: "string", required: false }
+          - { label: "페이스북 주소", name: "facebook", widget: "string", required: false }
+          - { label: "온라인 헌금 주소", name: "offering", widget: "string", required: false }
           - { label: "첫 화면 큰 문구", name: "heroTitle", widget: "text" }
           - { label: "첫 화면 설명", name: "heroSubtitle", widget: "text" }
           - label: "예배 시간"
@@ -106,13 +110,15 @@ collections:
                   - { label: "들꽃 카페", value: "cafe" }
                   - { label: "섬기는 분들", value: "staff" }
                   - { label: "교회 시설 안내", value: "facility" }
+                  - { label: "예배 안내", value: "worship" }
+                  - { label: "목장 · 소그룹", value: "smallgroup" }
+                  - { label: "선교 · 섬김", value: "mission" }
                   # 부서를 추가·삭제하면 이 목록도 같이 고쳐야 합니다.
                   # 없는 부서를 고르면 메뉴를 눌러도 홈으로 돌아갑니다.
                   - { label: "부서 · 유치부", value: "dept-kids" }
                   - { label: "부서 · 초등부", value: "dept-elementry" }
                   - { label: "부서 · 청소년부", value: "dept-youth" }
                   - { label: "부서 · 청년부", value: "dept-young" }
-                  - { label: "부서 · 목장 소그룹", value: "dept-smallgroup" }
                   - { label: "부서 · 장년부", value: "dept-men" }
               - label: "하위 메뉴"
                 name: "children"
@@ -289,6 +295,227 @@ collections:
                     fields:
                       - { label: "곡명", name: "title", widget: "string" }
                       - { label: "구분", name: "kind", widget: "string", hint: "회중 찬양 / 찬양대 특송 등" }
+
+  # ───────────────────────── 예배 안내 ─────────────────────────
+  - name: "worship"
+    label: "예배 안내"
+    files:
+      - name: "worship"
+        label: "예배 시간 · 부서별 예배"
+        file: "content/worship.json"
+        fields:
+          - { label: "페이지 상단 사진", name: "banner", widget: "image", required: false }
+          - { label: "페이지 상단 문구", name: "headline", widget: "string" }
+          - { label: "안내문", name: "intro", widget: "text" }
+          - label: "예배 묶음"
+            name: "groups"
+            widget: "list"
+            label_singular: "묶음"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "영문 표기", name: "kick", widget: "string" }
+              - { label: "제목", name: "title", widget: "string" }
+              - label: "예배"
+                name: "items"
+                widget: "list"
+                summary: "{{fields.name}} — {{fields.time}}"
+                fields:
+                  - { label: "예배 이름", name: "name", widget: "string" }
+                  - { label: "시간", name: "time", widget: "string" }
+                  - { label: "장소", name: "place", widget: "string" }
+                  - { label: "설명", name: "note", widget: "text", required: false }
+                  - { label: "강조 표시", name: "highlight", widget: "boolean", default: false, hint: "처음 오시는 분께 추천하는 예배에 켜 주세요" }
+          - label: "부서별 예배"
+            name: "departments"
+            widget: "object"
+            fields:
+              - { label: "영문 표기", name: "kick", widget: "string" }
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "설명", name: "desc", widget: "text" }
+              - label: "부서"
+                name: "items"
+                widget: "list"
+                summary: "{{fields.name}}"
+                fields:
+                  - { label: "부서 이름", name: "name", widget: "string" }
+                  - { label: "시간", name: "time", widget: "string" }
+                  - { label: "장소", name: "place", widget: "string" }
+                  - { label: "연결될 부서 페이지", name: "page", widget: "select", options: *pages }
+          - label: "오시기 전에"
+            name: "notes"
+            widget: "object"
+            fields:
+              - { label: "제목", name: "title", widget: "string" }
+              - label: "항목"
+                name: "items"
+                widget: "list"
+                summary: "{{fields.label}}"
+                fields:
+                  - { label: "항목", name: "label", widget: "string" }
+                  - { label: "내용", name: "value", widget: "text" }
+          - label: "온라인 예배"
+            name: "online"
+            widget: "object"
+            fields:
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "본문", name: "text", widget: "text" }
+              - { label: "버튼 글자", name: "buttonLabel", widget: "string", hint: "유튜브 주소는 교회 기본 정보에서 가져옵니다" }
+
+  # ───────────────────────── 목장 · 소그룹 ─────────────────────────
+  - name: "smallgroup"
+    label: "목장 · 소그룹"
+    files:
+      - name: "smallgroup"
+        label: "목장 소개 · 목장 목록"
+        file: "content/smallgroup.json"
+        fields:
+          - { label: "페이지 상단 사진", name: "banner", widget: "image", required: false }
+          - { label: "페이지 상단 문구", name: "headline", widget: "string" }
+          - label: "소개"
+            name: "intro"
+            widget: "object"
+            fields:
+              - { label: "영문 표기", name: "kick", widget: "string" }
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "본문", name: "text", widget: "text" }
+              - { label: "사진", name: "photo", widget: "image", required: false }
+          - label: "핵심 말씀"
+            name: "verse"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "말씀", name: "text", widget: "text", required: false }
+              - { label: "출처", name: "ref", widget: "string", required: false }
+          - label: "모임 흐름"
+            name: "flow"
+            widget: "object"
+            fields:
+              - { label: "영문 표기", name: "kick", widget: "string" }
+              - { label: "제목", name: "title", widget: "string" }
+              - label: "단계"
+                name: "items"
+                widget: "list"
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "제목", name: "title", widget: "string" }
+                  - { label: "설명", name: "text", widget: "text" }
+          - label: "목장 목록"
+            name: "groups"
+            widget: "object"
+            fields:
+              - { label: "영문 표기", name: "kick", widget: "string" }
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "설명", name: "desc", widget: "text" }
+              - label: "목장"
+                name: "items"
+                widget: "list"
+                label_singular: "목장"
+                summary: "{{fields.name}} — {{fields.area}}"
+                fields:
+                  - { label: "목장 이름", name: "name", widget: "string" }
+                  - { label: "지역", name: "area", widget: "string" }
+                  - { label: "모임 시간", name: "when", widget: "string" }
+                  - { label: "장소", name: "place", widget: "string" }
+                  - { label: "목자", name: "leader", widget: "string" }
+                  - { label: "대상", name: "target", widget: "string" }
+                  - { label: "설명", name: "note", widget: "text" }
+          - label: "자주 묻는 질문"
+            name: "faq"
+            widget: "list"
+            summary: "{{fields.q}}"
+            fields:
+              - { label: "질문", name: "q", widget: "string" }
+              - { label: "답변", name: "a", widget: "text" }
+          - label: "신청 안내"
+            name: "apply"
+            widget: "object"
+            fields:
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "본문", name: "text", widget: "text" }
+              - { label: "버튼 글자", name: "buttonLabel", widget: "string" }
+              - { label: "연결할 신청서 코드", name: "applicationKey", widget: "string", hint: "신청서 관리의 코드 (smallgroup)" }
+
+  # ───────────────────────── 선교 · 섬김 ─────────────────────────
+  - name: "mission"
+    label: "선교 · 섬김"
+    files:
+      - name: "mission"
+        label: "선교지 · 참여 방법 · 연간 일정"
+        file: "content/mission.json"
+        fields:
+          - { label: "페이지 상단 사진", name: "banner", widget: "image", required: false }
+          - { label: "페이지 상단 문구", name: "headline", widget: "string" }
+          - label: "소개"
+            name: "intro"
+            widget: "object"
+            fields:
+              - { label: "영문 표기", name: "kick", widget: "string" }
+              - { label: "제목", name: "title", widget: "text" }
+              - { label: "본문", name: "text", widget: "text" }
+              - { label: "사진", name: "photo", widget: "image", required: false }
+          - label: "핵심 말씀"
+            name: "verse"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "말씀", name: "text", widget: "text", required: false }
+              - { label: "출처", name: "ref", widget: "string", required: false }
+          - label: "선교지 · 사역"
+            name: "fields"
+            widget: "object"
+            fields:
+              - { label: "영문 표기", name: "kick", widget: "string" }
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "설명", name: "desc", widget: "text" }
+              - label: "사역"
+                name: "items"
+                widget: "list"
+                label_singular: "사역"
+                summary: "{{fields.name}} ({{fields.region}})"
+                fields:
+                  - { label: "지역", name: "region", widget: "string" }
+                  - { label: "사역 이름", name: "name", widget: "string" }
+                  - { label: "함께하는 곳", name: "partner", widget: "string" }
+                  - { label: "주기", name: "period", widget: "string" }
+                  - { label: "설명", name: "text", widget: "text" }
+                  - { label: "상태", name: "status", widget: "string", hint: "진행 중 / 준비 중 등" }
+          - label: "참여 방법"
+            name: "programs"
+            widget: "object"
+            fields:
+              - { label: "영문 표기", name: "kick", widget: "string" }
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "설명", name: "desc", widget: "text" }
+              - label: "프로그램"
+                name: "items"
+                widget: "list"
+                summary: "{{fields.name}}"
+                fields:
+                  - { label: "이름", name: "name", widget: "string" }
+                  - { label: "시기", name: "when", widget: "string" }
+                  - { label: "대상", name: "target", widget: "string" }
+                  - { label: "설명", name: "text", widget: "text" }
+          - label: "연간 일정"
+            name: "calendar"
+            widget: "object"
+            fields:
+              - { label: "영문 표기", name: "kick", widget: "string" }
+              - { label: "제목", name: "title", widget: "string" }
+              - label: "기간별 일정"
+                name: "items"
+                widget: "list"
+                summary: "{{fields.period}}"
+                fields:
+                  - { label: "기간", name: "period", widget: "string" }
+                  - { label: "일정", name: "items", widget: "list", field: { label: "일정", name: "item", widget: "string" } }
+          - label: "신청 안내"
+            name: "apply"
+            widget: "object"
+            fields:
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "본문", name: "text", widget: "text" }
+              - { label: "버튼 글자", name: "buttonLabel", widget: "string" }
+              - { label: "연결할 신청서 코드", name: "applicationKey", widget: "string", hint: "신청서 관리의 코드 (mission)" }
 
   # ───────────────────────── 새가족 안내 ─────────────────────────
   - name: "newfamily"
@@ -600,6 +827,7 @@ collections:
               - { label: "요약", name: "summary", widget: "text" }
               - { label: "적용 질문", name: "apply", widget: "text", required: false }
               - { label: "기도문", name: "pray", widget: "text", required: false }
+              - { label: "유튜브 영상 주소", name: "video", widget: "string", required: false, hint: "https://youtu.be/... 또는 https://www.youtube.com/watch?v=... 를 붙여넣으면 설교 상세에서 바로 재생됩니다" }
               - { label: "인도", name: "lead", widget: "string", required: false }
               - { label: "대표기도", name: "prayer", widget: "string", required: false }
 

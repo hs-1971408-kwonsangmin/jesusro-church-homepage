@@ -9,9 +9,10 @@
       "label": "NEXT GENERATION",
       "title": "다음세대",
       "text": "영아부부터 청년부까지, 각 세대가 자기 언어로 예배합니다.",
-      "linkText": "부서별 안내 보기 →",
+      "linkText": "다음세대 부서 보기 →",
       "image": "https://www.jesusro.com/user/saveDir/board/www36/3198_1683785463_0.jpg",
-      "page": "dept"
+      "page": "dept",
+      "deptTab": "next"
     },
     {
       "label": "SMALL GROUP",
@@ -19,15 +20,15 @@
       "text": "가까이 사는 성도들이 매주 모여 말씀과 삶을 나눕니다.",
       "linkText": "우리 동네 목장 찾기 →",
       "image": "https://www.jesusro.com/user/saveDir/board/www22/3523_1719975986_17.jpg",
-      "page": "dept-smallgroup"
+      "page": "smallgroup"
     },
     {
       "label": "MISSION",
       "title": "선교 · 섬김",
       "text": "지역의 이웃을 섬기고 국내외 선교와 함께 걷습니다.",
-      "linkText": "섬김에 참여하기 →",
+      "linkText": "선교와 섬김 보기 →",
       "image": "https://www.jesusro.com/user/saveDir/board/www26/2777_1557196103_3.jpg",
-      "page": "dept"
+      "page": "mission"
     }
   ]
 }

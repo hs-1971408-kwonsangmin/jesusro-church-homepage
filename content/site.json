@@ -6,30 +6,40 @@
   "worship": [
     {
       "day": "SUNDAY",
-      "time": "9:00",
-      "name": "1부 예배",
+      "time": "09:00",
+      "name": "주일 1부 예배",
       "place": "본당"
     },
     {
       "day": "SUNDAY",
       "time": "11:00",
-      "name": "2부 예배",
-      "place": "본당"
+      "name": "주일 2부 예배",
+      "place": "본당 · 주일학교 동시 진행"
     },
     {
       "day": "SUNDAY",
-      "time": "13:00",
-      "name": "3부 예배",
-      "place": "본당"
+      "time": "12:30",
+      "name": "주일 3부 찬양예배",
+      "place": "별관 2층 · 청년부"
     },
     {
       "day": "WEDNESDAY",
       "time": "20:00",
       "name": "수요예배",
       "place": "본당"
+    },
+    {
+      "day": "SATURDAY",
+      "time": "06:30",
+      "name": "토요 새벽기도회",
+      "place": "본당"
     }
   ],
   "tel": "031-946-6161",
   "churchNameEn": "JESUSRO CHURCH",
-  "heroTitle": "함께 예배하고,\n함께 살아가는 교회"
+  "heroTitle": "함께 예배하고,\n함께 살아가는 교회",
+  "youtube": "https://www.youtube.com/@jesusro",
+  "instagram": "",
+  "facebook": "",
+  "offering": ""
 }
