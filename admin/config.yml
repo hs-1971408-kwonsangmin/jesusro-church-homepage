@@ -105,6 +105,7 @@ collections:
                   - { label: "오시는 길", value: "visit" }
                   - { label: "들꽃 카페", value: "cafe" }
                   - { label: "섬기는 분들", value: "staff" }
+                  - { label: "교회 시설 안내", value: "facility" }
                   # 부서를 추가·삭제하면 이 목록도 같이 고쳐야 합니다.
                   # 없는 부서를 고르면 메뉴를 눌러도 홈으로 돌아갑니다.
                   - { label: "부서 · 유치부", value: "dept-kids" }
@@ -288,6 +289,105 @@ collections:
                     fields:
                       - { label: "곡명", name: "title", widget: "string" }
                       - { label: "구분", name: "kind", widget: "string", hint: "회중 찬양 / 찬양대 특송 등" }
+
+  # ───────────────────────── 새가족 안내 ─────────────────────────
+  - name: "newfamily"
+    label: "새가족 안내"
+    files:
+      - name: "newfamily"
+        label: "처음 오신 분 안내 · 자녀 동반 · FAQ"
+        file: "content/newfamily.json"
+        fields:
+          - { label: "페이지 상단 사진", name: "banner", widget: "image", required: false }
+          - { label: "페이지 상단 문구", name: "headline", widget: "string" }
+          - label: "환영 인사"
+            name: "welcome"
+            widget: "object"
+            fields:
+              - { label: "영문 표기", name: "kick", widget: "string" }
+              - { label: "제목", name: "title", widget: "text", hint: "줄바꿈하면 화면에서도 줄이 바뀝니다" }
+              - { label: "본문", name: "text", widget: "text" }
+          - label: "오시기 전에"
+            name: "before"
+            widget: "object"
+            fields:
+              - { label: "영문 표기", name: "kick", widget: "string" }
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "설명", name: "desc", widget: "text" }
+              - label: "항목"
+                name: "items"
+                widget: "list"
+                label_singular: "항목"
+                summary: "{{fields.label}} — {{fields.value}}"
+                fields:
+                  - { label: "항목 이름", name: "label", widget: "string", hint: "예배 시간, 주차 등" }
+                  - { label: "짧은 답", name: "value", widget: "string" }
+                  - { label: "자세한 설명", name: "note", widget: "text", required: false }
+          - label: "자녀와 함께"
+            name: "children"
+            widget: "object"
+            fields:
+              - { label: "영문 표기", name: "kick", widget: "string" }
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "설명", name: "desc", widget: "text" }
+              - { label: "안내문", name: "intro", widget: "text" }
+              - label: "부서별 예배"
+                name: "departments"
+                widget: "list"
+                label_singular: "부서"
+                summary: "{{fields.name}} ({{fields.age}})"
+                fields:
+                  - { label: "대상 연령", name: "age", widget: "string" }
+                  - { label: "부서 이름", name: "name", widget: "string" }
+                  - { label: "장소", name: "place", widget: "string" }
+                  - { label: "시간", name: "time", widget: "string" }
+              - label: "참고 사항"
+                name: "notes"
+                widget: "list"
+                field: { label: "문구", name: "note", widget: "string" }
+          - label: "등록 절차"
+            name: "steps"
+            widget: "object"
+            fields:
+              - { label: "영문 표기", name: "kick", widget: "string" }
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "설명", name: "desc", widget: "text" }
+              - label: "단계"
+                name: "items"
+                widget: "list"
+                label_singular: "단계"
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "단계 제목", name: "title", widget: "string" }
+                  - { label: "설명", name: "text", widget: "text" }
+          - label: "자주 묻는 질문"
+            name: "faq"
+            widget: "object"
+            fields:
+              - { label: "영문 표기", name: "kick", widget: "string" }
+              - { label: "제목", name: "title", widget: "string" }
+              - label: "질문과 답"
+                name: "items"
+                widget: "list"
+                label_singular: "질문"
+                summary: "{{fields.q}}"
+                fields:
+                  - { label: "질문", name: "q", widget: "string" }
+                  - { label: "답변", name: "a", widget: "text" }
+          - label: "문의 안내"
+            name: "contact"
+            widget: "object"
+            fields:
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "본문", name: "text", widget: "text" }
+              - { label: "버튼 글자", name: "buttonLabel", widget: "string", hint: "전화번호는 교회 기본 정보에서 가져옵니다" }
+          - label: "신청서 문구"
+            name: "form"
+            widget: "object"
+            fields:
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "안내문", name: "intro", widget: "text" }
+              - { label: "하단 참고 문구", name: "note", widget: "string", required: false }
 
   # ───────────────────────── 첫 화면 바로가기 ─────────────────────────
   - name: "quicklinks"
