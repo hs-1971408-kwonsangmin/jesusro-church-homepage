@@ -289,6 +289,41 @@ collections:
                       - { label: "곡명", name: "title", widget: "string" }
                       - { label: "구분", name: "kind", widget: "string", hint: "회중 찬양 / 찬양대 특송 등" }
 
+  # ───────────────────────── 첫 화면 바로가기 ─────────────────────────
+  - name: "quicklinks"
+    label: "첫 화면 · 바로가기"
+    files:
+      - name: "quicklinks"
+        label: "헤더 버튼 · 바로가기 4칸"
+        file: "content/quicklinks.json"
+        fields:
+          - label: "헤더 오른쪽 버튼"
+            name: "headerButton"
+            widget: "object"
+            fields:
+              - { label: "버튼 글자", name: "label", widget: "string", required: false, hint: "비워두면 버튼이 숨겨집니다" }
+              - { label: "갈 페이지", name: "page", widget: "select", options: *pages }
+          - label: "바로가기"
+            name: "items"
+            widget: "list"
+            label_singular: "바로가기"
+            summary: "{{fields.label}}"
+            hint: "드래그해서 순서를 바꿀 수 있습니다. 4개일 때 가장 보기 좋습니다."
+            fields:
+              - label: "아이콘"
+                name: "icon"
+                widget: "select"
+                options:
+                  - { label: "새가족 (십자 모양)", value: "new" }
+                  - { label: "시계", value: "clock" }
+                  - { label: "지도 핀", value: "map" }
+                  - { label: "책 (주보)", value: "book" }
+                  - { label: "전화", value: "phone" }
+                  - { label: "하트", value: "heart" }
+              - { label: "제목", name: "label", widget: "string" }
+              - { label: "아래 설명", name: "desc", widget: "string", required: false }
+              - { label: "갈 페이지", name: "page", widget: "select", options: *pages }
+
   # ───────────────────────── 첫 화면 사역 카드 ─────────────────────────
   - name: "ministry"
     label: "첫 화면 · 사역 카드"

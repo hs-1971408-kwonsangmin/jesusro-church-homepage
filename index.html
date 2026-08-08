@@ -275,6 +275,28 @@
     /* 키보드 사용자를 위한 초점 표시 */
     a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,
     textarea:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+    /* 빠른 바로가기 */
+    .quick-band{background:#fff;border-bottom:1px solid #e9e3d9;padding:0}
+    .quick-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+    .quick-card{display:flex;flex-direction:column;align-items:center;gap:9px;
+      padding:34px 14px 32px;border:0;border-left:1px solid #efe9de;background:none;
+      color:#22303d;text-align:center;transition:.2s}
+    .quick-card:first-child{border-left:0}
+    .quick-card:hover{background:#faf7f1;transform:translateY(-2px)}
+    .quick-icon{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;
+      background:#f3ece0;color:#8a6a3c;transition:.2s}
+    .quick-card:hover .quick-icon{background:var(--gold);color:#fff}
+    .quick-icon svg{width:25px;height:25px}
+    .quick-card b{font-size:17px;font-weight:600;letter-spacing:-.03em}
+    .quick-card small{font-size:13px;color:#7c8490;line-height:1.5}
+    @media(max-width:760px){
+      .quick-grid{grid-template-columns:repeat(2,1fr)}
+      .quick-card{padding:24px 10px 22px;gap:7px}
+      .quick-card:nth-child(-n+2){border-bottom:1px solid #efe9de}
+      .quick-card:nth-child(odd){border-left:0}
+      .quick-icon{width:44px;height:44px}.quick-icon svg{width:21px;height:21px}
+      .quick-card b{font-size:15px}.quick-card small{font-size:12px}
+    }
   </style>
 </head>
 <body class="home-active">
@@ -284,7 +306,7 @@
     <nav class="wrap nav" aria-label="주 메뉴">
       <button class="brand" data-go="home" aria-label="예수로교회 홈으로"><strong id="brandName"></strong><small id="brandNameEn"></small></button>
       <ul class="menu" id="mainMenu"></ul>
-      <button class="offer" data-toast="온라인 헌금 안내는 정식 홈페이지 연결 시 제공됩니다.">ONLINE OFFERING</button>
+      <button class="offer" id="headerCta"></button>
       <button class="nav-toggle" id="navToggle" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button>
     </nav>
   </header>
@@ -309,6 +331,7 @@
         <div class="scroll-cue">SCROLL</div>
       </section>
       <div class="marquee"><div class="marquee-track"><span>오직 여호와를 앙망하는 자는 새 힘을 얻으리니 <b>· 이사야 40:31 ·</b></span><span>피곤한 자에게는 능력을 주시며 <b>· 이사야 40:29 ·</b></span><span>독수리가 날개치며 올라감 같을 것이요 <b>· 이사야 40:31 ·</b></span><span>오직 여호와를 앙망하는 자는 새 힘을 얻으리니 <b>· 이사야 40:31 ·</b></span><span>피곤한 자에게는 능력을 주시며 <b>· 이사야 40:29 ·</b></span><span>독수리가 날개치며 올라감 같을 것이요 <b>· 이사야 40:31 ·</b></span></div></div>
+      <section class="quick-band"><div class="wrap"><div class="quick-grid" id="quickGrid"></div></div></section>
       <section class="void" id="ministrySection"><div class="wrap"><div class="section-top reveal"><div><div class="kick" id="ministryKick"></div><h2 class="title" id="ministryTitle"></h2><p class="desc" id="ministryDesc"></p></div><button class="more" id="ministryMore"></button></div><div class="ministry-grid reveal" id="ministryGrid"></div></div></section>
       <section class="light"><div class="wrap greet-band">
         <div class="greet-photo reveal" style="background-image:url('assets/pastor-portrait.jpg')"><span>담임목사 김석진</span></div>
@@ -396,7 +419,7 @@
        fetch를 쓰므로 file:// 로 직접 열면 CORS에 막힌다. 로컬 확인은 http 서버로:
          python3 -m http.server 8000   ->   http://localhost:8000 */
     let sermons=[],notices=[],departments=[],gallery=[],calendarEvents={},floorPlans={},
-        bulletinData={},menuItems=[],site={},applications=[],cafe={},staff={},ministry={},
+        bulletinData={},menuItems=[],site={},applications=[],cafe={},staff={},ministry={},quicklinks={},
         calendarMeta={year:2026,month:7,startWeekday:3,days:31,selected:26};
 
     function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){
@@ -404,7 +427,7 @@
     function nl2br(v){return esc(v).replace(/\n/g,'<br>')}
 
     async function loadContent(){
-      const names=['site','menu','sermons','notices','departments','gallery','calendar','facility','bulletins','applications','cafe','staff','ministry'];
+      const names=['site','menu','sermons','notices','departments','gallery','calendar','facility','bulletins','applications','cafe','staff','ministry','quicklinks'];
       const data={};
       await Promise.all(names.map(function(n){
         return fetch('content/'+n+'.json',{cache:'no-cache'})
@@ -416,7 +439,7 @@
       floorPlans=data.facility; calendarMeta=data.calendar;
       calendarEvents={}; data.calendar.events.forEach(function(e){calendarEvents[e.day]=e.items});
       bulletinData={}; data.bulletins.months.forEach(function(m){bulletinData[m.month]=m.items});
-      applications=data.applications.items; cafe=data.cafe; staff=data.staff; ministry=data.ministry;
+      applications=data.applications.items; cafe=data.cafe; staff=data.staff; ministry=data.ministry; quicklinks=data.quicklinks;
     }
 
     /* ===== 상단 메뉴 (content/menu.json) ===== */
@@ -638,6 +661,31 @@
           if(el.tagName==='A')el.href='tel:'+site.tel.replace(/[^0-9+]/g,'')}});
     }
 
+
+
+    /* ===== 빠른 바로가기 (content/quicklinks.json) ===== */
+    const QUICK_ICONS={
+      new:'<path d="M12 3v18M3 12h18"/>',
+      clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>',
+      map:'<path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/>',
+      book:'<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M8 7.5h7M8 11h7"/>',
+      phone:'<path d="M5 4h3.5l1.8 4.2-2.2 1.5a12 12 0 0 0 6.2 6.2l1.5-2.2L20 15.5V19a1.5 1.5 0 0 1-1.7 1.5C10.6 19.6 4.4 13.4 3.5 5.7A1.5 1.5 0 0 1 5 4z"/>',
+      heart:'<path d="M12 20s-7-4.4-7-9.2A4 4 0 0 1 12 8a4 4 0 0 1 7-1.2C19 15.6 12 20 12 20z"/>'
+    };
+    function renderQuickLinks(){
+      const q=quicklinks;if(!q)return;
+      const cta=document.getElementById('headerCta');
+      if(cta&&q.headerButton){cta.textContent=q.headerButton.label||'';
+        cta.dataset.go=q.headerButton.page||'family';cta.hidden=!q.headerButton.label}
+      const grid=document.getElementById('quickGrid');
+      if(!grid)return;
+      grid.innerHTML=(q.items||[]).map(function(x){
+        const p=QUICK_ICONS[x.icon]||QUICK_ICONS.new;
+        return '<button class="quick-card" data-go="'+esc(x.page||'home')+'">'+
+          '<span class="quick-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" '+
+          'stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg></span>'+
+          '<b>'+esc(x.label)+'</b>'+(x.desc?'<small>'+esc(x.desc)+'</small>':'')+'</button>'}).join('');
+    }
 
     /* ===== 사역 카드 (content/ministry.json) ===== */
     function renderMinistry(){
@@ -1008,6 +1056,7 @@
     /* ===== 시작 ===== */
     loadContent().then(function(){
       renderSite();
+      renderQuickLinks();
       renderMinistry();
       renderMenu();
       buildDepartmentPages();
