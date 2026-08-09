@@ -9,6 +9,24 @@
     /* 미리보기에서 누른 부분에 해당하는 입력칸을 잠시 표시한다 */
     .jr-hit{outline:3px solid #e5a13a !important;outline-offset:2px;
       border-radius:2px;transition:outline-color .3s}
+
+    /* 관리자 첫 화면 = 홈페이지 전체 보기 */
+    #jrHome{position:fixed;inset:0;z-index:9000;display:none;flex-direction:column;
+      background:#eceadf;font-family:-apple-system,BlinkMacSystemFont,
+      "Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+    #jrHome.on{display:flex}
+    #jrHome .hd{flex:none;display:flex;align-items:center;gap:12px;padding:11px 16px;
+      background:#172532;color:#f4f1ea;font-size:14px;line-height:1.4}
+    #jrHome .hd b{color:#e5c07b;font-weight:700;font-size:15px}
+    #jrHome .hd .sp{flex:1}
+    #jrHome .hd button{padding:7px 13px;border:1px solid rgba(255,255,255,.45);
+      background:transparent;color:#fff;font-size:13px;font-weight:600;cursor:pointer}
+    #jrHome .hd button:hover{background:rgba(255,255,255,.14)}
+    #jrHome .tipline{flex:none;padding:8px 16px;background:#fdf6e6;color:#7a5f2a;
+      font-size:13px;line-height:1.6}
+    #jrHome .tipline em{font-style:normal;font-weight:700;color:#8a5a12}
+    #jrHome iframe{flex:1;width:100%;border:0;background:#fff}
+    body.jr-home-on{overflow:hidden}
   </style>
 </head>
 <body>
@@ -44,6 +62,70 @@
       .jr-stage iframe{width:100%;height:100%;border:0;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
       .jr-stage.narrow iframe{width:390px;flex:none}
     `, { raw: true });
+
+    /* ── 관리자 첫 화면: 홈페이지를 그대로 띄우고, 고칠 곳을 눌러 들어간다 ── */
+    var pendingJump = null;          /* 편집 화면이 열리면 이 칸으로 이동한다 */
+    var loadedCol = null;            /* 내용까지 실제로 불러온 관리 항목 */
+    var homeEl = null, homeFrame = null;
+
+    function buildHome() {
+      if (homeEl) return homeEl;
+      homeEl = ADOC.createElement('div');
+      homeEl.id = 'jrHome';
+      homeEl.innerHTML =
+        '<div class="hd"><b>예수로교회 홈페이지 관리</b>' +
+        '<span>고치고 싶은 곳을 화면에서 바로 고르세요</span>' +
+        '<span class="sp"></span>' +
+        '<button type="button" data-jr="list">항목 목록으로</button>' +
+        '<button type="button" data-jr="reload">새로 불러오기</button></div>' +
+        '<div class="tipline">화면에서 고치고 싶은 부분에 마우스를 올리면 ' +
+        '<em>이 부분 고치기</em> 가 나타납니다. 누르면 그 자리를 고치는 칸이 열립니다.</div>' +
+        '<iframe title="홈페이지" src="' + SITE_SRC + '"></iframe>';
+      ADOC.body.appendChild(homeEl);
+      homeFrame = homeEl.querySelector('iframe');
+      homeEl.querySelector('[data-jr="list"]').addEventListener('click', function () {
+        setView('cms');
+      });
+      homeEl.querySelector('[data-jr="reload"]').addEventListener('click', function () {
+        homeFrame.src = SITE_ROOT + '?preview=1&t=' + Date.now();
+      });
+      return homeEl;
+    }
+    function showHome(on) {
+      buildHome();
+      homeEl.classList.toggle('on', on);
+      ADOC.body.classList.toggle('jr-home-on', on);
+      if (on && !homeFrame.src) homeFrame.src = SITE_SRC;
+    }
+    /* 로그인하면 Decap 이 첫 항목으로 알아서 넘어가므로 주소로는 판단할 수 없다.
+       "지금 무엇을 보고 있는가" 를 직접 기억한다. 기본값은 홈페이지 전체 화면. */
+    function view() {
+      try { return sessionStorage.getItem('jrView') || 'home'; } catch (e) { return 'home'; }
+    }
+    function setView(v) {
+      try { sessionStorage.setItem('jrView', v); } catch (e) {}
+      syncHome();
+    }
+    function loggedIn() {
+      return !!ADOC.querySelector('[class*="AppHeader"], [class*="SidebarContainer"]');
+    }
+    function syncHome() { showHome(view() === 'home' && loggedIn()); }
+    window.addEventListener('hashchange', syncHome);
+    setInterval(syncHome, 500);
+
+    /* 홈페이지(전체 화면 또는 미리보기) 에서 "이 부분 고치기" 를 눌렀다 */
+    window.addEventListener('message', function (e) {
+      var m = e.data;
+      if (!m || m.type !== 'jesusro-field' || !m.col) return;
+      /* 항목을 바꿀 때 Decap 이 이전 편집 창의 입력칸을 잠시 남겨 두어
+         엉뚱한 칸을 짚는 일이 생긴다. 화면을 새로 불러 깨끗한 상태에서 연다. */
+      try {
+        sessionStorage.setItem('jrPending', JSON.stringify({ col: m.col, path: m.path }));
+        sessionStorage.setItem('jrView', 'cms');
+      } catch (e) {}
+      location.href = location.pathname + '#/collections/' + m.col + '/entries/' + m.col;
+      location.reload();
+    });
 
     /* 컬렉션 → 홈페이지에서 열어 볼 화면 */
     var PAGES = {
@@ -86,10 +168,27 @@
         this.onReady = function (e) {
           var m = e.data; if (!m) return;
           if (m.type === 'jesusro-preview-ready') { self.ready = true; self.push(); return; }
-          /* 미리보기에서 어떤 부분을 눌렀다 -> 왼쪽에서 그 입력칸을 열고 커서를 놓는다 */
-          if (m.type === 'jesusro-field' && m.path) self.jumpTo(m.path);
+          /* 미리보기에서 어떤 부분을 눌렀다 -> 왼쪽에서 그 입력칸을 열고 커서를 놓는다.
+             다른 관리 항목의 자리를 눌렀다면 셸이 화면을 옮겨 주므로 여기선 손대지 않는다. */
+          if (m.type === 'jesusro-field' && m.path && m.col === self.cur()) self.jumpTo(m.path);
         };
         window.addEventListener('message', this.onReady);
+        /* 전체 화면에서 고른 자리가 있으면 그 칸으로 데려간다 */
+        /* 새로 불러온 뒤 남겨 둔 목적지를 집어 든다 */
+        if (!pendingJump) {
+          try {
+            var saved = sessionStorage.getItem('jrPending');
+            if (saved) { pendingJump = JSON.parse(saved); sessionStorage.removeItem('jrPending'); }
+          } catch (e) {}
+        }
+        this.pendTimer = setInterval(function () {
+          if (!pendingJump || !self.ready) return;
+          /* 새 항목의 내용까지 실제로 들어온 뒤에 움직인다.
+             그 전에 움직이면 아직 남아 있는 이전 편집 창을 짚는다. */
+          if (pendingJump.col !== self.cur() || loadedCol !== pendingJump.col) return;
+          var j = pendingJump; pendingJump = null;
+          setTimeout(function () { self.jumpTo(j.path); }, 350);
+        }, 250);
         /* 왼쪽에서 커서가 가거나 글자를 치면, 그 칸이 화면 어디인지 오른쪽에 알린다 */
         this.onEdit = function (e) {
           var el = e.target;
@@ -98,13 +197,14 @@
              바깥 컨테이너 클래스에도 PreviewPaneContainer 가 들어 있어 그것으로는 못 거른다. */
           if (!el.closest('[class*="Pane1"]')) return;
           var path = self.pathOf(el);
-          if (path) self.tell(path, el.value);
+          if (path) self.tell(self.cur(), path, el.value);
         };
         ADOC.addEventListener('focusin', this.onEdit, true);
         ADOC.addEventListener('input', this.onEdit, true);
         this.push();
       },
       componentWillUnmount: function () {
+        clearInterval(this.pendTimer);
         window.removeEventListener('message', this.onReady);
         ADOC.removeEventListener('focusin', this.onEdit, true);
         ADOC.removeEventListener('input', this.onEdit, true);
@@ -130,11 +230,12 @@
         }
         return parts.length ? parts.join('.') : null;
       },
-      tell: function (path, value) {
+      tell: function (col, path, value) {
         var f = this.frame;
-        if (!f || !f.contentWindow) return;
+        if (!f || !f.contentWindow || !col) return;
         f.contentWindow.postMessage(
-          { type: 'jesusro-focus', path: path, value: String(value == null ? '' : value) }, '*');
+          { type: 'jesusro-focus', col: col, path: path,
+            value: String(value == null ? '' : value) }, '*');
       },
       componentDidUpdate: function () { this.push(); },
       push: function () {
@@ -144,18 +245,28 @@
         try { data = this.props.entry.get('data').toJS(); } catch (e) { return; }
         /* 항목을 막 바꾼 순간에는 내용이 비어 있다. 그대로 보내면 화면이 지워진다. */
         if (!data || !Object.keys(data).length) return;
+        loadedCol = n;
         f.contentWindow.postMessage(
           { type: 'jesusro-preview', name: n, data: data, page: this.page() }, '*');
       },
       /* 미리보기에서 누른 곳(예: items.3.name)에 해당하는 입력칸을 찾아
          펼치고, 화면으로 끌어오고, 커서를 놓는다.
          Decap 은 컨트롤마다 id="<필드이름>-field-<번호>" 를 붙여 준다. */
-      jumpTo: function (path) {
+      jumpTo: function (path, tries) {
         var self = this;
         /* 1) Decap 에게 먼저 알린다 — 접혀 있는 목록 항목이 펼쳐진다 */
         try { this.props.onFieldClick && this.props.onFieldClick(path); } catch (e) {}
-        /* 2) 펼쳐질 시간을 준 뒤, 실제 입력칸을 직접 찾아 짚는다 */
-        setTimeout(function () { self.point(path); }, 450);
+        /* 2) 펼쳐질 시간을 준 뒤, 실제 입력칸을 직접 찾아 짚는다.
+              화면이 아직 다시 그려지는 중이면 몇 번 더 시도한다. */
+        setTimeout(function () {
+          self.point(path);
+          setTimeout(function () {
+            var a = ADOC.activeElement;
+            var ok = a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName);
+            var left = (tries == null ? 6 : tries);
+            if (!ok && left > 0) self.jumpTo(path, left - 1);
+          }, 550);
+        }, 450);
       },
       point: function (path) {
         var self = this, parts = String(path).split('.'), i = 0, scope = null, target = null;
@@ -201,7 +312,7 @@
           return step();
         }
         function finish() {
-          if (!target) return;
+          if (!target) return false;
           var input = /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName)
             ? target : target.querySelector('input, textarea, select');
           var show = input || target;
@@ -228,7 +339,10 @@
             window.h('button', {
               className: self.state.narrow ? 'on' : '',
               onClick: function () { self.setState({ narrow: !self.state.narrow }); }
-            }, self.state.narrow ? '휴대폰 폭' : 'PC 폭')
+            }, self.state.narrow ? '휴대폰 폭' : 'PC 폭'),
+            window.h('button', {
+              onClick: function () { setView('home'); }
+            }, '전체 화면으로')
           ),
           window.h('div', { className: 'jr-hint' },
             '미리 보기입니다. 실제 홈페이지에 반영하려면 위의 “게시” 를 눌러 주세요.'),
