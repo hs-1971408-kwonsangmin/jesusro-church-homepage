@@ -98,14 +98,11 @@
       if (on && !homeFrame.src) homeFrame.src = SITE_SRC;
     }
     /* 로그인하면 Decap 이 첫 항목으로 알아서 넘어가므로 주소로는 판단할 수 없다.
-       "지금 무엇을 보고 있는가" 를 직접 기억한다. 기본값은 홈페이지 전체 화면. */
-    function view() {
-      try { return sessionStorage.getItem('jrView') || 'home'; } catch (e) { return 'home'; }
-    }
-    function setView(v) {
-      try { sessionStorage.setItem('jrView', v); } catch (e) {}
-      syncHome();
-    }
+       "지금 무엇을 보고 있는가" 를 직접 기억한다.
+       관리자 화면을 열 때는 언제나 홈페이지 전체 보기부터 시작한다. */
+    var viewState = 'home';
+    function view() { return viewState; }
+    function setView(v) { viewState = v; syncHome(); }
     function loggedIn() {
       return !!ADOC.querySelector('[class*="AppHeader"], [class*="SidebarContainer"]');
     }

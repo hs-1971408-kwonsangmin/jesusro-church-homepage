@@ -561,32 +561,6 @@
       .visit-live{grid-template-columns:1fr;gap:22px}
       .route-guide{grid-template-columns:1fr}
     }
-    /* ===== 편집 모드 (주소 뒤에 ?edit=1 을 붙이면 켜집니다) ===== */
-    .edit-bar{position:fixed;left:0;right:0;bottom:0;z-index:120;display:flex;flex-wrap:wrap;
-      gap:12px 18px;align-items:center;justify-content:center;padding:12px 18px;
-      background:#172532;color:#f4f1ea;font-size:15px;line-height:1.5;
-      box-shadow:0 -8px 24px rgba(10,16,24,.24)}
-    .edit-bar b{color:#e5c07b;font-weight:700}
-    .edit-bar button{border:1px solid rgba(255,255,255,.45);background:transparent;color:#fff;
-      padding:7px 14px;font-size:14px;font-weight:600;cursor:pointer}
-    .edit-bar button:hover{background:rgba(255,255,255,.14)}
-    .edit-bar a{color:#e5c07b;font-weight:600;text-decoration:underline}
-    body.edit-on{padding-bottom:60px}
-    .edit-zone{outline:1.5px dashed rgba(146,111,57,.55);outline-offset:3px}
-    .edit-zone:hover{outline:2px solid var(--gold);background:rgba(229,192,123,.08)}
-    .edit-tag{position:absolute;z-index:60;display:inline-flex;align-items:center;gap:6px;
-      white-space:nowrap;padding:5px 11px;border:0;background:#172532;color:#fff;
-      font-size:13px;font-weight:600;line-height:1.35;text-align:left;letter-spacing:-.01em;
-      cursor:pointer;box-shadow:0 4px 12px rgba(10,16,24,.28)}
-    .edit-tag:hover{background:var(--gold);color:#17110a}
-    .edit-tag.is-none{background:#7c8490;cursor:default}
-    .edit-tag.is-none:hover{background:#7c8490;color:#fff}
-    .edit-tag i{font-style:normal;opacity:.75}
-    @media print{.edit-bar,.edit-tag{display:none}}
-    /* 관리자 미리보기 창 안에서는 편집 표시를 감춘다 */
-    body.in-preview .edit-bar,body.in-preview .edit-tag,body.in-preview .edit-zone{display:revert}
-    body.in-preview .edit-bar,body.in-preview .edit-tag{display:none}
-    body.in-preview{padding-bottom:0}
     /* 관리자 미리보기 안에서: 고칠 수 있는 부분을 짚어 준다 */
     body.in-preview [data-cms]{cursor:pointer}
     body.in-preview [data-cms]:hover{outline:2px solid #e5a13a;outline-offset:2px;
@@ -695,7 +669,6 @@
   <div class="modal" id="applyModal" role="dialog" aria-modal="true" aria-label="신청서"><article class="modal-card sermon-modal"><button class="modal-close" data-close="applyModal" aria-label="닫기">×</button><div class="sermon-meta" id="applyBadge"></div><h2 id="applyTitle"></h2><p class="apply-intro" id="applyIntro"></p><form class="apply-form" id="applyForm"><div id="applyFields"></div><label class="agree"><input type="checkbox" id="applyAgree" required> <span>개인정보 수집 및 이용에 동의합니다. 입력 내용은 신청 안내 목적 외에는 사용하지 않습니다.</span></label><button class="submit">신청서 제출하기</button><p class="apply-note">※ 시안 단계에서는 제출 내용이 저장되지 않습니다. 실제 접수는 담당자 연결 후 제공됩니다.</p></form></article></div>
   <div class="modal" id="zoneModal" role="dialog" aria-modal="true" aria-label="공간 안내"><article class="modal-card sermon-modal"><button class="modal-close" data-close="zoneModal" aria-label="닫기">×</button><div class="sermon-meta" id="zoneLabel"></div><h2 id="zoneTitle"></h2><div class="zone-photo" id="zonePhoto" hidden></div><p class="zone-text" id="zoneText"></p><div id="zoneFacts"></div></article></div>
   <footer><div class="wrap"><div class="footer-grid"><div class="footer-brand"><b>예수로교회</b><p><span data-site-address>경기도 파주시 교하로 677-79</span><br><span data-site-tel>031-946-6161</span></p><div class="socials"><button data-toast="YouTube 채널은 정식 사이트 연결 시 제공됩니다.">YT</button><button data-toast="Instagram 채널은 정식 사이트 연결 시 제공됩니다.">IG</button><button data-toast="Facebook 채널은 정식 사이트 연결 시 제공됩니다.">FB</button></div></div><div><h4>예배 · 말씀</h4><a data-go="sermon">설교 아카이브</a><a data-go="bulletin">온라인 주보</a><a data-go="visit">예배 안내</a></div><div><h4>공동체</h4><a data-go="dept">부서 안내</a><a data-go="board">교회 소식</a><a data-go="gallery">사진첩</a></div><div><h4>참여하기</h4><a data-offering data-toast="온라인 헌금은 정식 홈페이지 연결 시 제공됩니다.">온라인 헌금</a><a data-go="visit">오시는 길</a></div></div><div class="copyright"><span>© 2026 JESUSRO CHURCH. All rights reserved.</span><span>C안 PREMIUM LIGHT · 홈페이지 리뉴얼 시안</span></div></div></footer>
-  <div class="edit-bar" id="editBar" hidden><span><b>편집 모드</b> · 점선으로 표시된 부분의 꼬리표를 누르면 관리자 화면이 열립니다.</span><a href="admin/" target="jesusroAdmin">관리자 화면 열기</a><button type="button" onclick="setEditMode(false)">편집 모드 끄기</button></div>
   <div class="modal" id="mediaModal" role="dialog" aria-modal="true" aria-label="영상 보기"><article class="modal-card sermon-modal media-modal"><button class="modal-close" data-close="mediaModal" aria-label="닫기">×</button><div class="sermon-meta" id="mediaMeta"></div><h2 id="mediaTitle"></h2><blockquote id="mediaVerse" hidden></blockquote><div class="sd-video" id="mediaVideo" hidden></div><p class="media-empty-note" id="mediaEmpty" hidden></p><p id="mediaNote" style="margin:16px 0 0;color:#5f6a75;font-size:17px;line-height:1.75"></p></article></div>
   <div class="modal" id="galleryModal" role="dialog" aria-modal="true" aria-label="사진 크게 보기"><div class="modal-card"><button class="modal-close" data-close="galleryModal" aria-label="닫기">×</button><img class="modal-image" id="galleryImage" alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><div class="modal-info"><h2 id="galleryTitle"></h2><p id="galleryText"></p></div></div></div>
   <div class="modal" id="sermonModal" role="dialog" aria-modal="true" aria-label="설교 상세"><article class="modal-card sermon-modal"><button class="modal-close" data-close="sermonModal" aria-label="닫기">×</button><div class="sermon-meta" id="sermonMeta"></div><h2 id="sermonTitle"></h2><blockquote id="sermonVerse"></blockquote><div class="sd-video" id="sermonVideo" hidden></div>
@@ -1618,120 +1591,6 @@
       return null;
     }
 
-    /* ===== 편집 모드 =====
-       주소 뒤에 ?edit=1 을 붙이면 켜집니다. 각 영역에 붙는 꼬리표를 누르면
-       그 부분을 담당하는 관리자 화면(Decap CMS)이 새 창으로 열립니다. */
-    const EDIT_ZONES=[
-      /* 모든 화면 공통 */
-      {sel:'.brand',              col:'site',        label:'교회 이름 · 영문 이름'},
-      {sel:'#mainMenu',           col:'menu',        label:'상단 메뉴 (항목 추가 · 순서 변경)'},
-      {sel:'footer .footer-grid', col:'site',        label:'맨 아래 주소 · 전화 · SNS'},
-      /* 첫 화면 */
-      {sel:'#hero .hero-inner',   col:'site',        label:'첫 화면 문구 · 이번 주 예배 시간'},
-      {sel:'#hero .season',       col:null,          label:'계절 배경 사진 (사진 파일 교체 필요)'},
-      {sel:'.marquee',            col:null,          label:'흐르는 말씀 띠 (고정 문구)'},
-      {sel:'.hq-band',            col:'quicklinks',  label:'빠른 바로가기 4칸'},
-      {sel:'#ministrySection',    col:'ministry',    label:'사역 카드 (다음세대 · 목장 · 선교 · 인사말)'},
-      {sel:'#worshipSection',     col:'worship',     label:'함께 드리는 예배'},
-      {sel:'#homeSermonSection',  col:'sermons',     label:'이번 주 설교 영상'},
-      {sel:'#homeNotices',        col:'notices',     label:'교회 소식 목록'},
-      {sel:'#calendarGrid',       col:'calendar',    label:'행사 달력'},
-      {sel:'#events',             col:'calendar',    label:'날짜별 일정'},
-      {sel:'#homeApply',          col:'applications',label:'첫 화면 신청서 카드'},
-      /* 각 페이지 */
-      {sel:'#greeting .greet-band',   col:null,      label:'담임목사 인사말 본문 (고정 문구)'},
-      {sel:'#staff .content',         col:'staff',   label:'섬기는 분들 (사진 · 이름 · 직분)'},
-      {sel:'#facility .facility-guide',col:'facility',label:'층별 시설 안내 · 평면도'},
-      {sel:'#cafe .content',          col:'cafe',    label:'들꽃 카페 소개 · 메뉴'},
-      {sel:'#sermon .content',        col:'sermons', label:'설교 아카이브'},
-      {sel:'#praise .content',        col:'praise',  label:'찬양 아카이브 (팀 · 곡 · 영상 주소)'},
-      {sel:'#bulletin .content',      col:'bulletins',label:'온라인 주보 (주보 파일 올리기)'},
-      {sel:'#worship .content',       col:'worship', label:'예배 안내'},
-      {sel:'#dept .content',          col:'departments',label:'부서 카드 목록'},
-      {sel:'#smallgroup .content',    col:'smallgroup',label:'목장 · 소그룹'},
-      {sel:'#mission .content',       col:'mission', label:'선교 · 섬김'},
-      {sel:'#board .content',         col:'notices', label:'공지사항'},
-      {sel:'#gallery .content',       col:'gallery', label:'사진첩'},
-      {sel:'#family .content',        col:'newfamily',label:'새가족 안내 · 신청서 문구'},
-      {sel:'#visit .visit-layout',    col:'visit',   label:'약도 · 방문 안내'},
-      {sel:'#visit .route-guide',     col:'visit',   label:'교통편 안내'},
-      {sel:'#visit .visit-quick',     col:null,      label:'첫 방문 안내 3칸 (고정 문구)'},
-      /* 부서 상세 페이지 (5개 부서 공통) */
-      {sel:'[id^="dept-"] .content',  col:'departments',label:'부서 페이지 (조직도 · 예배 · 설교 · 사진)'}
-    ];
-    let editMode=false;
-    function adminUrl(col){
-      /* 컬렉션 이름과 파일 이름이 같게 맞춰 두었다 */
-      return 'admin/#/collections/'+col+'/entries/'+col;
-    }
-    function clearEditTags(){
-      document.querySelectorAll('.edit-tag').forEach(function(t){t.remove()});
-      document.querySelectorAll('.edit-zone').forEach(function(z){
-        z.classList.remove('edit-zone');
-        if(z.dataset.editPos){z.style.position=z.dataset.editPos;delete z.dataset.editPos}
-      });
-    }
-    function applyEditTags(){
-      if(!editMode)return;
-      clearEditTags();
-      EDIT_ZONES.forEach(function(z){
-        document.querySelectorAll(z.sel).forEach(function(el){
-          if(!el.offsetParent&&el.tagName!=='BODY')return;      /* 지금 안 보이는 화면은 건너뛴다 */
-          el.classList.add('edit-zone');
-          if(getComputedStyle(el).position==='static'){
-            el.dataset.editPos=el.style.position||'';el.style.position='relative';
-          }
-          const tag=document.createElement('button');
-          tag.type='button';
-          tag.className='edit-tag'+(z.col?'':' is-none');
-          tag.innerHTML='<i>'+(z.col?'✎':'ⓘ')+'</i>'+esc(z.label);
-          el.appendChild(tag);
-          placeEditTag(el,tag);
-          if(z.col){
-            tag.title='관리자 화면에서 이 부분 편집하기';
-            tag.addEventListener('click',function(e){
-              e.preventDefault();e.stopPropagation();
-              window.open(adminUrl(z.col),'jesusroAdmin');
-            });
-          }else{
-            tag.title='이 부분은 아직 관리자 화면에 없습니다. 코드 수정이 필요합니다.';
-            tag.addEventListener('click',function(e){e.preventDefault();e.stopPropagation()});
-          }
-        });
-      });
-    }
-    /* 작은 영역은 꼬리표가 내용을 가리므로 영역 밖(위 또는 아래)에 붙인다 */
-    function placeEditTag(el,tag){
-      const r=el.getBoundingClientRect();
-      if(r.height<90){
-        if(r.top>40){tag.style.bottom='calc(100% + 4px)'}
-        else{tag.style.top='calc(100% + 4px)'}
-      }else{
-        tag.style.top='4px';
-      }
-      if(r.width<300){tag.style.left='0'}else{tag.style.right='4px'}
-      /* 화면 밖으로 나가면 반대쪽으로 붙인다 */
-      const t=tag.getBoundingClientRect(), W=document.documentElement.clientWidth;
-      if(t.right>W-6){tag.style.left='auto';tag.style.right='4px'}
-      else if(t.left<6){tag.style.right='auto';tag.style.left='4px'}
-    }
-    function setEditMode(on){
-      editMode=on;
-      document.body.classList.toggle('edit-on',on);
-      try{on?sessionStorage.setItem('jesusroEdit','1'):sessionStorage.removeItem('jesusroEdit')}catch(e){}
-      const bar=document.getElementById('editBar');
-      if(bar)bar.hidden=!on;
-      on?applyEditTags():clearEditTags();
-    }
-    function initEditMode(){
-      const q=new URLSearchParams(location.search);
-      let on=false;
-      try{on=sessionStorage.getItem('jesusroEdit')==='1'}catch(e){}
-      if(q.get('edit')==='1')on=true;
-      if(q.get('edit')==='0')on=false;
-      if(on)setEditMode(true);
-    }
-
     /* ===== 섬기는 분들 (content/staff.json) ===== */
     function renderStaff(){
       if(!staff||!staff.groups)return;
@@ -1772,7 +1631,6 @@
       if(page==='cafe')renderCafe();
       if(page==='praise')renderPraise();
       if(page==='visit')renderVisit();
-      applyEditTags();
       if(page==='family')renderNewFamily();
       if(page==='worship')renderWorship();
       if(page==='smallgroup')renderSmallGroup();
@@ -2181,7 +2039,6 @@
       seasonTimer=setInterval(nextSeason,6000);
       const h=location.hash.slice(1);
       if(h&&document.getElementById(h))go(h);
-      initEditMode();
       initPreviewBridge();
     }).catch(function(err){
       console.error(err);
