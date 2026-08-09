@@ -1542,6 +1542,7 @@
       window.addEventListener('message',function(e){
         const m=e.data;
         if(!m)return;
+        if(m.type==='jesusro-ping')return hello();
         if(m.type==='jesusro-focus'){
           lastEdit={col:m.col,path:m.path,value:m.value};
           return showEditing(m.col,m.path,m.value);

@@ -117,14 +117,13 @@
     window.addEventListener('message', function (e) {
       var m = e.data;
       if (!m || m.type !== 'jesusro-field' || !m.col) return;
-      /* 항목을 바꿀 때 Decap 이 이전 편집 창의 입력칸을 잠시 남겨 두어
-         엉뚱한 칸을 짚는 일이 생긴다. 화면을 새로 불러 깨끗한 상태에서 연다. */
-      try {
-        sessionStorage.setItem('jrPending', JSON.stringify({ col: m.col, path: m.path }));
-        sessionStorage.setItem('jrView', 'cms');
-      } catch (e) {}
-      location.href = location.pathname + '#/collections/' + m.col + '/entries/' + m.col;
-      location.reload();
+      pendingJump = { col: m.col, path: m.path, at: Date.now() };
+      /* 편집 창을 바로 갈아끼우면 Decap 이 이전 입력칸을 남긴다.
+         목록 화면을 한 번 거쳐 이전 편집 창을 내린 뒤 들어간다. */
+      var want = '#/collections/' + m.col + '/entries/' + m.col;
+      location.hash = '#/collections/' + m.col;
+      setTimeout(function () { location.hash = want; }, 500);
+      setView('cms');
     });
 
     /* 컬렉션 → 홈페이지에서 열어 볼 화면 */
@@ -181,13 +180,28 @@
             if (saved) { pendingJump = JSON.parse(saved); sessionStorage.removeItem('jrPending'); }
           } catch (e) {}
         }
+        /* 항목을 옮기면 이 컴포넌트가 새로 만들어지는데, 홈페이지 iframe 은
+           그대로라 준비 신호가 다시 오지 않는다. 준비될 때까지 물어본다. */
+        this.pingTimer = setInterval(function () {
+          if (self.ready) { clearInterval(self.pingTimer); return; }
+          var f = self.frame;
+          if (f && f.contentWindow) f.contentWindow.postMessage({ type: 'jesusro-ping' }, '*');
+        }, 400);
         this.pendTimer = setInterval(function () {
           if (!pendingJump || !self.ready) return;
           /* 새 항목의 내용까지 실제로 들어온 뒤에 움직인다.
              그 전에 움직이면 아직 남아 있는 이전 편집 창을 짚는다. */
           if (pendingJump.col !== self.cur() || loadedCol !== pendingJump.col) return;
-          var j = pendingJump; pendingJump = null;
-          setTimeout(function () { self.jumpTo(j.path); }, 350);
+          if (self.jumping) return;
+          /* 성공할 때까지 목적지를 지우지 않는다 */
+          self.jumping = true;
+          var j = pendingJump;
+          setTimeout(function () {
+            self.jumpTo(j.path, 8, function (ok) {
+              self.jumping = false;
+              if (ok && pendingJump === j) pendingJump = null;
+            });
+          }, 350);
         }, 250);
         /* 왼쪽에서 커서가 가거나 글자를 치면, 그 칸이 화면 어디인지 오른쪽에 알린다 */
         this.onEdit = function (e) {
@@ -205,6 +219,7 @@
       },
       componentWillUnmount: function () {
         clearInterval(this.pendTimer);
+        clearInterval(this.pingTimer);
         window.removeEventListener('message', this.onReady);
         ADOC.removeEventListener('focusin', this.onEdit, true);
         ADOC.removeEventListener('input', this.onEdit, true);
@@ -252,35 +267,88 @@
       /* 미리보기에서 누른 곳(예: items.3.name)에 해당하는 입력칸을 찾아
          펼치고, 화면으로 끌어오고, 커서를 놓는다.
          Decap 은 컨트롤마다 id="<필드이름>-field-<번호>" 를 붙여 준다. */
-      jumpTo: function (path, tries) {
+      /* 왼쪽 편집 창 (미리보기 쪽 복제본이 아닌 진짜) */
+      leftPane: function () {
+        return ADOC.querySelector('[class*="Pane1"] [class*="ControlPaneContainer"]')
+          || ADOC.querySelector('[class*="ControlPaneContainer"]');
+      },
+      /* 최상위 필드의 화면 이름표 (예: welcome -> "환영 문구") */
+      labelOf: function (name) {
+        try {
+          var f = this.props.fields.toJS().filter(function (x) { return x.name === name; })[0];
+          return f && f.label;
+        } catch (e) { return null; }
+      },
+      /* 이 항목의 최상위 필드 이름들 (예: quicklinks -> headerButton, items) */
+      topNames: function () {
+        try {
+          return this.props.fields.toJS().map(function (f) { return f.name; });
+        } catch (e) { return []; }
+      },
+      /* 왼쪽 창이 "지금 이 항목" 의 것인지 확인한다.
+         항목을 바꾼 직후에는 이전 항목의 입력칸이 남아 있어서,
+         이름이 겹치는 필드(items 등) 를 잘못 짚게 된다. */
+      paneIsMine: function () {
+        var p = this.leftPane();
+        if (!p) return false;
+        var names = this.topNames();
+        if (!names.length) return true;
+        /* 화면에 나오지 않는 필드도 있으므로 "하나라도 있으면" 으로 본다 */
+        return names.some(function (n) {
+          return !!p.querySelector('[id^="' + n + '-field-"]');
+        });
+      },
+      /* 창이 이 항목 것이 되고, 더 이상 다시 그려지지 않을 때까지 기다린다 */
+      whenSettled: function (done) {
+        var self = this, last = null, same = 0, tries = 0;
+        var t = setInterval(function () {
+          var p = self.leftPane();
+          var mine = self.paneIsMine();
+          var sig = (p && mine)
+            ? [].slice.call(p.querySelectorAll('[id*="-field-"]')).map(function (e) { return e.id; }).join(',')
+            : '';
+          if (sig && sig === last) same++; else { same = 0; last = sig; }
+          if (same >= 3 || ++tries > 30) { clearInterval(t); done(); }
+        }, 180);
+      },
+      jumpTo: function (path, tries, done) {
         var self = this;
-        /* 1) Decap 에게 먼저 알린다 — 접혀 있는 목록 항목이 펼쳐진다 */
-        try { this.props.onFieldClick && this.props.onFieldClick(path); } catch (e) {}
-        /* 2) 펼쳐질 시간을 준 뒤, 실제 입력칸을 직접 찾아 짚는다.
-              화면이 아직 다시 그려지는 중이면 몇 번 더 시도한다. */
-        setTimeout(function () {
-          self.point(path);
+        var finishOnce = function (ok) { if (done) { var d = done; done = null; d(ok); } };
+        var seek = function (left) {
+          /* 1) Decap 에게 먼저 알린다 — 접혀 있는 목록 항목이 펼쳐진다 */
+          try { self.props.onFieldClick && self.props.onFieldClick(path); } catch (e) {}
+          /* 2) 펼쳐질 시간을 준 뒤 실제 입력칸을 짚고, 제대로 갔는지 확인한다 */
           setTimeout(function () {
-            var a = ADOC.activeElement;
-            var ok = a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName);
-            var left = (tries == null ? 6 : tries);
-            if (!ok && left > 0) self.jumpTo(path, left - 1);
-          }, 550);
-        }, 450);
+            self.point(path);
+            setTimeout(function () {
+              var a = ADOC.activeElement;
+              var seg = String(path).split('.').pop();
+              var named = !/^\d+$/.test(seg);
+              var ok = a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)
+                && (!named || a.id.indexOf(seg + '-field-') === 0);
+              /* 아직 이 항목의 입력칸이 다 그려지지 않았을 수 있다.
+                 다시 안정될 때까지 기다렸다가 시도한다. */
+              if (ok) return finishOnce(true);
+              if (left > 0) return self.whenSettled(function () { seek(left - 1); });
+              finishOnce(false);
+            }, 500);
+          }, 380);
+        };
+        this.whenSettled(function () { seek(tries == null ? 8 : tries); });
       },
       point: function (path) {
         var self = this, parts = String(path).split('.'), i = 0, scope = null, target = null;
 
-        function pane() {
-          /* Decap 은 미리보기 쪽에도 같은 입력칸을 숨겨서 하나 더 그려 둔다.
-             화면 왼쪽 칸(Pane1) 안에 있는 것만 진짜 편집 창이다. */
-          return ADOC.querySelector('[class*="Pane1"] [class*="ControlPaneContainer"]')
-            || ADOC.querySelector('[class*="ControlPaneContainer"]')
-            || ADOC.body;
-        }
+        function pane() { return self.leftPane() || ADOC.body; }
+        /* 이 범위에서 "가장 바깥쪽" 목록 항목들만 고른다.
+           안쪽에 또 목록이 있어도 순번이 어긋나지 않는다. */
         function rows(el) {
-          var r = el.querySelectorAll(':scope > div > [class*="SortableListItem"]');
-          return r.length ? r : el.querySelectorAll('[class*="SortableListItem"]');
+          var direct = el.querySelectorAll(':scope > div > [class*="SortableListItem"]');
+          if (direct.length) return direct;
+          var all = [].slice.call(el.querySelectorAll('[class*="SortableListItem"]'));
+          return all.filter(function (x) {
+            return !all.some(function (y) { return y !== x && y.contains(x); });
+          });
         }
         function step() {
           if (!scope) scope = pane();
@@ -290,8 +358,14 @@
           if (/^\d+$/.test(part)) {
             var rs = rows(scope);
             if (!rs.length) {
-              /* 아직 목록이 그려지지 않았다 — 잠시 뒤 다시 본다 */
-              if (!step.waited) { step.waited = 1; i--; return setTimeout(step, 400); }
+              /* 목록 전체가 접혀 있으면 항목이 그려지지 않는다. 펼치고 다시 본다. */
+              step.waited = (step.waited || 0) + 1;
+              if (step.waited <= 4) {
+                var toggle = scope.querySelector('[class*="TopBarContainer"] button');
+                if (toggle) { try { toggle.click(); } catch (e) {} }
+                i--;
+                return setTimeout(step, 420);
+              }
               return finish();
             }
             var row = rs[Number(part)];
@@ -306,8 +380,41 @@
             return step();
           }
 
-          var el = scope.querySelector('[id^="' + part + '-field-"]');
-          if (!el) return finish();
+          /* 항목을 바꾼 직후에는 이전 항목의 같은 이름 입력칸이 남아 있다.
+             Decap 은 번호를 계속 늘려 붙이므로 가장 큰 번호(=가장 나중에 그려진 것)를 쓴다.
+             맨 처음 조각은 목록 항목 안쪽 필드와 헷갈리지 않게 바깥 것만 본다. */
+          var cand = [].slice.call(scope.querySelectorAll('[id^="' + part + '-field-"]'));
+          if (i === 1) {
+            var outer = cand.filter(function (e) {
+              return !e.closest('[class*="SortableListItem"]');
+            });
+            if (outer.length) cand = outer;
+          }
+          if (!cand.length) {
+            /* 여러 칸을 묶은 항목(object) 이나 목록에는 id 가 붙지 않는다.
+               화면에 보이는 이름표로 그 묶음을 찾는다. */
+            var lab = self.labelOf(part);
+            if (lab && i === 1) {
+              var labels = [].slice.call(scope.querySelectorAll('label'));
+              for (var k = 0; k < labels.length; k++) {
+                if (labels[k].textContent.trim() === lab) {
+                  /* 이름표는 위젯 위쪽 막대 안에 있다. 위젯 본체까지 올라간다. */
+                  scope = labels[k].closest('[class*="ControlContainer"]')
+                    || labels[k].parentElement || scope;
+                  target = scope;
+                  return step();
+                }
+              }
+            }
+            /* 그래도 못 찾으면 범위를 그대로 두고 다음 단계로 넘어간다 */
+            if (i < parts.length) return step();
+            return finish();
+          }
+          var el = cand[0], best = -1;
+          cand.forEach(function (e) {
+            var n = Number(String(e.id).replace(/^.*-field-/, '')) || 0;
+            if (n > best) { best = n; el = e; }
+          });
           scope = el; target = el;
           return step();
         }
