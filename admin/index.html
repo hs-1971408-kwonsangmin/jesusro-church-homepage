@@ -5,8 +5,114 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex">
   <title>예수로교회 홈페이지 관리</title>
+  <style>
+    /* 미리보기 창 (오른쪽 절반) */
+    .jr-preview{display:flex;flex-direction:column;height:100%;background:#f4f1ea;
+      font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+    .jr-preview-bar{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;
+      padding:10px 14px;background:#172532;color:#f4f1ea;font-size:13px;line-height:1.5}
+    .jr-preview-bar b{color:#e5c07b}
+    .jr-preview-bar select{margin-left:auto;padding:5px 8px;border:1px solid rgba(255,255,255,.4);
+      background:#172532;color:#fff;font-size:13px}
+    .jr-preview-note{padding:8px 14px;background:#fdf6e6;color:#7a5f2a;font-size:12px;line-height:1.6;
+      border-bottom:1px solid #ecdfc4}
+    .jr-preview iframe{flex:1;width:100%;border:0;background:#fff}
+  </style>
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.8.4/dist/decap-cms.js"></script>
+  <script>
+  /* ─────────────────────────────────────────────────────────────
+     관리자 화면 오른쪽에 실제 홈페이지를 띄워, 지금 고치는 항목이
+     화면의 어느 부분인지 바로 보이게 한다. 입력하는 즉시 반영된다.
+     ───────────────────────────────────────────────────────────── */
+  (function () {
+    if (!window.CMS) { console.warn('Decap CMS 를 불러오지 못했습니다.'); return; }
+
+    /* 컬렉션 → 홈페이지에서 열어 볼 화면 */
+    var PAGES = {
+      site: 'home', menu: 'home', quicklinks: 'home', ministry: 'home',
+      calendar: 'home', applications: 'home',
+      sermons: 'sermon', praise: 'praise', bulletins: 'bulletin',
+      notices: 'board', gallery: 'gallery', departments: 'dept',
+      staff: 'staff', cafe: 'cafe', worship: 'worship',
+      smallgroup: 'smallgroup', mission: 'mission', newfamily: 'family',
+      visit: 'visit', facility: 'facility'
+    };
+    /* 부서처럼 다른 화면도 같이 보면 좋은 경우 */
+    var EXTRA_PAGES = {
+      departments: [['dept', '부서 카드 목록'], ['dept-kids', '유치부'], ['dept-elementry', '초등부'],
+                    ['dept-youth', '청소년부'], ['dept-young', '청년부'], ['dept-men', '장년부']],
+      site: [['home', '첫 화면'], ['visit', '오시는 길'], ['worship', '예배 안내']],
+      sermons: [['sermon', '설교 아카이브'], ['home', '첫 화면 설교 영상']],
+      applications: [['home', '첫 화면 신청 카드'], ['dept-youth', '청소년부'], ['dept-young', '청년부']]
+    };
+    var SITE_ROOT = '../index.html';
+
+    /* 컬렉션을 바꿔도 같은 컴포넌트가 재사용되므로,
+       항목 이름은 props 에서 그때그때 읽는다. */
+    var PreviewPane = window.createClass({
+      getInitialState: function () { return { page: null, name: null }; },
+      cur: function () {
+        try { return this.props.collection.get('name'); } catch (e) { return null; }
+      },
+      page: function () {
+        var n = this.cur();
+        if (this.state.name === n && this.state.page) return this.state.page;
+        return PAGES[n] || 'home';
+      },
+      componentDidMount: function () {
+        var self = this;
+        /* 홈페이지 쪽 준비가 끝났다는 신호를 받은 뒤에 보낸다.
+           iframe 의 load 시점은 아직 content/*.json 을 읽기 전이라 무시된다. */
+        this.onReady = function (e) {
+          if (e.data && e.data.type === 'jesusro-preview-ready') { self.ready = true; self.push(); }
+        };
+        window.addEventListener('message', this.onReady);
+        this.push();
+      },
+      componentWillUnmount: function () { window.removeEventListener('message', this.onReady); },
+      componentDidUpdate: function () { this.push(); },
+      push: function () {
+        var f = this.frame, n = this.cur();
+        if (!f || !f.contentWindow || !this.ready || !n) return;
+        var data;
+        try { data = this.props.entry.get('data').toJS(); } catch (e) { return; }
+        f.contentWindow.postMessage(
+          { type: 'jesusro-preview', name: n, data: data, page: this.page() }, '*');
+      },
+      render: function () {
+        var self = this, n = this.cur(), extra = EXTRA_PAGES[n];
+        return window.h('div', { className: 'jr-preview' },
+          window.h('div', { className: 'jr-preview-bar' },
+            window.h('span', null, window.h('b', null, '실제 홈페이지 화면'),
+              ' · 왼쪽에서 고치면 여기에 바로 나타납니다'),
+            extra ? window.h('select', {
+              value: self.page(),
+              onChange: function (e) { self.setState({ page: e.target.value, name: n }); }
+            }, extra.map(function (p) {
+              return window.h('option', { key: p[0], value: p[0] }, p[1]);
+            })) : null
+          ),
+          window.h('div', { className: 'jr-preview-note' },
+            '아래 화면은 미리 보기입니다. 실제 홈페이지에 반영하려면 위의 “게시” 를 눌러 주세요.'),
+          window.h('iframe', {
+            title: '홈페이지 미리보기',
+            /* 브라우저가 예전 화면을 캐시해 두지 않도록 창을 열 때마다 주소를 달리한다 */
+            src: (self.srcOnce = self.srcOnce || (SITE_ROOT + '?preview=1&t=' + Date.now())),
+            ref: function (el) { self.frame = el; },
+            onLoad: function () { self.ready = false; }
+          })
+        );
+      }
+    });
+
+    Object.keys(PAGES).forEach(function (name) {
+      try { CMS.registerPreviewTemplate(name, PreviewPane); }
+      catch (e) { console.warn('미리보기 등록 실패:', name, e); }
+    });
+
+  })();
+  </script>
 </body>
 </html>
