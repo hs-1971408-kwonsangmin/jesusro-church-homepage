@@ -6,17 +6,9 @@
   <meta name="robots" content="noindex">
   <title>예수로교회 홈페이지 관리</title>
   <style>
-    /* 미리보기 창 (오른쪽 절반) */
-    .jr-preview{display:flex;flex-direction:column;height:100%;background:#f4f1ea;
-      font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
-    .jr-preview-bar{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;
-      padding:10px 14px;background:#172532;color:#f4f1ea;font-size:13px;line-height:1.5}
-    .jr-preview-bar b{color:#e5c07b}
-    .jr-preview-bar select{margin-left:auto;padding:5px 8px;border:1px solid rgba(255,255,255,.4);
-      background:#172532;color:#fff;font-size:13px}
-    .jr-preview-note{padding:8px 14px;background:#fdf6e6;color:#7a5f2a;font-size:12px;line-height:1.6;
-      border-bottom:1px solid #ecdfc4}
-    .jr-preview iframe{flex:1;width:100%;border:0;background:#fff}
+    /* 미리보기에서 누른 부분에 해당하는 입력칸을 잠시 표시한다 */
+    .jr-hit{outline:3px solid #e5a13a !important;outline-offset:2px;
+      border-radius:2px;transition:outline-color .3s}
   </style>
 </head>
 <body>
@@ -28,6 +20,25 @@
      ───────────────────────────────────────────────────────────── */
   (function () {
     if (!window.CMS) { console.warn('Decap CMS 를 불러오지 못했습니다.'); return; }
+
+    /* 미리보기 창은 별도의 iframe 이라 이 페이지의 <style> 이 닿지 않는다.
+       registerPreviewStyle 로 그 안에 직접 넣어 준다. */
+    CMS.registerPreviewStyle(`
+      html,body{margin:0;padding:0;height:100%;overflow:hidden}
+      .jr-preview{position:fixed;inset:0;display:flex;flex-direction:column;background:#eceadf;
+        font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+      .jr-bar{flex:none;display:flex;gap:10px;align-items:center;padding:9px 12px;
+        background:#172532;color:#f4f1ea;font-size:13px;line-height:1.4}
+      .jr-bar b{color:#e5c07b;font-weight:700}
+      .jr-bar .sp{flex:1}
+      .jr-bar select,.jr-bar button{padding:5px 9px;border:1px solid rgba(255,255,255,.42);
+        background:transparent;color:#fff;font-size:12px;font-weight:600;cursor:pointer}
+      .jr-bar button.on{background:#e5c07b;border-color:#e5c07b;color:#17110a}
+      .jr-hint{flex:none;padding:7px 12px;background:#fdf6e6;color:#7a5f2a;font-size:12px;line-height:1.5}
+      .jr-stage{flex:1;min-height:0;display:flex;justify-content:center;background:#dcd8cc;overflow:auto}
+      .jr-stage iframe{width:100%;height:100%;border:0;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+      .jr-stage.narrow iframe{width:390px;flex:none}
+    `, { raw: true });
 
     /* 컬렉션 → 홈페이지에서 열어 볼 화면 */
     var PAGES = {
@@ -48,6 +59,8 @@
       applications: [['home', '첫 화면 신청 카드'], ['dept-youth', '청소년부'], ['dept-young', '청년부']]
     };
     var SITE_ROOT = '../index.html';
+    /* 항목을 옮겨 다닐 때마다 홈페이지를 다시 받지 않도록 주소를 한 번만 정한다 */
+    var SITE_SRC = SITE_ROOT + '?preview=1&t=' + Date.now();
 
     /* 컬렉션을 바꿔도 같은 컴포넌트가 재사용되므로,
        항목 이름은 props 에서 그때그때 읽는다. */
@@ -66,7 +79,10 @@
         /* 홈페이지 쪽 준비가 끝났다는 신호를 받은 뒤에 보낸다.
            iframe 의 load 시점은 아직 content/*.json 을 읽기 전이라 무시된다. */
         this.onReady = function (e) {
-          if (e.data && e.data.type === 'jesusro-preview-ready') { self.ready = true; self.push(); }
+          var m = e.data; if (!m) return;
+          if (m.type === 'jesusro-preview-ready') { self.ready = true; self.push(); return; }
+          /* 미리보기에서 어떤 부분을 눌렀다 -> 왼쪽에서 그 입력칸을 열고 커서를 놓는다 */
+          if (m.type === 'jesusro-field' && m.path) self.jumpTo(m.path);
         };
         window.addEventListener('message', this.onReady);
         this.push();
@@ -78,31 +94,104 @@
         if (!f || !f.contentWindow || !this.ready || !n) return;
         var data;
         try { data = this.props.entry.get('data').toJS(); } catch (e) { return; }
+        /* 항목을 막 바꾼 순간에는 내용이 비어 있다. 그대로 보내면 화면이 지워진다. */
+        if (!data || !Object.keys(data).length) return;
         f.contentWindow.postMessage(
           { type: 'jesusro-preview', name: n, data: data, page: this.page() }, '*');
+      },
+      /* 미리보기에서 누른 곳(예: items.3.name)에 해당하는 입력칸을 찾아
+         펼치고, 화면으로 끌어오고, 커서를 놓는다.
+         Decap 은 컨트롤마다 id="<필드이름>-field-<번호>" 를 붙여 준다. */
+      jumpTo: function (path) {
+        var self = this;
+        /* 1) Decap 에게 먼저 알린다 — 접혀 있는 목록 항목이 펼쳐진다 */
+        try { this.props.onFieldClick && this.props.onFieldClick(path); } catch (e) {}
+        /* 2) 펼쳐질 시간을 준 뒤, 실제 입력칸을 직접 찾아 짚는다 */
+        setTimeout(function () { self.point(path); }, 450);
+      },
+      point: function (path) {
+        var self = this, parts = String(path).split('.'), i = 0, scope = null, target = null;
+
+        function pane() {
+          /* Decap 은 미리보기 쪽에도 같은 입력칸을 숨겨서 하나 더 그려 둔다.
+             화면 왼쪽 칸(Pane1) 안에 있는 것만 진짜 편집 창이다. */
+          return document.querySelector('[class*="Pane1"] [class*="ControlPaneContainer"]')
+            || document.querySelector('[class*="ControlPaneContainer"]')
+            || document.body;
+        }
+        function rows(el) {
+          var r = el.querySelectorAll(':scope > div > [class*="SortableListItem"]');
+          return r.length ? r : el.querySelectorAll('[class*="SortableListItem"]');
+        }
+        function step() {
+          if (!scope) scope = pane();
+          if (i >= parts.length) return finish();
+          var part = parts[i++];
+
+          if (/^\d+$/.test(part)) {
+            var rs = rows(scope);
+            if (!rs.length) {
+              /* 아직 목록이 그려지지 않았다 — 잠시 뒤 다시 본다 */
+              if (!step.waited) { step.waited = 1; i--; return setTimeout(step, 400); }
+              return finish();
+            }
+            var row = rs[Number(part)];
+            if (!row) return finish();
+            scope = row; target = row;
+            if (!row.querySelector('[id*="-field-"]')) {
+              /* 접혀 있다 — 펼치고 다시 그려질 때까지 기다린다 */
+              var head = row.querySelector('button, [role="button"]');
+              if (head) { try { head.click(); } catch (e) {} }
+              return setTimeout(step, 320);
+            }
+            return step();
+          }
+
+          var el = scope.querySelector('[id^="' + part + '-field-"]');
+          if (!el) return finish();
+          scope = el; target = el;
+          return step();
+        }
+        function finish() {
+          if (!target) return;
+          var input = /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName)
+            ? target : target.querySelector('input, textarea, select');
+          var show = input || target;
+          try { show.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) {}
+          if (input) { try { input.focus(); } catch (e) {} }
+          show.classList.add('jr-hit');
+          setTimeout(function () { show.classList.remove('jr-hit'); }, 2400);
+        }
+        step();
       },
       render: function () {
         var self = this, n = this.cur(), extra = EXTRA_PAGES[n];
         return window.h('div', { className: 'jr-preview' },
-          window.h('div', { className: 'jr-preview-bar' },
-            window.h('span', null, window.h('b', null, '실제 홈페이지 화면'),
-              ' · 왼쪽에서 고치면 여기에 바로 나타납니다'),
+          window.h('div', { className: 'jr-bar' },
+            window.h('b', null, '실제 홈페이지'),
+            window.h('span', null, '왼쪽에서 고치면 여기에 바로 나타납니다'),
+            window.h('span', { className: 'sp' }),
             extra ? window.h('select', {
               value: self.page(),
               onChange: function (e) { self.setState({ page: e.target.value, name: n }); }
             }, extra.map(function (p) {
               return window.h('option', { key: p[0], value: p[0] }, p[1]);
-            })) : null
+            })) : null,
+            window.h('button', {
+              className: self.state.narrow ? 'on' : '',
+              onClick: function () { self.setState({ narrow: !self.state.narrow }); }
+            }, self.state.narrow ? '휴대폰 폭' : 'PC 폭')
           ),
-          window.h('div', { className: 'jr-preview-note' },
-            '아래 화면은 미리 보기입니다. 실제 홈페이지에 반영하려면 위의 “게시” 를 눌러 주세요.'),
-          window.h('iframe', {
-            title: '홈페이지 미리보기',
-            /* 브라우저가 예전 화면을 캐시해 두지 않도록 창을 열 때마다 주소를 달리한다 */
-            src: (self.srcOnce = self.srcOnce || (SITE_ROOT + '?preview=1&t=' + Date.now())),
-            ref: function (el) { self.frame = el; },
-            onLoad: function () { self.ready = false; }
-          })
+          window.h('div', { className: 'jr-hint' },
+            '미리 보기입니다. 실제 홈페이지에 반영하려면 위의 “게시” 를 눌러 주세요.'),
+          window.h('div', { className: 'jr-stage' + (self.state.narrow ? ' narrow' : '') },
+            window.h('iframe', {
+              title: '홈페이지 미리보기',
+              src: SITE_SRC,
+              ref: function (el) { self.frame = el; },
+              onLoad: function () { self.ready = false; }
+            })
+          )
         );
       }
     });

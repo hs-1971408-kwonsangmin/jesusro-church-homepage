@@ -587,6 +587,18 @@
     body.in-preview .edit-bar,body.in-preview .edit-tag,body.in-preview .edit-zone{display:revert}
     body.in-preview .edit-bar,body.in-preview .edit-tag{display:none}
     body.in-preview{padding-bottom:0}
+    /* 관리자 미리보기 안에서: 고칠 수 있는 부분을 짚어 준다 */
+    body.in-preview [data-cms]{cursor:pointer}
+    body.in-preview [data-cms]:hover{outline:2px solid #e5a13a;outline-offset:2px;
+      background:rgba(229,161,58,.10)}
+    body.in-preview [data-cms].jr-picked{outline:2px solid #2f7d4f;outline-offset:2px;
+      background:rgba(47,125,79,.12)}
+    .jr-tip{position:fixed;z-index:2000;padding:5px 10px;background:#172532;color:#fff;
+      font-size:12px;font-weight:600;white-space:nowrap;pointer-events:none;
+      box-shadow:0 4px 12px rgba(10,16,24,.3)}
+    .jr-guide{position:fixed;z-index:2000;left:0;right:0;bottom:0;padding:9px 14px;
+      background:#172532;color:#f4f1ea;font-size:13px;text-align:center;pointer-events:none}
+    .jr-guide b{color:#e5c07b}
   </style>
 </head>
 <body class="home-active">
@@ -713,6 +725,8 @@
       const m=String(url).match(/(?:youtu\.be\/|v=|embed\/|shorts\/|live\/)([A-Za-z0-9_-]{11})/);
       return m?m[1]:'';
     }
+    /* 미리보기에서 “여기가 어느 입력칸인지” 알려주기 위한 표시 */
+    function mark(id,path){const el=document.getElementById(id);if(el)el.dataset.cms=path}
     function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){
       return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
     function nl2br(v){return esc(v).replace(/\n/g,'<br>')}
@@ -720,10 +734,17 @@
     async function loadContent(){
       const names=['site','menu','sermons','notices','departments','gallery','calendar','facility','bulletins','applications','cafe','staff','ministry','quicklinks','newfamily','worship','smallgroup','mission','praise','visit'];
       const data={};
-      await Promise.all(names.map(function(n){
+      /* 일시적인 연결 끊김으로 화면 전체가 비지 않도록 두 번까지 다시 받는다 */
+      const grab=function(n,left){
         return fetch('content/'+n+'.json',{cache:'no-cache'})
           .then(function(r){if(!r.ok)throw new Error('content/'+n+'.json — HTTP '+r.status);return r.json()})
-          .then(function(j){data[n]=j})}));
+          .then(function(j){data[n]=j})
+          .catch(function(err){
+            if(left<=0)throw err;
+            return new Promise(function(res){setTimeout(res,220*(3-left))}).then(function(){return grab(n,left-1)});
+          });
+      };
+      await Promise.all(names.map(function(n){return grab(n,2)}));
       site=data.site; menuItems=data.menu.items;
       sermons=data.sermons.items; notices=data.notices.items;
       departments=data.departments.items; gallery=data.gallery.items;
@@ -736,12 +757,13 @@
 
     /* ===== 상단 메뉴 (content/menu.json) ===== */
     function renderMenu(){
-      document.getElementById('mainMenu').innerHTML=menuItems.map(function(m){
+      document.getElementById('mainMenu').innerHTML=menuItems.map(function(m,i){
         const sub=(m.children&&m.children.length)
           ? '<div class="sub">'+m.children.map(function(c){
               return '<a data-go="'+esc(c.page)+'">'+esc(c.label)+'</a>'}).join('')+'</div>' : '';
         const tag=sub?'button':'a';
-        return '<li><'+tag+' data-nav="'+esc(m.page)+'" data-go="'+esc(m.page)+'">'+esc(m.label)+'</'+tag+'>'+sub+'</li>';
+        return '<li data-cms="items.'+i+'.label"><'+tag+' data-nav="'+esc(m.page)+'" data-go="'+
+          esc(m.page)+'">'+esc(m.label)+'</'+tag+'>'+sub+'</li>';
       }).join('');
     }
 
@@ -979,6 +1001,8 @@
       const set=function(id,v){const el=document.getElementById(id);if(el&&v!=null)el.textContent=v};
       set('brandName',site.churchName); set('brandNameEn',site.churchNameEn);
       set('heroSubtitle',site.heroSubtitle);
+      mark('brandName','churchName'); mark('brandNameEn','churchNameEn');
+      mark('heroTitle','heroTitle'); mark('heroSubtitle','heroSubtitle');
       const h1=document.getElementById('heroTitle');
       if(h1&&site.heroTitle){
         const lines=String(site.heroTitle).split('\n');
@@ -988,13 +1012,14 @@
       }
       const w=site.worship||[];
       const rows=document.getElementById('weeklyRows');
-      if(rows)rows.innerHTML=w.map(function(x){
-        return '<div class="weekly-row"><span>'+esc(x.name.replace(/ 예배$/,''))+
-          '</span><b>'+esc(x.time)+'</b></div>'}).join('');
+      if(rows)rows.innerHTML=w.map(function(x,i){
+        return '<div class="weekly-row" data-cms="worship.'+i+'.time"><span>'+
+          esc(x.name.replace(/ 예배$/,''))+'</span><b>'+esc(x.time)+'</b></div>'}).join('');
       const grid=document.getElementById('worshipGrid');
-      if(grid)grid.innerHTML=w.map(function(x){
-        return '<article class="worship-card"><small>'+esc(x.day)+'</small><time>'+esc(x.time)+
-          '</time><b>'+esc(x.name)+'</b><span>'+esc(x.place)+'</span></article>'}).join('');
+      if(grid)grid.innerHTML=w.map(function(x,i){
+        return '<article class="worship-card" data-cms="worship.'+i+'.name"><small>'+esc(x.day)+
+          '</small><time>'+esc(x.time)+'</time><b>'+esc(x.name)+'</b><span>'+
+          esc(x.place)+'</span></article>'}).join('');
       document.querySelectorAll('[data-site-address]').forEach(function(el){
         if(site.address)el.textContent=site.address});
       document.querySelectorAll('[data-site-tel]').forEach(function(el){
@@ -1058,15 +1083,17 @@
       setH('wsGroups',(w.groups||[]).map(function(g,gi){
         return '<div class="ws-group"'+(gi?' style="margin-top:48px"':'')+'>'+
           '<div class="kick">'+esc(g.kick)+'</div><h2 class="title">'+esc(g.title)+'</h2>'+
-          '<div class="ws-list">'+(g.items||[]).map(function(x){
-            return '<article class="ws-item'+(x.highlight?' is-on':'')+'">'+
+          '<div class="ws-list">'+(g.items||[]).map(function(x,ii){
+            return '<article class="ws-item'+(x.highlight?' is-on':'')+
+              '" data-cms="groups.'+gi+'.items.'+ii+'.name">'+
               '<b>'+esc(x.name)+'</b><time>'+esc(x.time)+'</time>'+
               '<span>'+esc(x.place)+'</span>'+(x.note?'<p>'+esc(x.note)+'</p>':'')+'</article>'}).join('')+
           '</div></div>'}).join(''));
       const d=w.departments||{};
       setT('wsDeptKick',d.kick); setT('wsDeptTitle',d.title); setT('wsDeptDesc',d.desc);
-      setH('wsDepts',(d.items||[]).map(function(x){
-        return '<button class="ws-dept-item" data-go="'+esc(x.page)+'">'+
+      setH('wsDepts',(d.items||[]).map(function(x,i){
+        return '<button class="ws-dept-item" data-cms="departments.items.'+i+'.name" '+
+          'data-go="'+esc(x.page)+'">'+
           '<b>'+esc(x.name)+'</b><time>'+esc(x.time)+'</time><span>'+esc(x.place)+'</span>'+
           '<em>부서 안내 →</em></button>'}).join(''));
       const n=w.notes||{};
@@ -1220,9 +1247,9 @@
         cta.dataset.go=q.headerButton.page||'family';cta.hidden=!q.headerButton.label}
       const grid=document.getElementById('quickGrid');
       if(!grid)return;
-      grid.innerHTML=(q.items||[]).map(function(x){
+      grid.innerHTML=(q.items||[]).map(function(x,i){
         const p=QUICK_ICONS[x.icon]||QUICK_ICONS.new;
-        return '<button class="hq-card" data-go="'+esc(x.page||'home')+'"'+
+        return '<button class="hq-card" data-cms="items.'+i+'.label" data-go="'+esc(x.page||'home')+'"'+
           (x.scrollTo?' data-scroll="'+esc(x.scrollTo)+'"':'')+'>'+
           '<span class="hq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" '+
           'stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg></span>'+
@@ -1237,8 +1264,8 @@
       const more=document.getElementById('ministryMore');
       if(more){more.textContent=m.moreLabel||'';more.dataset.go=m.morePage||'dept';
         more.hidden=!m.moreLabel}
-      document.getElementById('ministryGrid').innerHTML=m.items.map(function(x){
-        return '<button class="ministry" data-go="'+esc(x.page||'dept')+'"'+
+      document.getElementById('ministryGrid').innerHTML=m.items.map(function(x,i){
+        return '<button class="ministry" data-cms="items.'+i+'.title" data-go="'+esc(x.page||'dept')+'"'+
           (x.deptTab?' data-dept-tab="'+esc(x.deptTab)+'"':'')+'>'+
           '<span class="ministry-image" style="background-image:url(\''+esc(x.image)+'\')"></span>'+
           '<span class="ministry-text"><small>'+esc(x.label)+'</small><h3>'+esc(x.title)+'</h3>'+
@@ -1287,8 +1314,8 @@
       const set=function(id,v){const el=document.getElementById(id);if(el)el.textContent=v||''};
       set('prHeadline',praise.headline); set('prKick',praise.kick);
       set('prTitle',praise.title); set('prDesc',praise.desc); set('prNote',praise.note);
-      document.getElementById('prTeams').innerHTML=praise.teams.map(function(t){
-        return '<article class="team-card"><small>'+esc(t.when||'')+'</small>'+
+      document.getElementById('prTeams').innerHTML=praise.teams.map(function(t,i){
+        return '<article class="team-card" data-cms="teams.'+i+'.name"><small>'+esc(t.when||'')+'</small>'+
           '<b>'+esc(t.name)+'</b><p>'+esc(t.desc||'')+'</p></article>'}).join('');
       document.getElementById('prTeamTabs').innerHTML=
         [{key:'all',name:'전체'}].concat(praise.teams).map(function(t,i){
@@ -1311,7 +1338,8 @@
       }).sort(function(a,b){return a.date===b.date?0:(a.date<b.date?1:-1)});
       document.getElementById('prCount').textContent=list.length;
       document.getElementById('prGrid').innerHTML=list.length?list.map(function(x){
-        return '<button class="media-card" data-praise="'+esc(x.id)+'">'+mediaThumb(x.video)+
+        return '<button class="media-card" data-cms="items.'+praise.items.indexOf(x)+'.title" '+
+          'data-praise="'+esc(x.id)+'">'+mediaThumb(x.video)+
           '<span class="media-body"><span class="media-top"><span>'+esc(praiseTeamName(x.team))+
           '</span><span>'+esc(x.date)+'</span></span>'+
           '<h3>'+esc(x.title)+'</h3><p>'+esc(x.kind||'')+(x.verse?' · '+esc(x.verse):'')+'</p>'+
@@ -1430,13 +1458,44 @@
     function initPreviewBridge(){
       if(window.parent===window)return;          /* 관리자 화면 안에서만 동작 */
       document.body.classList.add('in-preview');
+
+      /* 미리보기 안에서는 링크 이동 대신, 누른 곳의 입력칸으로 안내한다 */
+      const tip=document.createElement('div');
+      tip.className='jr-tip'; tip.hidden=true; document.body.appendChild(tip);
+      const guide=document.createElement('div');
+      guide.className='jr-guide';
+      guide.innerHTML='고치고 싶은 곳을 <b>클릭</b>하면 왼쪽에서 그 입력칸이 열립니다.';
+      document.body.appendChild(guide);
+
+      document.addEventListener('mousemove',function(e){
+        const t=e.target.closest('[data-cms]');
+        if(!t){tip.hidden=true;return}
+        const r=t.getBoundingClientRect();
+        tip.textContent='이 부분 고치기';
+        tip.hidden=false;
+        tip.style.left=Math.max(4,Math.min(r.left,window.innerWidth-tip.offsetWidth-4))+'px';
+        tip.style.top=(r.top>28?r.top-26:r.bottom+6)+'px';
+      });
+      document.addEventListener('mouseleave',function(){tip.hidden=true});
+
+      document.addEventListener('click',function(e){
+        const t=e.target.closest('[data-cms]');
+        if(!t)return;
+        e.preventDefault(); e.stopPropagation();
+        document.querySelectorAll('.jr-picked').forEach(function(x){x.classList.remove('jr-picked')});
+        t.classList.add('jr-picked');
+        const msg={type:'jesusro-field',path:t.dataset.cms};
+        try{window.parent.postMessage(msg,'*')}catch(err){}
+        try{if(window.top!==window.parent)window.top.postMessage(msg,'*')}catch(err){}
+      },true);
+
       window.addEventListener('message',function(e){
         const m=e.data;
         if(!m||m.type!=='jesusro-preview')return;
         const t=PREVIEW_TARGETS[m.name];
         if(!t)return;
         try{
-          if(m.data)t.apply(m.data);
+          if(m.data&&Object.keys(m.data).length)t.apply(m.data);
           if(m.page||t.page)go(m.page||t.page);
         }catch(err){console.warn('미리보기 반영 실패:',m.name,err)}
       });
@@ -1572,11 +1631,11 @@
       if(staff.banner)head.style.backgroundImage="url('"+staff.banner+"')";
       document.getElementById('staffHeadline').textContent=staff.headline||'';
       document.getElementById('staffBody').innerHTML=staff.groups.map(function(g,gi){
-        const people=(g.people||[]).map(function(p){
+        const people=(g.people||[]).map(function(p,pi){
           const photo=p.photo
             ? '<span class="person-photo" style="background-image:url(\''+esc(p.photo)+'\')" role="img" aria-label="'+esc(p.name)+'"></span>'
             : '<span class="person-photo is-empty" aria-hidden="true"><i>'+esc((p.name||'?').slice(0,1))+'</i></span>';
-          return '<article class="person">'+photo+
+          return '<article class="person" data-cms="groups.'+gi+'.people.'+pi+'.name">'+photo+
             '<b>'+esc(p.name)+'</b>'+
             (p.role?'<span class="person-role">'+esc(p.role)+'</span>':'')+
             (p.message?'<p>'+esc(p.message)+'</p>':'')+'</article>';
@@ -1631,8 +1690,9 @@
     function nextSeason(){const order=['summer','spring','autumn','winter'];
       setSeason(order[(order.indexOf(currentSeason)+1)%order.length],false)}
 
-    function renderHomeNotices(){document.getElementById('homeNotices').innerHTML=notices.slice(0,5).map(function(n){
-      return '<button class="notice-item" data-notice="'+esc(n.id)+'"><span class="notice-date">'+
+    function renderHomeNotices(){document.getElementById('homeNotices').innerHTML=notices.slice(0,5).map(function(n,i){
+      return '<button class="notice-item" data-cms="items.'+i+'.title" data-notice="'+esc(n.id)+
+      '"><span class="notice-date">'+
         esc(n.date.slice(5).replace('-','.'))+'</span><span class="notice-title">'+esc(n.title)+
         (n.new?'<i class="notice-tag">NEW</i>':'')+'</span></button>'}).join('')}
 
@@ -1668,7 +1728,8 @@
       const filtered=filteredSermons();sermonView=filtered;
       document.getElementById('sermonCount').textContent=filtered.length;
       document.getElementById('sermonList').innerHTML=filtered.length?filtered.map(function(s){
-        return '<button class="list-row" data-sermon="'+esc(s.id)+'"><span class="label">'+esc(s.type)+
+        return '<button class="list-row" data-cms="items.'+sermons.indexOf(s)+'.title" '+
+          'data-sermon="'+esc(s.id)+'"><span class="label">'+esc(s.type)+
           '</span><strong>'+esc(s.title)+'<br><span>'+esc(s.verse)+'</span></strong><span>'+
           esc(s.speaker)+'</span><span>'+esc(s.date)+'</span></button>'}).join('')
         :'<div class="empty">조건에 맞는 설교가 없습니다. 필터를 초기화해 보세요.</div>';
@@ -1786,7 +1847,8 @@
         return group==='all'||d.group===group}).map(function(d){
         const photo=d.cardPhoto?'<div style="aspect-ratio:16/10;background:center/cover url(\''+esc(d.cardPhoto)+
           '\');margin:-26px -26px 20px"></div>':'';
-        return '<article class="department" data-go="dept-'+esc(d.slug)+'" tabindex="0" role="link" '+
+        return '<article class="department" data-cms="items.'+departments.indexOf(d)+'.name" '+
+          'data-go="dept-'+esc(d.slug)+'" tabindex="0" role="link" '+
           'aria-label="'+esc(d.name)+' 페이지 보기">'+photo+'<div class="dept-age">'+esc(d.age)+'</div>'+
           '<h3>'+esc(d.name)+'</h3><p>'+esc(d.summary)+'</p>'+
           '<dl><dt>모임</dt><dd>'+esc(d.time)+'</dd><br><dt>담당</dt><dd>'+esc(d.leaderName)+'</dd></dl>'+
