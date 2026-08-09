@@ -21,6 +21,11 @@
   (function () {
     if (!window.CMS) { console.warn('Decap CMS 를 불러오지 못했습니다.'); return; }
 
+    /* 미리보기 컴포넌트는 Decap 이 만든 iframe 안에서 실행된다.
+       그 안에서 document 를 쓰면 관리자 화면이 아니라 iframe 문서를 가리키므로,
+       스크립트가 읽히는 지금(=관리자 화면) 의 document 를 붙잡아 둔다. */
+    var ADOC = document;
+
     /* 미리보기 창은 별도의 iframe 이라 이 페이지의 <style> 이 닿지 않는다.
        registerPreviewStyle 로 그 안에 직접 넣어 준다. */
     CMS.registerPreviewStyle(`
@@ -85,9 +90,52 @@
           if (m.type === 'jesusro-field' && m.path) self.jumpTo(m.path);
         };
         window.addEventListener('message', this.onReady);
+        /* 왼쪽에서 커서가 가거나 글자를 치면, 그 칸이 화면 어디인지 오른쪽에 알린다 */
+        this.onEdit = function (e) {
+          var el = e.target;
+          if (!el || !/^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)) return;
+          /* 왼쪽 편집 칸(Pane1) 의 입력만 본다.
+             바깥 컨테이너 클래스에도 PreviewPaneContainer 가 들어 있어 그것으로는 못 거른다. */
+          if (!el.closest('[class*="Pane1"]')) return;
+          var path = self.pathOf(el);
+          if (path) self.tell(path, el.value);
+        };
+        ADOC.addEventListener('focusin', this.onEdit, true);
+        ADOC.addEventListener('input', this.onEdit, true);
         this.push();
       },
-      componentWillUnmount: function () { window.removeEventListener('message', this.onReady); },
+      componentWillUnmount: function () {
+        window.removeEventListener('message', this.onReady);
+        ADOC.removeEventListener('focusin', this.onEdit, true);
+        ADOC.removeEventListener('input', this.onEdit, true);
+      },
+      /* 입력칸에서 거꾸로 필드 경로를 만든다.
+         Decap 은 id="<필드이름>-field-<번호>" 를 붙이고, 목록 항목은
+         SortableListItem 으로 감싼다. 위로 올라가며 이름과 순번을 모은다. */
+      pathOf: function (el) {
+        var parts = [], node = el;
+        while (node && node !== ADOC.body) {
+          if (node.id && /-field-\d+$/.test(node.id)) {
+            parts.unshift(node.id.replace(/-field-\d+$/, ''));
+          } else if (node.className && String(node.className).indexOf('SortableListItem') >= 0) {
+            var sibs = node.parentElement
+              ? [].slice.call(node.parentElement.children).filter(function (c) {
+                  return String(c.className).indexOf('SortableListItem') >= 0;
+                })
+              : [];
+            var idx = sibs.indexOf(node);
+            if (idx >= 0) parts.unshift(String(idx));
+          }
+          node = node.parentElement;
+        }
+        return parts.length ? parts.join('.') : null;
+      },
+      tell: function (path, value) {
+        var f = this.frame;
+        if (!f || !f.contentWindow) return;
+        f.contentWindow.postMessage(
+          { type: 'jesusro-focus', path: path, value: String(value == null ? '' : value) }, '*');
+      },
       componentDidUpdate: function () { this.push(); },
       push: function () {
         var f = this.frame, n = this.cur();
@@ -115,9 +163,9 @@
         function pane() {
           /* Decap 은 미리보기 쪽에도 같은 입력칸을 숨겨서 하나 더 그려 둔다.
              화면 왼쪽 칸(Pane1) 안에 있는 것만 진짜 편집 창이다. */
-          return document.querySelector('[class*="Pane1"] [class*="ControlPaneContainer"]')
-            || document.querySelector('[class*="ControlPaneContainer"]')
-            || document.body;
+          return ADOC.querySelector('[class*="Pane1"] [class*="ControlPaneContainer"]')
+            || ADOC.querySelector('[class*="ControlPaneContainer"]')
+            || ADOC.body;
         }
         function rows(el) {
           var r = el.querySelectorAll(':scope > div > [class*="SortableListItem"]');
