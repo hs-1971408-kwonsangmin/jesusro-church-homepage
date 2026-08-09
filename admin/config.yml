@@ -106,6 +106,7 @@ collections:
                   - { label: "부서 안내", value: "dept" }
                   - { label: "사진첩", value: "gallery" }
                   - { label: "새가족", value: "family" }
+                  - { label: "찬양 아카이브", value: "praise" }
                   - { label: "오시는 길", value: "visit" }
                   - { label: "들꽃 카페", value: "cafe" }
                   - { label: "섬기는 분들", value: "staff" }
@@ -246,6 +247,21 @@ collections:
                   - { label: "모임 시간", name: "when", widget: "string" }
                   - { label: "장소", name: "place", widget: "string" }
                   - { label: "리더", name: "leader", widget: "string" }
+              - label: "예배 · 설교 아카이브"
+                name: "sermons"
+                widget: "list"
+                required: false
+                label_singular: "설교"
+                summary: "{{fields.date}} {{fields.title}}"
+                hint: "부서 페이지의 '예배 · 설교' 탭에 날짜순으로 표시됩니다"
+                fields:
+                  - { label: "날짜", name: "date", widget: "string", hint: "2026.07.26 형식" }
+                  - { label: "예배 구분", name: "type", widget: "string", hint: "주일예배 · 수련회 · 특별예배 등. 같은 이름끼리 탭으로 묶입니다" }
+                  - { label: "제목", name: "title", widget: "string" }
+                  - { label: "본문", name: "verse", widget: "string", required: false }
+                  - { label: "설교자", name: "speaker", widget: "string", required: false }
+                  - { label: "요약", name: "summary", widget: "text", required: false }
+                  - { label: "유튜브 영상 주소", name: "video", widget: "string", required: false, hint: "비워두면 '영상 준비 중'으로 표시됩니다" }
               - label: "이 부서에 표시할 신청서"
                 name: "applications"
                 widget: "list"
@@ -830,6 +846,107 @@ collections:
               - { label: "유튜브 영상 주소", name: "video", widget: "string", required: false, hint: "https://youtu.be/... 또는 https://www.youtube.com/watch?v=... 를 붙여넣으면 설교 상세에서 바로 재생됩니다" }
               - { label: "인도", name: "lead", widget: "string", required: false }
               - { label: "대표기도", name: "prayer", widget: "string", required: false }
+
+  # ─────────────────────── 찬양 아카이브 ───────────────────────
+  - name: "praise"
+    label: "찬양 아카이브"
+    files:
+      - name: "praise"
+        label: "찬양 아카이브"
+        file: "content/praise.json"
+        fields:
+          - { label: "상단 배경 사진", name: "banner", widget: "image", required: false }
+          - { label: "상단 소개 문구", name: "headline", widget: "string" }
+          - { label: "머리말 (영문)", name: "kick", widget: "string" }
+          - { label: "제목", name: "title", widget: "string" }
+          - { label: "설명", name: "desc", widget: "text" }
+          - label: "찬양팀 · 성가대"
+            name: "teams"
+            widget: "list"
+            label_singular: "팀"
+            summary: "{{fields.name}}"
+            fields:
+              - { label: "구분 코드", name: "key", widget: "string", hint: "joyful, dadream, praise1, praise2 처럼 영문으로. 찬양 목록에서 이 코드를 씁니다" }
+              - { label: "팀 이름", name: "name", widget: "string" }
+              - { label: "섬기는 예배", name: "when", widget: "string", required: false }
+              - { label: "소개", name: "desc", widget: "text", required: false }
+          - label: "찬양 목록"
+            name: "items"
+            widget: "list"
+            label_singular: "찬양"
+            summary: "{{fields.date}} {{fields.title}}"
+            fields:
+              - { label: "고유 번호", name: "id", widget: "string", hint: "pr1, pr2 … 겹치지 않게" }
+              - { label: "날짜", name: "date", widget: "string", hint: "2026.07.26 형식" }
+              - { label: "팀 코드", name: "team", widget: "string", hint: "위 '찬양팀 · 성가대'의 구분 코드" }
+              - { label: "곡 제목", name: "title", widget: "string" }
+              - { label: "구분", name: "kind", widget: "string", required: false, hint: "성가대 특송 · 예배 인도 등" }
+              - { label: "관련 본문", name: "verse", widget: "string", required: false }
+              - { label: "유튜브 영상 주소", name: "video", widget: "string", required: false, hint: "비워두면 '영상 준비 중'으로 표시됩니다" }
+              - { label: "설명", name: "note", widget: "text", required: false }
+          - { label: "결과 없을 때 문구", name: "emptyText", widget: "string" }
+          - { label: "영상 없을 때 표시", name: "pendingText", widget: "string" }
+          - { label: "하단 안내", name: "note", widget: "text", required: false }
+
+  # ──────────────────────── 오시는 길 ────────────────────────
+  - name: "visit"
+    label: "오시는 길"
+    files:
+      - name: "visit"
+        label: "오시는 길 · 약도"
+        file: "content/visit.json"
+        fields:
+          - { label: "상단 소개 문구", name: "headline", widget: "string" }
+          - { label: "주소", name: "address", widget: "string", hint: "약도와 실시간 지도에 함께 쓰입니다" }
+          - { label: "전화", name: "tel", widget: "string" }
+          - { label: "약도 머리말 (영문)", name: "mapKick", widget: "string" }
+          - { label: "약도 제목", name: "mapTitle", widget: "string" }
+          - { label: "약도 설명", name: "mapDesc", widget: "text" }
+          - { label: "약도 하단 주의 문구", name: "mapNote", widget: "text" }
+          - label: "약도에 표시할 주변 건물"
+            name: "landmarks"
+            widget: "list"
+            label_singular: "장소"
+            summary: "{{fields.label}} ({{fields.x}}, {{fields.y}})"
+            hint: "가로(x)·세로(y)는 약도 전체를 100으로 본 위치입니다. x가 클수록 오른쪽, y가 클수록 아래쪽입니다"
+            fields:
+              - { label: "이름", name: "label", widget: "string" }
+              - label: "종류"
+                name: "type"
+                widget: "select"
+                options:
+                  - { label: "학교", value: "school" }
+                  - { label: "공원 · 산", value: "park" }
+                  - { label: "버스 정류장", value: "bus" }
+                  - { label: "기타 건물", value: "spot" }
+              - { label: "가로 위치 (0~100)", name: "x", widget: "number", value_type: "float", min: 0, max: 100 }
+              - { label: "세로 위치 (0~100)", name: "y", widget: "number", value_type: "float", min: 0, max: 100 }
+          - label: "약도의 길 이름"
+            name: "roadLabels"
+            widget: "list"
+            label_singular: "길 이름"
+            summary: "{{fields.label}}"
+            fields:
+              - { label: "표시할 글자", name: "label", widget: "string" }
+              - { label: "가로 위치 (0~100)", name: "x", widget: "number", value_type: "float", min: 0, max: 100 }
+              - { label: "세로 위치 (0~100)", name: "y", widget: "number", value_type: "float", min: 0, max: 100 }
+          - { label: "실시간 지도 제목", name: "liveMapTitle", widget: "string" }
+          - { label: "실시간 지도 설명", name: "liveMapDesc", widget: "text" }
+          - label: "교통편 안내"
+            name: "routes"
+            widget: "list"
+            label_singular: "안내"
+            summary: "{{fields.title}}"
+            fields:
+              - label: "아이콘"
+                name: "icon"
+                widget: "select"
+                options:
+                  - { label: "자동차", value: "car" }
+                  - { label: "버스", value: "bus" }
+                  - { label: "도보", value: "walk" }
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "안내 내용", name: "lines", widget: "list", field: { label: "한 줄", name: "line", widget: "string" } }
 
   # ───────────────────────── 공지 ─────────────────────────
   - name: "notices"
