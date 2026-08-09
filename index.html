@@ -466,6 +466,52 @@
       .nf-side{position:static}
     }
     @media(max-width:560px){.nf-top .nf-grid{grid-template-columns:1fr}}
+    /* ===== 영상 카드 (찬양 아카이브 · 부서 설교) ===== */
+    .media-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:22px}
+    .media-tabs{display:flex;flex-wrap:wrap;gap:8px}
+    .media-tabs button{padding:10px 18px;border:1px solid #ded8ce;background:#fff;color:#5c6670;
+      font-size:16px;font-weight:600;letter-spacing:-.02em;cursor:pointer;transition:.18s}
+    .media-tabs button:hover{border-color:var(--gold);color:var(--dark)}
+    .media-tabs button.active{background:#172532;border-color:#172532;color:#fff}
+    .media-count{margin:18px 0 0;color:#7c8490;font-size:16px}
+    .media-count b{color:var(--dark)}
+    .media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;margin-top:14px}
+    .media-card{display:flex;flex-direction:column;text-align:left;border:1px solid #ded8ce;
+      background:#fff;padding:0;color:var(--dark);cursor:pointer;transition:.2s}
+    .media-card:hover{border-color:var(--gold);box-shadow:0 14px 26px rgba(55,47,34,.12)}
+    .media-thumb{position:relative;aspect-ratio:16/9;background:#e9e4da center/cover no-repeat;
+      display:grid;place-items:center}
+    .media-thumb.is-empty{background:linear-gradient(140deg,#2a3746,#131c26)}
+    .media-play{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;
+      background:rgba(18,25,35,.72);color:#fff;font-size:15px;padding-left:3px}
+    .media-card:hover .media-play{background:var(--gold)}
+    .media-thumb.is-empty .media-play{background:rgba(255,255,255,.16)}
+    .media-pending{position:absolute;bottom:9px;left:10px;color:rgba(255,255,255,.78);
+      font-size:13px;font-weight:600;letter-spacing:.06em}
+    .media-body{padding:15px 17px 17px;display:flex;flex-direction:column;flex:1}
+    .media-top{display:flex;justify-content:space-between;gap:10px;color:#9d7a42;
+      font-size:13px;font-weight:700;letter-spacing:.08em}
+    .media-card h3{font-family:var(--serif);font-weight:600;font-size:19px;letter-spacing:-.04em;
+      margin:9px 0 5px;line-height:1.35}
+    .media-card p{margin:0;color:#707985;font-size:15px;line-height:1.55}
+    .media-card em{margin-top:auto;padding-top:12px;color:#926f39;font-size:15px;font-weight:600;font-style:normal}
+    /* 찬양팀 소개 */
+    .team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:22px}
+    .team-card{border:1px solid #e3ded4;background:#fff;padding:19px 20px}
+    .team-card small{display:block;color:#9d7a42;font-size:13px;font-weight:700;letter-spacing:.1em}
+    .team-card b{display:block;font-family:var(--serif);font-weight:600;font-size:21px;
+      letter-spacing:-.04em;margin:7px 0 6px}
+    .team-card p{margin:0;color:#707985;font-size:15px;line-height:1.6}
+    /* 영상 모달 */
+    .media-modal blockquote{margin:14px 0 0;padding-left:15px;border-left:3px solid var(--gold);
+      color:#5f6a75;font-size:17px;line-height:1.7}
+    .media-modal .sd-video{margin-top:18px}
+    .media-empty-note{white-space:pre-line;margin:18px 0 0;padding:26px 20px;background:#f4f1ea;border:1px dashed #d9d2c5;
+      text-align:center;color:#7c8490;font-size:16px;line-height:1.7}
+    @media(max-width:560px){
+      .media-grid{grid-template-columns:1fr}
+      .media-tabs button{padding:9px 14px;font-size:15px}
+    }
   </style>
 </head>
 <body class="home-active">
@@ -541,6 +587,7 @@
     <!-- 부서 상세 페이지는 content/departments.json 을 읽어 동적으로 생성됩니다 -->
     <section class="page" id="sermon"><div class="page-head" style="background-image:url('assets/church-summer.jpg')"><div class="wrap"><div class="bread">HOME · 예배 · 말씀</div><h1>설교 아카이브</h1><p>말씀을 다시 듣고, 한 주의 삶으로 이어가 보세요.</p></div></div><div class="content"><div class="wrap"><div class="kick">SERMON ARCHIVE</div><h2 class="title">최근 말씀</h2><div class="toolbar"><select class="filter" id="sermonType"><option value="">모든 예배</option><option>주일예배</option><option>수요예배</option><option>새벽예배</option></select><select class="filter" id="sermonSeries"><option value="">모든 시리즈</option><option>예수님으로</option><option>삶의 자리</option><option>복음의 길</option></select><input class="control search" id="sermonSearch" placeholder="제목, 본문, 설교자 검색"><button class="search-button" id="sermonSearchBtn">검색</button></div><div class="result-bar"><em>총 <b id="sermonCount">0</b>편의 설교</em><div class="sort-group"><button class="active" data-sort="new">최신순</button><button data-sort="old">오래된순</button><button class="reset" onclick="resetSermonFilters()">필터 초기화</button></div></div>
 <div class="list" id="sermonList"></div><div class="pagination"><button class="active">1</button><button data-toast="시연용 데이터의 마지막 페이지입니다.">2</button></div></div></div></section>
+    <section class="page" id="praise"><div class="page-head" id="prHead"><div class="wrap"><div class="bread">HOME · 예배 · 말씀</div><h1>찬양 아카이브</h1><p id="prHeadline"></p></div></div><div class="content"><div class="wrap"><div class="kick" id="prKick"></div><h2 class="title" id="prTitle"></h2><p class="desc" id="prDesc" style="color:#66727c;max-width:780px"></p><div class="team-grid" id="prTeams"></div><div style="margin-top:56px"><div class="kick">ARCHIVE</div><h2 class="title">날짜별 찬양</h2></div><div class="media-toolbar"><div class="media-tabs" id="prTeamTabs"></div><select class="filter" id="prMonth"><option value="">전체 기간</option></select><input class="control search" id="prSearch" placeholder="곡 제목, 본문 검색"></div><p class="media-count">총 <b id="prCount">0</b>곡</p><div class="media-grid" id="prGrid"></div><p class="facility-note" id="prNote"></p></div></div></section>
     <section class="page" id="bulletin"><div class="page-head" style="background-image:url('assets/church-autumn.jpg')"><div class="wrap"><div class="bread">HOME · 예배 · 말씀</div><h1>온라인 주보</h1><p>예배 순서와 공동체의 한 주 소식을 미리 확인하세요.</p></div></div><div class="content"><div class="wrap"><div class="kick">WEEKLY BULLETIN</div><h2 class="title">이번 달 주보</h2><div class="toolbar"><select class="filter" id="bulletinMonth"><option value="7">2026년 7월</option><option value="6">2026년 6월</option><option value="5">2026년 5월</option></select><button class="search-button" onclick="renderBulletins()">조회</button></div><div class="bulletin-grid" id="bulletinGrid"></div></div></div></section>
     <section class="page" id="board"><div class="page-head" style="background-image:url('assets/church-spring.jpg')"><div class="wrap"><div class="bread">HOME · 교회 소식</div><h1>교회 소식</h1><p>함께 알아야 할 소식과 참여할 수 있는 일정을 전합니다.</p></div></div><div class="content notice-board"><div class="wrap"><div class="kick">NEWS & NOTICE</div><h2 class="title">공지사항</h2><div class="toolbar"><select class="filter" id="noticeCategory"><option value="">전체</option><option>예배</option><option>행사</option><option>모집</option><option>안내</option></select><input class="control search" id="noticeSearch" placeholder="제목으로 검색"><button class="search-button" id="noticeSearchBtn">검색</button></div><div class="list" id="noticeList"></div><div class="pagination"><button class="active">1</button><button data-toast="시연용 데이터의 마지막 페이지입니다.">2</button></div></div></div></section>
     <section class="page" id="dept"><div class="page-head" style="background-image:url('assets/church-winter.jpg')"><div class="wrap"><div class="bread">HOME · 다음세대 · 공동체</div><h1>함께 자라는 공동체</h1><p>각 세대의 언어로, 각자의 자리에서 예수님을 알아 갑니다.</p></div></div><div class="content"><div class="wrap"><div class="kick">DEPARTMENTS</div><h2 class="title">부서 안내</h2><div class="dept-tabs" id="deptTabs"><button class="active" data-dept="all">전체</button><button data-dept="next">다음세대</button><button data-dept="adult">장년 · 공동체</button></div><div class="dept-grid" id="deptGrid"></div>
@@ -558,6 +605,7 @@
   <div class="modal" id="applyModal" role="dialog" aria-modal="true" aria-label="신청서"><article class="modal-card sermon-modal"><button class="modal-close" data-close="applyModal" aria-label="닫기">×</button><div class="sermon-meta" id="applyBadge"></div><h2 id="applyTitle"></h2><p class="apply-intro" id="applyIntro"></p><form class="apply-form" id="applyForm"><div id="applyFields"></div><label class="agree"><input type="checkbox" id="applyAgree" required> <span>개인정보 수집 및 이용에 동의합니다. 입력 내용은 신청 안내 목적 외에는 사용하지 않습니다.</span></label><button class="submit">신청서 제출하기</button><p class="apply-note">※ 시안 단계에서는 제출 내용이 저장되지 않습니다. 실제 접수는 담당자 연결 후 제공됩니다.</p></form></article></div>
   <div class="modal" id="zoneModal" role="dialog" aria-modal="true" aria-label="공간 안내"><article class="modal-card sermon-modal"><button class="modal-close" data-close="zoneModal" aria-label="닫기">×</button><div class="sermon-meta" id="zoneLabel"></div><h2 id="zoneTitle"></h2><div class="zone-photo" id="zonePhoto" hidden></div><p class="zone-text" id="zoneText"></p><div id="zoneFacts"></div></article></div>
   <footer><div class="wrap"><div class="footer-grid"><div class="footer-brand"><b>예수로교회</b><p><span data-site-address>경기도 파주시 교하로 677-79</span><br><span data-site-tel>031-946-6161</span></p><div class="socials"><button data-toast="YouTube 채널은 정식 사이트 연결 시 제공됩니다.">YT</button><button data-toast="Instagram 채널은 정식 사이트 연결 시 제공됩니다.">IG</button><button data-toast="Facebook 채널은 정식 사이트 연결 시 제공됩니다.">FB</button></div></div><div><h4>예배 · 말씀</h4><a data-go="sermon">설교 아카이브</a><a data-go="bulletin">온라인 주보</a><a data-go="visit">예배 안내</a></div><div><h4>공동체</h4><a data-go="dept">부서 안내</a><a data-go="board">교회 소식</a><a data-go="gallery">사진첩</a></div><div><h4>참여하기</h4><a data-offering data-toast="온라인 헌금은 정식 홈페이지 연결 시 제공됩니다.">온라인 헌금</a><a data-go="visit">오시는 길</a></div></div><div class="copyright"><span>© 2026 JESUSRO CHURCH. All rights reserved.</span><span>C안 PREMIUM LIGHT · 홈페이지 리뉴얼 시안</span></div></div></footer>
+  <div class="modal" id="mediaModal" role="dialog" aria-modal="true" aria-label="영상 보기"><article class="modal-card sermon-modal media-modal"><button class="modal-close" data-close="mediaModal" aria-label="닫기">×</button><div class="sermon-meta" id="mediaMeta"></div><h2 id="mediaTitle"></h2><blockquote id="mediaVerse" hidden></blockquote><div class="sd-video" id="mediaVideo" hidden></div><p class="media-empty-note" id="mediaEmpty" hidden></p><p id="mediaNote" style="margin:16px 0 0;color:#5f6a75;font-size:17px;line-height:1.75"></p></article></div>
   <div class="modal" id="galleryModal" role="dialog" aria-modal="true" aria-label="사진 크게 보기"><div class="modal-card"><button class="modal-close" data-close="galleryModal" aria-label="닫기">×</button><img class="modal-image" id="galleryImage" alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><div class="modal-info"><h2 id="galleryTitle"></h2><p id="galleryText"></p></div></div></div>
   <div class="modal" id="sermonModal" role="dialog" aria-modal="true" aria-label="설교 상세"><article class="modal-card sermon-modal"><button class="modal-close" data-close="sermonModal" aria-label="닫기">×</button><div class="sermon-meta" id="sermonMeta"></div><h2 id="sermonTitle"></h2><blockquote id="sermonVerse"></blockquote><div class="sd-video" id="sermonVideo" hidden></div>
     <div class="sd-tabs" id="sdTabs"><button class="active" data-sd="sdNote">설교 노트</button><button data-sd="sdMusic">관련 찬양</button><button data-sd="sdBul">그 주 주보</button></div>
@@ -581,7 +629,7 @@
        fetch를 쓰므로 file:// 로 직접 열면 CORS에 막힌다. 로컬 확인은 http 서버로:
          python3 -m http.server 8000   ->   http://localhost:8000 */
     let sermons=[],notices=[],departments=[],gallery=[],calendarEvents={},floorPlans={},
-        bulletinData={},menuItems=[],site={},applications=[],cafe={},staff={},ministry={},quicklinks={},newfamily={},worship={},smallgroup={},mission={},
+        bulletinData={},menuItems=[],site={},applications=[],cafe={},staff={},ministry={},quicklinks={},newfamily={},worship={},smallgroup={},mission={},praise={},
         calendarMeta={year:2026,month:7,startWeekday:3,days:31,selected:26};
 
     /* 유튜브 주소에서 영상 ID를 뽑는다. 여러 형태를 지원한다. */
@@ -595,7 +643,7 @@
     function nl2br(v){return esc(v).replace(/\n/g,'<br>')}
 
     async function loadContent(){
-      const names=['site','menu','sermons','notices','departments','gallery','calendar','facility','bulletins','applications','cafe','staff','ministry','quicklinks','newfamily','worship','smallgroup','mission'];
+      const names=['site','menu','sermons','notices','departments','gallery','calendar','facility','bulletins','applications','cafe','staff','ministry','quicklinks','newfamily','worship','smallgroup','mission','praise'];
       const data={};
       await Promise.all(names.map(function(n){
         return fetch('content/'+n+'.json',{cache:'no-cache'})
@@ -608,7 +656,7 @@
       calendarEvents={}; data.calendar.events.forEach(function(e){calendarEvents[e.day]=e.items});
       bulletinData={}; data.bulletins.months.forEach(function(m){bulletinData[m.month]=m.items});
       applications=data.applications.items; cafe=data.cafe; staff=data.staff; ministry=data.ministry; quicklinks=data.quicklinks; newfamily=data.newfamily;
-      worship=data.worship; smallgroup=data.smallgroup; mission=data.mission;
+      worship=data.worship; smallgroup=data.smallgroup; mission=data.mission; praise=data.praise;
     }
 
     /* ===== 상단 메뉴 (content/menu.json) ===== */
@@ -665,6 +713,17 @@
 
         '<div style="margin-top:56px"><div class="kick">ORGANIZATION</div><h2 class="title">부서 구성</h2></div>'+
         '<div class="org">'+org+'</div>'+
+
+        ((d.sermons&&d.sermons.length)?
+          '<div style="margin-top:56px"><div class="kick">MESSAGE ARCHIVE</div>'+
+          '<h2 class="title">'+esc(d.name)+' 예배 · 설교</h2>'+
+          '<p class="desc" style="color:#66727c">날짜별로 예배와 설교를 다시 볼 수 있습니다.</p></div>'+
+          '<div class="media-toolbar"><div class="media-tabs" data-dept-stabs="'+esc(d.slug)+'">'+
+          [{k:'all',l:'전체'}].concat([...new Set(d.sermons.map(function(s){return s.type}))]
+            .map(function(t){return {k:t,l:t}})).map(function(c,i){
+            return '<button'+(i?'':' class="active"')+' data-dept-stab="'+esc(d.slug)+':'+esc(c.k)+'">'+
+              esc(c.l)+'</button>'}).join('')+'</div></div>'+
+          '<div class="media-grid" id="deptSermons-'+esc(d.slug)+'"></div>' : '')+
 
         '<div style="margin-top:56px"><div class="kick">OUR STORY</div><h2 class="title">우리들의 이야기</h2>'+
         '<p class="desc" style="color:#66727c">예배와 행사의 순간을 사진으로 기록하고 나눕니다.</p></div>'+
@@ -724,13 +783,35 @@
           esc(n.cat)+'</span><strong>'+esc(n.title)+'</strong><span>'+esc(d.name)+'</span><span>'+esc(n.date)+'</span></button>'}).join('')
         :'<div class="empty">등록된 게시글이 없습니다.</div>';
     }
+    function renderDeptSermons(slug,type){
+      const d=departments.find(function(x){return x.slug===slug});
+      const box=document.getElementById('deptSermons-'+slug); if(!box)return;
+      const list=(d.sermons||[]).map(function(s,i){return {s:s,i:i}})
+        .filter(function(o){return !type||type==='all'||o.s.type===type})
+        .sort(function(a,b){return a.s.date===b.s.date?0:(a.s.date<b.s.date?1:-1)});
+      box.innerHTML=list.length?list.map(function(o){
+        const s=o.s;
+        return '<button class="media-card" data-dept-sermon="'+esc(slug)+':'+o.i+'">'+mediaThumb(s.video)+
+          '<span class="media-body"><span class="media-top"><span>'+esc(s.type)+'</span>'+
+          '<span>'+esc(s.date)+'</span></span>'+
+          '<h3>'+esc(s.title)+'</h3><p>'+esc(s.verse||'')+' · '+esc(s.speaker||'')+'</p>'+
+          '<em>'+(ytId(s.video)?'영상 보기 →':'자세히 보기 →')+'</em></span></button>'}).join('')
+        :'<div class="empty">해당 조건의 예배 기록이 없습니다.</div>';
+    }
+    function openDeptSermon(slug,index){
+      const d=departments.find(function(x){return x.slug===slug});if(!d)return;
+      const s=(d.sermons||[])[index];if(!s)return;
+      openMedia({meta:d.name+' · '+s.type+' · '+s.date+' · '+s.speaker,
+        title:s.title, verse:s.verse, video:s.video, note:s.summary});
+    }
     function renderDeptCal(slug){
       const d=departments.find(function(x){return x.slug===slug});
       document.getElementById('deptCal-'+slug).innerHTML=(d.yearPlan||[]).map(function(y){
         return '<div class="yt-month"><b>'+esc(y.period)+'</b><ul>'+
           (y.items||[]).map(function(i){return '<li>'+esc(i)+'</li>'}).join('')+'</ul></div>'}).join('');
     }
-    function renderDeptPage(slug){renderDeptAlbums(slug,'all');renderDeptBoard(slug);renderDeptCal(slug)}
+    function renderDeptPage(slug){renderDeptAlbums(slug,'all');renderDeptBoard(slug);
+      renderDeptCal(slug);renderDeptSermons(slug,'all')}
 
 
     /* ===== 신청서 (content/applications.json) =====
@@ -1097,6 +1178,86 @@
           '<p>'+esc(x.text)+'</p><em>'+esc(x.linkText)+'</em></span></button>'}).join('');
     }
 
+
+    /* ===== 공용 영상 모달 ===== */
+    function openMedia(o){
+      document.getElementById('mediaMeta').textContent=o.meta||'';
+      document.getElementById('mediaTitle').textContent=o.title||'';
+      const v=document.getElementById('mediaVerse');
+      v.textContent=o.verse?'“'+o.verse+'”':''; v.hidden=!o.verse;
+      const box=document.getElementById('mediaVideo'), empty=document.getElementById('mediaEmpty');
+      const id=ytId(o.video);
+      if(id){
+        box.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+
+          '" title="'+esc(o.title||'')+'" loading="lazy" allowfullscreen '+
+          'allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe>';
+        box.hidden=false; empty.hidden=true;
+      }else{
+        box.innerHTML=''; box.hidden=true;
+        empty.textContent='영상이 아직 등록되지 않았습니다.\n관리자 화면에서 유튜브 주소를 입력하면 이곳에서 바로 재생됩니다.';
+        empty.hidden=false;
+      }
+      document.getElementById('mediaNote').textContent=o.note||'';
+      openModal('mediaModal');
+    }
+    function mediaThumb(video){
+      const id=ytId(video);
+      return id?'<span class="media-thumb" style="background-image:url(\'https://i.ytimg.com/vi/'+id+
+        '/hqdefault.jpg\')"><span class="media-play">▶</span></span>'
+        :'<span class="media-thumb is-empty"><span class="media-play">▶</span>'+
+         '<span class="media-pending">'+esc((praise&&praise.pendingText)||'영상 준비 중')+'</span></span>';
+    }
+
+    /* ===== 찬양 아카이브 (content/praise.json) ===== */
+    let praiseTeam='all';
+    function praiseTeamName(key){
+      const t=(praise.teams||[]).find(function(x){return x.key===key});
+      return t?t.name:key;
+    }
+    function renderPraiseIntro(){
+      if(!praise||!praise.teams)return;
+      const head=document.querySelector('#praise .page-head');
+      if(praise.banner)head.style.backgroundImage="url('"+praise.banner+"')";
+      const set=function(id,v){const el=document.getElementById(id);if(el)el.textContent=v||''};
+      set('prHeadline',praise.headline); set('prKick',praise.kick);
+      set('prTitle',praise.title); set('prDesc',praise.desc); set('prNote',praise.note);
+      document.getElementById('prTeams').innerHTML=praise.teams.map(function(t){
+        return '<article class="team-card"><small>'+esc(t.when||'')+'</small>'+
+          '<b>'+esc(t.name)+'</b><p>'+esc(t.desc||'')+'</p></article>'}).join('');
+      document.getElementById('prTeamTabs').innerHTML=
+        [{key:'all',name:'전체'}].concat(praise.teams).map(function(t,i){
+          return '<button'+(i?'':' class="active"')+' data-praise-team="'+esc(t.key)+'">'+
+            esc(t.name)+'</button>'}).join('');
+      const months=[...new Set((praise.items||[]).map(function(x){return x.date.slice(0,7)}))].sort().reverse();
+      document.getElementById('prMonth').innerHTML='<option value="">전체 기간</option>'+
+        months.map(function(m){const p=m.split('.');
+          return '<option value="'+m+'">'+p[0]+'년 '+Number(p[1])+'월</option>'}).join('');
+    }
+    function renderPraise(){
+      if(!praise||!praise.items)return;
+      const month=document.getElementById('prMonth').value;
+      const q=document.getElementById('prSearch').value.trim().toLowerCase();
+      const list=praise.items.filter(function(x){
+        if(praiseTeam!=='all'&&x.team!==praiseTeam)return false;
+        if(month&&x.date.slice(0,7)!==month)return false;
+        if(q&&(x.title+' '+(x.verse||'')+' '+(x.kind||'')).toLowerCase().indexOf(q)<0)return false;
+        return true;
+      }).sort(function(a,b){return a.date===b.date?0:(a.date<b.date?1:-1)});
+      document.getElementById('prCount').textContent=list.length;
+      document.getElementById('prGrid').innerHTML=list.length?list.map(function(x){
+        return '<button class="media-card" data-praise="'+esc(x.id)+'">'+mediaThumb(x.video)+
+          '<span class="media-body"><span class="media-top"><span>'+esc(praiseTeamName(x.team))+
+          '</span><span>'+esc(x.date)+'</span></span>'+
+          '<h3>'+esc(x.title)+'</h3><p>'+esc(x.kind||'')+(x.verse?' · '+esc(x.verse):'')+'</p>'+
+          '<em>'+(ytId(x.video)?'영상 보기 →':'자세히 보기 →')+'</em></span></button>'}).join('')
+        :'<div class="empty">'+esc(praise.emptyText||'등록된 찬양이 없습니다.')+'</div>';
+    }
+    function openPraise(id){
+      const x=(praise.items||[]).find(function(i){return i.id===id});if(!x)return;
+      openMedia({meta:praiseTeamName(x.team)+' · '+(x.kind||'')+' · '+x.date,
+        title:x.title, verse:x.verse, video:x.video, note:x.note});
+    }
+
     /* ===== 섬기는 분들 (content/staff.json) ===== */
     function renderStaff(){
       if(!staff||!staff.groups)return;
@@ -1135,6 +1296,7 @@
       if(page==='gallery')renderGallery('all');
       if(page.indexOf('dept-')===0)renderDeptPage(page.slice(5));
       if(page==='cafe')renderCafe();
+      if(page==='praise')renderPraise();
       if(page==='family')renderNewFamily();
       if(page==='worship')renderWorship();
       if(page==='smallgroup')renderSmallGroup();
@@ -1341,7 +1503,13 @@
       document.getElementById('galleryTitle').textContent=title;
       document.getElementById('galleryText').textContent=sub;
       document.getElementById('galleryModal').classList.add('open')}
-    function closeModal(id){document.getElementById(id).classList.remove('open')}
+    function openModal(id){document.getElementById(id).classList.add('open')}
+    function closeModal(id){
+      const m=document.getElementById(id);m.classList.remove('open');
+      /* 모달을 닫으면 재생 중인 영상을 멈춘다 */
+      m.querySelectorAll('iframe').forEach(function(f){f.src='about:blank'});
+      if(id==='mediaModal'){const b=document.getElementById('mediaVideo');b.innerHTML='';b.hidden=true}
+    }
 
     /* ===== 오시는 길 ===== */
     function copyAddress(){const address=site.address||'경기도 파주시 교하로 677-79';
@@ -1377,8 +1545,23 @@
 
     /* ===== 이벤트 위임 (동적 생성 요소까지 한 번에 처리) ===== */
     document.addEventListener('click',function(e){
-      const t=e.target.closest('[data-go],[data-toast],[data-sermon],[data-notice],[data-bulletin],[data-gallery],[data-album-open],[data-day],[data-go-modal],[data-apply],[data-close],[data-dept-tab],[data-href],[data-play-sermon],[data-latest-sermon]');
+      const t=e.target.closest('[data-go],[data-toast],[data-sermon],[data-notice],[data-bulletin],[data-gallery],[data-album-open],[data-day],[data-go-modal],[data-apply],[data-close],[data-dept-tab],[data-href],[data-play-sermon],[data-latest-sermon],[data-praise],[data-praise-team],[data-dept-sermon],[data-dept-stab]');
       if(!t)return;
+      if(t.dataset.praise!==undefined)return openPraise(t.dataset.praise);
+      if(t.dataset.praiseTeam!==undefined){
+        praiseTeam=t.dataset.praiseTeam;
+        t.parentElement.querySelectorAll('button').forEach(function(b){
+          b.classList.toggle('active',b===t)});
+        return renderPraise();
+      }
+      if(t.dataset.deptStab!==undefined){
+        const p=t.dataset.deptStab.split(':');
+        t.parentElement.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b===t)});
+        return renderDeptSermons(p[0],p[1]);
+      }
+      if(t.dataset.deptSermon!==undefined){
+        const p=t.dataset.deptSermon.split(':');return openDeptSermon(p[0],Number(p[1]));
+      }
       if(t.dataset.latestSermon!==undefined){
         const s=latestSermon(); if(s)openSermon(s.id); return;
       }
@@ -1434,6 +1617,8 @@
       document.querySelectorAll('.tab-panel').forEach(function(x){x.classList.remove('active')});
       b.classList.add('active');document.getElementById(b.dataset.homeTab).classList.add('active')})});
     document.getElementById('sermonSearchBtn').addEventListener('click',renderSermons);
+    document.getElementById('prMonth').addEventListener('change',renderPraise);
+    document.getElementById('prSearch').addEventListener('input',renderPraise);
     document.getElementById('sermonSearch').addEventListener('keydown',function(e){if(e.key==='Enter')renderSermons()});
     document.getElementById('sermonType').addEventListener('change',renderSermons);
     document.getElementById('sermonSeries').addEventListener('change',renderSermons);
@@ -1493,6 +1678,8 @@
       renderWorship();renderSmallGroup();renderMission();
       renderMinistry();
       renderMenu();
+      renderPraiseIntro();
+      renderPraise();
       buildDepartmentPages();
       renderHomeNotices();
       document.getElementById('homeApply').innerHTML=['discipleship','prayer']
